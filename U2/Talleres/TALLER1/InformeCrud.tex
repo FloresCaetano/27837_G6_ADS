@@ -1,0 +1,162 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+
+\geometry{margin=2.5cm}
+
+% Configuración para código
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\title{Informe: Aplicación CRUD con Arquitectura de 3 Capas y Patrón MVC}
+\author{Caetano Flores \\ Jordan Guaman \\ Anthony Morales \\ Leonardo Narvaez}
+\date{Noviembre 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Introducción}
+Este informe documenta el desarrollo de una aplicación CRUD (Create, Read, Update, Delete) para la gestión de estudiantes, implementando la arquitectura de 3 capas en conjunto con el patrón de diseño Modelo-Vista-Controlador (MVC). La aplicación permite administrar información básica de estudiantes (ID, nombres y edad) a través de una interfaz gráfica desarrollada en Java Swing.
+
+\section{Arquitectura del Sistema}
+La aplicación está estructurada siguiendo el patrón de arquitectura de 3 capas, que separa las responsabilidades en tres niveles distintos: la capa de presentación, la capa de lógica de negocio y la capa de acceso a datos. Esta separación permite un código más mantenible, escalable y facilita las pruebas unitarias de cada componente de forma independiente.
+
+El flujo de datos en la aplicación sigue una jerarquía clara: la interfaz de usuario (capa de presentación) interactúa con los servicios de negocio, los cuales a su vez se comunican con el repositorio de datos. Esta estructura garantiza que cada capa tenga una responsabilidad única y bien definida, cumpliendo con el principio de separación de responsabilidades.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{1.png}
+    \caption{Diagrama de la arquitectura de 3 capas implementada}
+\end{figure}
+
+\section{Descripción de las Clases}
+
+\subsection{Capa Modelo - Clase Estudiante}
+La clase \texttt{Estudiante.java} representa la entidad de dominio del sistema. Esta clase encapsula los atributos principales de un estudiante: identificador único (ID), nombres completos y edad. Implementa el patrón JavaBean con un constructor por defecto, un constructor parametrizado, y métodos getters y setters para cada atributo.
+
+Adicionalmente, la clase sobrescribe los métodos \texttt{equals()} y \texttt{hashCode()} utilizando el ID como criterio de igualdad, lo que permite comparar objetos de tipo Estudiante de manera efectiva. También implementa el método \texttt{toString()} para facilitar la representación textual del objeto durante procesos de depuración y logging.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{2.png}
+    \caption{Código de la clase Estudiante (Capa Modelo)}
+\end{figure}
+
+\subsection{Capa de Acceso a Datos - Clase EstudianteRepository}
+La clase \texttt{EstudianteRepository.java} constituye la capa de persistencia del sistema. Implementa el patrón Singleton para garantizar una única instancia del repositorio durante toda la ejecución de la aplicación, asegurando la consistencia de los datos en memoria.
+
+Esta clase mantiene una colección interna de tipo \texttt{ArrayList} que almacena todos los estudiantes registrados. Proporciona los métodos CRUD fundamentales: \texttt{agregar()}, \texttt{editar()}, \texttt{eliminar()} y \texttt{listar()}. Además, incluye métodos auxiliares como \texttt{existsById()} y \texttt{getById()} que facilitan las validaciones y búsquedas. El método \texttt{listar()} retorna una lista inmutable para proteger la integridad de los datos internos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{3.png}
+    \caption{Código de la clase EstudianteRepository (Capa de Datos)}
+\end{figure}
+
+\subsection{Capa de Lógica de Negocio - Clase EstudianteService}
+La clase \texttt{EstudianteService.java} implementa la lógica de negocio de la aplicación. Actúa como intermediario entre la capa de presentación y el repositorio de datos, aplicando todas las reglas de validación necesarias antes de realizar cualquier operación CRUD.
+
+Esta clase valida que el ID y los nombres no sean nulos o vacíos, que la edad sea un valor positivo mayor a cero, y que no existan IDs duplicados al intentar agregar un nuevo estudiante. Cada método retorna un mensaje de tipo String que indica el resultado de la operación ("OK" en caso de éxito o un mensaje descriptivo del error encontrado), permitiendo que la capa de presentación informe adecuadamente al usuario sobre el resultado de sus acciones.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{4.png}
+    \caption{Código de la clase EstudianteService (Capa de Lógica de Negocio)}
+\end{figure}
+
+\subsection{Capa de Presentación - Clase EstudianteUI}
+La clase \texttt{EstudianteUI.java} implementa la interfaz gráfica de usuario utilizando Java Swing. Extiende de \texttt{JFrame} y construye un formulario completo con campos de texto para capturar el ID, nombres y edad del estudiante, así como botones para ejecutar las operaciones de Guardar, Editar, Eliminar y Listar.
+
+La interfaz incluye una \texttt{JTable} que muestra todos los estudiantes registrados en formato tabular. La clase utiliza un \texttt{DefaultTableModel} para gestionar los datos de la tabla, configurado como no editable para mantener la integridad de la información. Implementa listeners para los eventos de los botones y para la selección de filas en la tabla, permitiendo que al hacer clic sobre un estudiante, sus datos se carguen automáticamente en el formulario para facilitar operaciones de edición o eliminación.
+
+Esta clase representa tanto la Vista como el Controlador del patrón MVC: maneja la presentación de la interfaz y también gestiona las interacciones del usuario, delegando la lógica de negocio al \texttt{EstudianteService}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{5.png}
+    \caption{Código de la clase EstudianteUI (Capa de Presentación)}
+\end{figure}
+
+\section{Ejecución del Programa}
+La aplicación se inicia ejecutando la clase \texttt{Main.java}, que crea una instancia de \texttt{EstudianteUI} y la hace visible. Una vez en ejecución, el usuario puede interactuar con la interfaz gráfica para realizar las siguientes operaciones:
+
+\begin{itemize}
+    \item \textbf{Guardar}: Ingresar los datos de un nuevo estudiante (ID, nombres y edad) y hacer clic en "Guardar" para agregarlo al sistema.
+    \item \textbf{Editar}: Seleccionar un estudiante de la tabla, modificar sus datos en el formulario y presionar "Editar" para actualizar la información.
+    \item \textbf{Eliminar}: Seleccionar un estudiante de la tabla y hacer clic en "Eliminar" para removerlo del sistema.
+    \item \textbf{Listar}: Actualizar la tabla para mostrar todos los estudiantes registrados actualmente en el sistema.
+\end{itemize}
+
+El sistema valida automáticamente los datos ingresados, mostrando mensajes de error cuando se detectan inconsistencias (como edad negativa, ID duplicado o campos vacíos). Al completar exitosamente una operación, se muestra un mensaje de confirmación y la tabla se actualiza automáticamente para reflejar los cambios.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{6.png}
+    \caption{Interfaz gráfica de la aplicación en ejecución}
+\end{figure}
+
+\subsection{Validación de ID}
+El sistema implementa una validación robusta para el identificador único de cada estudiante. Cuando el usuario intenta guardar un nuevo estudiante, la capa de servicio verifica que el ID no sea nulo, no esté vacío y que no exista previamente en el sistema. Si se detecta un ID duplicado, la aplicación rechaza la operación y muestra un mensaje de error al usuario indicando que "ID ya existe", impidiendo así la creación de registros duplicados y manteniendo la integridad referencial de los datos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{7.png}
+    \caption{Mensaje de error al intentar registrar un ID duplicado}
+\end{figure}
+
+\subsection{Validación de Edad}
+La validación de edad asegura que solo se ingresen valores numéricos positivos mayores a cero. En primer lugar, la interfaz gráfica valida que el texto ingresado sea convertible a un número entero; si no lo es, muestra un mensaje de "Edad inválida". Posteriormente, la capa de servicio verifica que el valor numérico sea mayor que cero, rechazando edades negativas o cero con el mensaje "Edad debe ser mayor que 0". Esta doble validación garantiza la coherencia de los datos almacenados.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{8.png}
+    \caption{Mensaje de error al intentar ingresar una edad inválida}
+\end{figure}
+
+\section{Conclusiones}
+\begin{enumerate}
+    \item La implementación de la arquitectura de 3 capas permitió una clara separación de responsabilidades, facilitando el mantenimiento y la escalabilidad del código al aislar la lógica de negocio, el acceso a datos y la presentación.
+    
+    \item El patrón MVC en conjunto con la arquitectura de capas proporcionó una estructura organizada donde la interfaz de usuario no contiene lógica de negocio, cumpliendo con el principio de responsabilidad única y mejorando la testabilidad del sistema.
+    
+    \item El uso del patrón Singleton en el repositorio garantizó la consistencia de los datos durante toda la ejecución de la aplicación, evitando problemas de sincronización y duplicación de información.
+\end{enumerate}
+
+\section{Recomendaciones}
+\begin{enumerate}
+    \item Se recomienda implementar persistencia de datos en archivos o base de datos para evitar la pérdida de información al cerrar la aplicación, reemplazando el almacenamiento en memoria actual.
+    
+    \item Considerar la implementación de un sistema de logging para registrar las operaciones CRUD realizadas, lo que facilitaría la auditoría y el diagnóstico de problemas en producción.
+    
+    \item Sería beneficioso agregar más validaciones en la capa de servicio, como la validación de formatos específicos para el ID, rangos de edad permitidos, y restricciones de caracteres en los nombres para mejorar la robustez del sistema.
+\end{enumerate}
+
+\end{document}
