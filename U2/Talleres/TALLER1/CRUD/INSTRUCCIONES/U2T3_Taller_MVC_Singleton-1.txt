@@ -1,0 +1,66 @@
+U2T3 – Taller Parte A y B: Arquitectura MVC y Patrón Singleton
+Parte A: Arquitectura con MVC
+Objetivo: Aplicar la arquitectura Modelo–Vista–Controlador en un CRUD de estudiante (ID,
+Nombres, Edad) basado en los documentos U2T1 y U2T2
+Instrucciones:
+1. Analiza la estructura de 3 capas: Modelo, Repositorio y Servicio.
+2. Identifica responsabilidades de cada capa.
+3. Ejecuta un-CRUD estudiantil con NVC.
+4. Explica cómo NVC favorece separación de responsabilidades.
+
+Parte B: Arquitectura con Singleton
+Objetivo: Implementar Singleton en la capa de datos para evitar múltiples instancias del
+repositorio, basado en el documento U2T2.
+Instrucciones:
+1. 1. Revisar la clase EstudianteRepository transformada en Singleton.
+2. Ejecutar el CRUD garantizando una única lista compartida.
+3. Comparar resultados con NVC sin Singleton.
+4. Explicar el impacto en la persistencia de datos.
+
+Actividad Integrada
+Realiza un cuadro comparativo entre MVC y Singleton respondiendo:
+- ¿Qué problema resuelve cada uno?
+- ¿En qué capa se utiliza?
+- ¿Cómo influye en mantenimiento?
+- ¿Cómo evita fallas de diseño?
+
+Rúbrica (20 puntos) – Pensamiento Crítico
+Criterio
+
+Descripción
+
+Puntaje
+
+Análisis arquitectónico
+
+Diferencia claramente MVC
+y Singleton con ejemplos de
+estructura.
+
+0–6
+
+Aplicación técnica
+
+Implementa CRUD bajo
+ambas arquitecturas
+mostrando comprensión.
+
+0–6
+
+Comparación crítica
+
+Reflexiona sobre impacto,
+
+0–6
+
+ventajas, limitaciones y
+riesgos.
+Claridad y profundidad
+
+Entrega organizada,
+argumentada y sin
+contradicciones.
+
+0–2
+
+

@@ -1,0 +1,247 @@
+# Diagrama de Arquitectura del Sistema CRUD Estudiantes
+
+## 1. Diagrama de Arquitectura MVC con 3 Capas
+
+```
+┌─────────────────────────────────────────────────────────────────────────┐
+│                          ARQUITECTURA MVC + 3 CAPAS                     │
+└─────────────────────────────────────────────────────────────────────────┘
+
+                                 USUARIO
+                                    │
+                                    │ Interacción
+                                    ▼
+┌───────────────────────────────────────────────────────────────────────────┐
+│                      CAPA DE PRESENTACIÓN (Vista)                         │
+│  Paquete: ec.edu.espe.presentacion                                        │
+├───────────────────────────────────────────────────────────────────────────┤
+│                                                                           │
+│  ┌─────────────────────────────────────────────────────────────────┐    │
+│  │  EstudianteUI.java                                              │    │
+│  │  - JFrame con formulario (ID, Nombres, Edad)                    │    │
+│  │  - Botones: Guardar, Editar, Eliminar, Listar                   │    │
+│  │  - JTable para mostrar estudiantes                              │    │
+│  │  - Listeners de eventos (ActionListener, MouseListener)         │    │
+│  └─────────────────────────────────────────────────────────────────┘    │
+│                                                                           │
+│  ┌─────────────────────────────────────────────────────────────────┐    │
+│  │  Main.java                                                      │    │
+│  │  - Punto de entrada: main()                                     │    │
+│  └─────────────────────────────────────────────────────────────────┘    │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │ Llama métodos
+                                    ▼
+┌───────────────────────────────────────────────────────────────────────────┐
+│              CAPA DE LÓGICA DE NEGOCIO (Controlador/Servicio)             │
+│  Paquete: ec.edu.espe.logica_negocio                                      │
+├───────────────────────────────────────────────────────────────────────────┤
+│                                                                           │
+│  ┌─────────────────────────────────────────────────────────────────┐    │
+│  │  EstudianteService.java                                         │    │
+│  │                                                                 │    │
+│  │  Métodos:                                                       │    │
+│  │  + agregar(Estudiante): String                                 │    │
+│  │  + editar(Estudiante): String                                  │    │
+│  │  + eliminar(String id): String                                 │    │
+│  │  + listar(): List<Estudiante>                                  │    │
+│  │                                                                 │    │
+│  │  Validaciones:                                                  │    │
+│  │  - ID no nulo y no vacío                                        │    │
+│  │  - ID único (no duplicado)                                      │    │
+│  │  - Nombres obligatorios                                         │    │
+│  │  - Edad > 0                                                     │    │
+│  │  - Mensajes de error descriptivos                              │    │
+│  └─────────────────────────────────────────────────────────────────┘    │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │ Accede vía getInstance()
+                                    ▼
+┌───────────────────────────────────────────────────────────────────────────┐
+│                    CAPA DE DATOS (Modelo + Repositorio)                   │
+│  Paquete: ec.edu.espe.datos                                               │
+├───────────────────────────────────────────────────────────────────────────┤
+│                                                                           │
+│  ┌─────────────────────────────────────────────────────────────────┐    │
+│  │  EstudianteRepository.java  [SINGLETON]                         │    │
+│  │                                                                 │    │
+│  │  - static final INSTANCE                                        │    │
+│  │  - private constructor()                                        │    │
+│  │  + static getInstance(): EstudianteRepository                   │    │
+│  │                                                                 │    │
+│  │  - List<Estudiante> estudiantes (almacenamiento en memoria)     │    │
+│  │                                                                 │    │
+│  │  Métodos:                                                       │    │
+│  │  + agregar(Estudiante): boolean                                │    │
+│  │  + editar(Estudiante): boolean                                 │    │
+│  │  + eliminar(String id): boolean                                │    │
+│  │  + listar(): List<Estudiante>                                  │    │
+│  │  + getById(String id): Estudiante                              │    │
+│  │  + existsById(String id): boolean                              │    │
+│  └─────────────────────────────────────────────────────────────────┘    │
+│                                    │                                      │
+│                                    │ Gestiona colección de                │
+│                                    ▼                                      │
+│  ┌─────────────────────────────────────────────────────────────────┐    │
+│  │  Estudiante.java  [MODELO]                                      │    │
+│  │                                                                 │    │
+│  │  Atributos:                                                     │    │
+│  │  - String id                                                    │    │
+│  │  - String nombres                                               │    │
+│  │  - int edad                                                     │    │
+│  │                                                                 │    │
+│  │  Métodos:                                                       │    │
+│  │  + constructor()                                                │    │
+│  │  + constructor(id, nombres, edad)                              │    │
+│  │  + getters y setters                                            │    │
+│  │  + toString()                                                   │    │
+│  │  + equals() / hashCode()                                        │    │
+│  └─────────────────────────────────────────────────────────────────┘    │
+│                                                                           │
+└───────────────────────────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════
+                          FLUJO DE DATOS (EJEMPLO: GUARDAR)
+═══════════════════════════════════════════════════════════════════════════
+
+1. Usuario ingresa datos en formulario y presiona "Guardar"
+                            ↓
+2. EstudianteUI.onGuardar() captura datos del formulario
+                            ↓
+3. Crea objeto: new Estudiante(id, nombres, edad)
+                            ↓
+4. Llama: service.agregar(estudiante)
+                            ↓
+5. EstudianteService valida:
+   - ¿ID no nulo? ¿No vacío?
+   - ¿Nombres válidos?
+   - ¿Edad > 0?
+   - ¿ID ya existe?
+                            ↓
+6. Si válido, llama: repository.agregar(estudiante)
+                            ↓
+7. EstudianteRepository.getInstance().agregar() añade a lista
+                            ↓
+8. Retorna: true/false → Service → "OK" o mensaje de error
+                            ↓
+9. UI muestra mensaje al usuario y actualiza tabla
+
+
+═══════════════════════════════════════════════════════════════════════════
+                      DIAGRAMA DE PATRÓN SINGLETON
+═══════════════════════════════════════════════════════════════════════════
+
+                    ┌──────────────────────────────┐
+                    │  EstudianteRepository        │
+                    ├──────────────────────────────┤
+                    │ - INSTANCE: static final     │ ◄── Una única instancia
+                    │ - estudiantes: List          │
+                    ├──────────────────────────────┤
+                    │ - EstudianteRepository()     │ ◄── Constructor privado
+                    │ + getInstance(): Repository  │ ◄── Punto de acceso global
+                    │ + agregar(...)               │
+                    │ + editar(...)                │
+                    │ + eliminar(...)              │
+                    │ + listar()                   │
+                    └──────────────────────────────┘
+                              ▲         ▲
+                              │         │
+                  ┌───────────┘         └───────────┐
+                  │                                 │
+        ┌─────────────────┐               ┌─────────────────┐
+        │ Service #1      │               │ Service #2      │
+        │ getInstance()   │               │ getInstance()   │
+        └─────────────────┘               └─────────────────┘
+                │                                 │
+                └────────► MISMA INSTANCIA ◄──────┘
+
+
+═══════════════════════════════════════════════════════════════════════════
+                          DIAGRAMA DE PATRÓN NVC
+═══════════════════════════════════════════════════════════════════════════
+
+        ┌─────────────────────────────────────────────────────┐
+        │              NEGOCIO (Business Logic)               │
+        │         EstudianteService.java                      │
+        │  - Validaciones                                     │
+        │  - Reglas de negocio                                │
+        │  - Coordinación de operaciones                      │
+        └─────────────────┬───────────────────────────────────┘
+                          │
+                          │ Usa
+                          │
+        ┌─────────────────▼───────────────┐
+        │         CONTROL (implícito)     │
+        │  - Listeners en UI              │
+        │  - Manejo de eventos            │
+        │  - Coordinación Vista-Negocio   │
+        └─────────────────┬───────────────┘
+                          │
+                          │ Actualiza
+                          │
+        ┌─────────────────▼───────────────────────────────────┐
+        │              VISTA (View/UI)                        │
+        │         EstudianteUI.java                           │
+        │  - Formularios                                      │
+        │  - Botones                                          │
+        │  - Tabla de datos                                   │
+        │  - Mensajes al usuario                              │
+        └─────────────────────────────────────────────────────┘
+
+
+═══════════════════════════════════════════════════════════════════════════
+                      RESPONSABILIDADES POR CAPA
+═══════════════════════════════════════════════════════════════════════════
+
+┌─────────────────┬───────────────────────────────────────────────────────┐
+│ CAPA            │ RESPONSABILIDAD                                       │
+├─────────────────┼───────────────────────────────────────────────────────┤
+│ PRESENTACIÓN    │ - Capturar entrada del usuario                        │
+│ (Vista)         │ - Mostrar información                                 │
+│                 │ - Manejo de eventos de UI                             │
+│                 │ - Formatear datos para visualización                  │
+│                 │ - NO contiene lógica de negocio                       │
+├─────────────────┼───────────────────────────────────────────────────────┤
+│ LÓGICA NEGOCIO  │ - Validar datos de entrada                            │
+│ (Servicio)      │ - Aplicar reglas de negocio                           │
+│                 │ - Coordinar entre Vista y Datos                       │
+│                 │ - Transformar y procesar información                  │
+│                 │ - Generar mensajes de respuesta                       │
+├─────────────────┼───────────────────────────────────────────────────────┤
+│ DATOS           │ - Almacenar y recuperar datos                         │
+│ (Repositorio)   │ - Gestionar colecciones                               │
+│                 │ - Operaciones CRUD básicas                            │
+│                 │ - Persistencia en memoria                             │
+│                 │ - NO valida (eso es responsabilidad del Service)      │
+├─────────────────┼───────────────────────────────────────────────────────┤
+│ MODELO          │ - Definir estructura de datos                         │
+│ (Entidad)       │ - Encapsular atributos                                │
+│                 │ - Métodos de acceso (getters/setters)                 │
+│                 │ - Métodos utilitarios (toString, equals)              │
+└─────────────────┴───────────────────────────────────────────────────────┘
+
+```
+
+## 2. Leyenda y Explicaciones
+
+### Símbolos Utilizados:
+- `│` `─` `┌` `└` `┐` `┘` `├` `┤` : Bordes de cajas
+- `▼` `▲` `►` `◄` : Direcciones de flujo
+- `+` : Método público
+- `-` : Atributo o método privado
+
+### Colores Conceptuales (interpretación textual):
+- **CAPA DE PRESENTACIÓN**: Interfaz con el usuario (azul)
+- **CAPA DE LÓGICA**: Procesamiento y validaciones (verde)
+- **CAPA DE DATOS**: Almacenamiento y persistencia (naranja)
+
+## 3. Beneficios de esta Arquitectura
+
+1. **Desacoplamiento**: Cada capa puede cambiar sin afectar a las demás
+2. **Reutilización**: El Service puede usarse desde diferentes UIs (Swing, Web, CLI)
+3. **Testabilidad**: Cada capa se puede probar de forma independiente
+4. **Mantenibilidad**: Fácil localizar y corregir errores
+5. **Escalabilidad**: Sencillo agregar nuevas funcionalidades

@@ -1,0 +1,72 @@
+U2T1 – Taller de Arquitectura con GEMA (MVC – 3 Capas)
+Objetivo del Taller
+Comprender y aplicar la arquitectura de 3 capas (Modelo, Repositorio y Servicio), junto con
+el patron NVC para desarrollar un-CRUD de Estudiante (ID, Nombres, Edad), basado en el
+documento de Arquitectura con GEMA.
+
+Instrucciones del Taller
+1.
+2.
+3.
+4.
+5.
+
+Implementa el CRUD del Estudiante respetando la separación por capas.
+Describe la responsabilidad de cada capa con tus propias palabras.
+Dibuja un diagrama simplificado de la arquitectura (a mano o UML).
+Ejecuta un ejemplo completo del CRUD: crear, actualizar, listar y eliminar.
+Explica cómo la arquitectura MVC facilita el mantenimiento del código.
+
+Actividades Prácticas
+6. Implementa la clase Estudiante con atributos, constructor y getters/setters.
+7. Crea el EstudianteRepository con manejo interno de lista.
+8. Implementa EstudianteService aplicando reglas de negocio básicas.
+9. Construye una interfaz simple (consola o GUI) para probar el CRUD.
+10. Realiza pruebas y documenta resultados con capturas o texto.
+
+Contenido de Entrega
+•
+•
+•
+
+Código fuente organizado por paquetes. (IDE con Java)
+Explicación escrita de la arquitectura.
+Evidencia de ejecución del CRUD. (Pantallazos de la ejecuciòn del CRUD)
+
+Rúbrica de Evaluación (20 puntos)
+Criterio
+
+Descripción
+
+Puntaje
+
+Comprensión de la
+arquitectura
+
+Identifica y explica las 3
+capas y el patrón MVC.
+
+0–6
+
+Implementación técnica
+
+CRUD funcional,
+estructurado y sin errores.
+
+0–6
+
+Diagrama y organización
+
+Representación clara y
+ordenada de la arquitectura.
+
+0–6
+
+Claridad de explicación
+
+Entrega ordenada,
+coherente y comprensible.
+
+0–2
+
+

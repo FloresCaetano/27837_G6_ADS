@@ -1,0 +1,74 @@
+U2T2 – Taller del Patrón Singleton con Patrón NVC
+Objetivo del Taller
+Comprender, aplicar e integrar el Patrón Singleton dentro de la capa de Datos y utilizar el
+patrón NVC (Negocio–Vista–Control) para estructurar correctamente una aplicación CRUD
+de Estudiante.
+
+Instrucciones del Taller
+1. Implementa el Singleton en la clase EstudianteRepository asegurando una única
+instancia.
+2. Integra el patrón NVC para separar correctamente la lógica de negocio, control y vista.
+3. Implementa un CRUD de Estudiante (ID, Nombres, Edad) usando Singleton + NVC.
+4. Realiza pruebas demostrando que la persistencia en memoria es compartida gracias al
+Singleton.
+5. Explica cómo Singleton complementa a NVC y evita pérdida de datos en el repositorio.
+
+Actividades Prácticas
+6. Crea la clase Estudiante con atributos, constructor y getters/setters.
+7. Transforma EstudianteRepository en Singleton implementando getInstance().
+8. Actualiza la capa de negocio (Service) para utilizar la instancia única del repositorio.
+9. Implementa una interfaz simple (consola o gráfica) que represente la Vista.
+10. Implementa un Controlador que reciba acciones de la Vista y llame a la capa de Negocio.
+11. Realiza pruebas creando múltiples controladores y verifica que comparten la misma
+lista.
+
+Contenido a Entregar
+•
+•
+•
+•
+
+Código fuente organizado: datos, negocio, vista y control.
+Explicación de la implementación del Singleton.
+Diagrama NVC mostrando separación de responsabilidades.
+Evidencia (capturas o texto) de persistencia compartida.
+
+Rúbrica de Evaluación (20 puntos)
+Criterio
+
+Descripción
+
+Puntaje
+
+Implementación del
+Singleton
+
+Uso correcto del patrón y
+una sola instancia funcional.
+
+0–6
+
+Integración con NVC
+
+Separación clara entre
+Negocio, Vista y Control.
+
+0–6
+
+Funcionalidad CRUD
+
+Operaciones completas y
+funcionales con persistencia
+
+0–6
+
+compartida.
+Claridad y orden
+
+Explicación, organización y
+presentación general del
+trabajo.
+
+0–2
+
+

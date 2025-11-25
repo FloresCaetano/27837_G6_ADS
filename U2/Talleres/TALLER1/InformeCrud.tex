@@ -6,6 +6,7 @@
 \usepackage{listings}
 \usepackage{xcolor}
 \usepackage{float}
+\usepackage{hyperref}
 
 \geometry{margin=2.5cm}
 
@@ -47,17 +48,48 @@
 Este informe documenta el desarrollo de una aplicación CRUD (Create, Read, Update, Delete) para la gestión de estudiantes, implementando la arquitectura de 3 capas en conjunto con el patrón de diseño Modelo-Vista-Controlador (MVC). La aplicación permite administrar información básica de estudiantes (ID, nombres y edad) a través de una interfaz gráfica desarrollada en Java Swing.
 
 \section{Arquitectura del Sistema}
-La aplicación está estructurada siguiendo el patrón de arquitectura de 3 capas, que separa las responsabilidades en tres niveles distintos: la capa de presentación, la capa de lógica de negocio y la capa de acceso a datos. Esta separación permite un código más mantenible, escalable y facilita las pruebas unitarias de cada componente de forma independiente.
 
-El flujo de datos en la aplicación sigue una jerarquía clara: la interfaz de usuario (capa de presentación) interactúa con los servicios de negocio, los cuales a su vez se comunican con el repositorio de datos. Esta estructura garantiza que cada capa tenga una responsabilidad única y bien definida, cumpliendo con el principio de separación de responsabilidades.
+\subsection{Arquitectura MVC con 3 Capas}
+La aplicación está estructurada siguiendo el patrón de arquitectura de 3 capas en conjunto con el patrón Modelo-Vista-Controlador (MVC), que separa las responsabilidades en tres niveles distintos: la capa de presentación (Vista), la capa de lógica de negocio (Controlador/Servicio) y la capa de acceso a datos (Modelo + Repositorio). Esta separación permite un código más mantenible, escalable y facilita las pruebas unitarias de cada componente de forma independiente.
+
+\subsubsection{Capa 1: Datos (Modelo + Repositorio)}
+Esta capa se encuentra en el paquete \texttt{ec.edu.espe.datos} y tiene dos componentes principales:
+
+\textbf{Modelo (\texttt{Estudiante.java}):} Define la estructura de datos del estudiante con sus atributos (ID, Nombres, Edad). Representa la entidad de negocio con sus constructores, métodos getters y setters, \texttt{equals()}, \texttt{hashCode()} y \texttt{toString()}.
+
+\textbf{Repositorio (\texttt{EstudianteRepository.java}):} Gestiona el almacenamiento y recuperación de datos en memoria mediante un \texttt{ArrayList}. Implementa el patrón Singleton para garantizar una única instancia y persistencia compartida durante toda la ejecución de la aplicación. Proporciona los métodos CRUD: \texttt{agregar()}, \texttt{editar()}, \texttt{eliminar()}, \texttt{listar()}, \texttt{getById()} y \texttt{existsById()}.
+
+\subsubsection{Capa 2: Lógica de Negocio (Servicio)}
+Esta capa se encuentra en el paquete \texttt{ec.edu.espe.logica\_negocio} y contiene la clase \texttt{EstudianteService.java}, que implementa las reglas de negocio y validaciones. Las validaciones incluyen: datos no nulos, ID obligatorio y único, nombres obligatorios, edad mayor a 0, y genera mensajes de error descriptivos. Esta capa coordina entre la presentación y los datos, aplicando todas las reglas de negocio antes de persistir la información.
+
+\subsubsection{Capa 3: Presentación (Vista)}
+Esta capa se encuentra en el paquete \texttt{ec.edu.espe.presentacion} y contiene dos clases principales:
+
+\textbf{Vista (\texttt{EstudianteUI.java}):} Implementa la interfaz gráfica utilizando Java Swing, con formulario para captura de datos (ID, Nombres, Edad), botones para operaciones CRUD (Guardar, Editar, Eliminar, Listar), tabla para visualizar estudiantes, y manejo de eventos y mensajes.
+
+\textbf{Main (\texttt{Main.java}):} Punto de entrada de la aplicación que inicializa la interfaz gráfica.
+
+El flujo de datos en la aplicación sigue una jerarquía clara: Usuario → Vista (UI) → Servicio (Negocio) → Repositorio (Datos) → Modelo. Esta estructura garantiza que cada capa tenga una responsabilidad única y bien definida, cumpliendo con el principio de separación de responsabilidades.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.85\textwidth]{1.png}
-    \caption{Diagrama de la arquitectura de 3 capas implementada}
+    \caption{Diagrama de la arquitectura de 3 capas con patrón MVC implementada}
 \end{figure}
 
 \section{Descripción de las Clases}
+
+\subsection{Patrón Singleton en EstudianteRepository}
+Antes de describir las clases individuales, es importante destacar que el repositorio implementa el patrón de diseño Singleton. Este patrón garantiza que solo exista una instancia del repositorio durante toda la ejecución de la aplicación, lo cual es crucial para mantener la consistencia de los datos en memoria.
+
+La implementación del Singleton se realiza mediante:
+\begin{itemize}
+    \item Una instancia estática final: \texttt{private static final EstudianteRepository INSTANCE}
+    \item Un constructor privado que previene la creación directa de instancias
+    \item Un método estático \texttt{getInstance()} que retorna siempre la misma instancia
+\end{itemize}
+
+Este patrón resuelve el problema de persistencia compartida: sin Singleton, cada vez que se crea un nuevo servicio podría crear un nuevo repositorio, perdiendo los datos anteriores. Con Singleton, todos los servicios comparten la misma instancia y los datos persisten durante toda la ejecución.
 
 \subsection{Capa Modelo - Clase Estudiante}
 La clase \texttt{Estudiante.java} representa la entidad de dominio del sistema. Esta clase encapsula los atributos principales de un estudiante: identificador único (ID), nombres completos y edad. Implementa el patrón JavaBean con un constructor por defecto, un constructor parametrizado, y métodos getters y setters para cada atributo.
@@ -106,7 +138,7 @@ Esta clase representa tanto la Vista como el Controlador del patrón MVC: maneja
 \end{figure}
 
 \section{Ejecución del Programa}
-La aplicación se inicia ejecutando la clase \texttt{Main.java}, que crea una instancia de \texttt{EstudianteUI} y la hace visible. Una vez en ejecución, el usuario puede interactuar con la interfaz gráfica para realizar las siguientes operaciones:
+La aplicación se inicia ejecutando la clase \texttt{Main.java}, que crea una instancia de \texttt{EstudianteUI} en el Event Dispatch Thread de Swing y la hace visible. Una vez en ejecución, el usuario puede interactuar con la interfaz gráfica para realizar las siguientes operaciones:
 
 \begin{itemize}
     \item \textbf{Guardar}: Ingresar los datos de un nuevo estudiante (ID, nombres y edad) y hacer clic en "Guardar" para agregarlo al sistema.
@@ -115,7 +147,7 @@ La aplicación se inicia ejecutando la clase \texttt{Main.java}, que crea una in
     \item \textbf{Listar}: Actualizar la tabla para mostrar todos los estudiantes registrados actualmente en el sistema.
 \end{itemize}
 
-El sistema valida automáticamente los datos ingresados, mostrando mensajes de error cuando se detectan inconsistencias (como edad negativa, ID duplicado o campos vacíos). Al completar exitosamente una operación, se muestra un mensaje de confirmación y la tabla se actualiza automáticamente para reflejar los cambios.
+El sistema valida automáticamente los datos ingresados, mostrando mensajes de error cuando se detectan inconsistencias (como edad negativa o cero, ID duplicado, campos vacíos o edad con formato inválido). Al completar exitosamente una operación, se muestra un mensaje de confirmación y la tabla se actualiza automáticamente para reflejar los cambios.
 
 \begin{figure}[H]
     \centering
@@ -141,22 +173,237 @@ La validación de edad asegura que solo se ingresen valores numéricos positivos
     \caption{Mensaje de error al intentar ingresar una edad inválida}
 \end{figure}
 
+\section{Análisis Comparativo de Patrones}
+
+\subsection{Patrón MVC vs Patrón Singleton}
+
+El proyecto implementa dos patrones fundamentales que trabajan de manera complementaria. El patrón MVC (Modelo-Vista-Controlador) es un patrón arquitectónico que organiza toda la estructura del sistema, mientras que el patrón Singleton es un patrón de diseño creacional que controla cómo se crean e instancian ciertos objetos específicos.
+
+\subsubsection{Problemas que Resuelve Cada Patrón}
+
+\textbf{MVC:} Resuelve el problema de separación de responsabilidades entre la presentación, la lógica de negocio y los datos. Evita el código espagueti donde todo está mezclado y facilita enormemente el mantenimiento y la escalabilidad del sistema.
+
+\textbf{Singleton:} Garantiza que una clase tenga una única instancia en toda la aplicación. En nuestro caso, evita la creación de múltiples repositorios con listas diferentes de estudiantes, lo que causaría pérdida de datos y comportamiento inconsistente.
+
+\subsubsection{Capas de Utilización}
+
+\textbf{MVC:} Se aplica en toda la arquitectura, organizando las tres capas completas del sistema: Modelo (entidad Estudiante), Vista (EstudianteUI) y Controlador (EstudianteService que coordina entre ambos).
+
+\textbf{Singleton:} Se utiliza principalmente en la capa de Datos, específicamente en \texttt{EstudianteRepository}, aunque podría aplicarse en otras capas según las necesidades (por ejemplo, en servicios de configuración o logging).
+
+\subsubsection{Influencia en el Mantenimiento}
+
+Ambos patrones influyen positivamente en el mantenimiento del código. \textbf{MVC} permite modificar la interfaz de usuario sin tocar la lógica de negocio, facilita agregar nuevas funcionalidades de forma modular y permite que múltiples desarrolladores trabajen en paralelo en diferentes capas sin interferencias. \textbf{Singleton} simplifica el acceso a recursos compartidos al tener un único punto de acceso, reduce bugs relacionados con instancias duplicadas y centraliza la gestión de datos, facilitando el debugging y el mantenimiento.
+
+\subsubsection{Prevención de Fallas de Diseño}
+
+\textbf{MVC} previene el acoplamiento fuerte entre las capas del sistema, evita dependencias circulares que complican el código, facilita el testing unitario al permitir probar cada capa de forma independiente y promueve código reutilizable y modular.
+
+\textbf{Singleton} previene problemas de sincronización de datos al garantizar una única fuente de verdad, evita inconsistencias causadas por múltiples instancias con datos diferentes y garantiza que el estado sea único y compartido correctamente entre todos los componentes que lo necesitan.
+
+\subsection{Complementariedad de los Patrones}
+
+Los patrones MVC y Singleton no son excluyentes, sino complementarios. En el proyecto, MVC define la estructura general del sistema organizando las responsabilidades en tres capas claramente separadas, mientras que Singleton define cómo se crea e instancia específicamente el repositorio dentro de esa estructura arquitectónica. Así, el servicio (capa de negocio del MVC) utiliza \texttt{EstudianteRepository.getInstance()} para acceder siempre a la misma instancia del repositorio, garantizando persistencia de datos.
+
+\subsection{Reflexión sobre Ventajas, Limitaciones y Riesgos}
+
+\subsubsection{Ventajas del MVC}
+\begin{itemize}
+    \item Código organizado, predecible y fácil de entender para nuevos desarrolladores
+    \item Permite cambiar tecnologías de presentación (de Swing a Web o Mobile) sin afectar la lógica
+    \item Testing más sencillo al poder probar cada capa de forma independiente
+    \item Facilita el trabajo colaborativo en equipos
+\end{itemize}
+
+\subsubsection{Limitaciones del MVC}
+\begin{itemize}
+    \item Overhead inicial en proyectos muy pequeños o triviales
+    \item Curva de aprendizaje para desarrolladores principiantes
+    \item Puede resultar excesivo para aplicaciones de una sola funcionalidad simple
+\end{itemize}
+
+\subsubsection{Riesgos del MVC}
+\begin{itemize}
+    \item Si las capas no están bien definidas, se puede romper la separación de responsabilidades
+    \item Los controladores pueden crecer demasiado y convertirse en "God Objects"
+\end{itemize}
+
+\subsubsection{Ventajas del Singleton}
+\begin{itemize}
+    \item Acceso global simplificado a la instancia desde cualquier parte del código
+    \item Ahorro de memoria al tener una sola instancia en lugar de múltiples objetos duplicados
+    \item Persistencia garantizada durante todo el ciclo de vida de la aplicación
+    \item Implementación técnica simple y directa
+\end{itemize}
+
+\subsubsection{Limitaciones del Singleton}
+\begin{itemize}
+    \item Dificulta el testing unitario debido al estado global compartido
+    \item Puede ocultar dependencias entre clases
+    \item La implementación básica no es thread-safe en ambientes concurrentes
+    \item Complica el uso de técnicas modernas como inyección de dependencias
+\end{itemize}
+
+\subsubsection{Riesgos del Singleton}
+\begin{itemize}
+    \item El sobreuso puede crear acoplamiento fuerte entre componentes
+    \item Dificulta el escalado a sistemas distribuidos o multi-instancia
+    \item Puede convertirse en una variable global disfrazada
+    \item En aplicaciones multi-hilo puede causar condiciones de carrera si no se maneja correctamente
+\end{itemize}
+
+\subsection{Recomendaciones de Uso de Patrones}
+
+Para el patrón MVC, se recomienda su uso en aplicaciones de tamaño mediano a grande, cuando se prevén cambios en la interfaz de usuario, en proyectos con múltiples desarrolladores trabajando simultáneamente, y cuando se requiere testing exhaustivo de cada componente.
+
+Para el patrón Singleton, se recomienda su uso para recursos compartidos como conexiones a bases de datos, caches o configuraciones globales, cuando se necesita un punto de acceso centralizado, y para evitar instancias duplicadas de clases que consumen muchos recursos. Sin embargo, debe usarse con precaución en aplicaciones multi-hilo y no debe abusarse de él para evitar crear puntos de acoplamiento global.
+
+En el contexto de este CRUD de Estudiantes, la combinación de MVC + Singleton es ideal porque MVC organiza el código en capas lógicas bien definidas, mientras que Singleton garantiza que todos los componentes utilicen el mismo repositorio, asegurando que los datos persistan de manera consistente durante toda la ejecución de la aplicación.
+
+\section{Tecnologías y Herramientas Utilizadas}
+
+\subsection{Framework de Interfaz Gráfica}
+\textbf{Java Swing:} Framework estándar de Java para desarrollo de interfaces gráficas de usuario (GUI). Se utilizaron componentes como \texttt{JFrame}, \texttt{JTable}, \texttt{JTextField}, \texttt{JButton} y \texttt{JOptionPane} para construir la interfaz de usuario completa.
+
+\subsection{Gestión de Dependencias y Compilación}
+\textbf{Apache Maven:} Herramienta de gestión y construcción de proyectos Java. El archivo \texttt{pom.xml} define la estructura del proyecto, dependencias y configuración de compilación.
+
+\subsection{Estructura de Paquetes}
+La organización del código sigue la convención de nombres de paquetes Java:
+\begin{itemize}
+    \item \texttt{ec.edu.espe.datos.model} - Entidades del dominio
+    \item \texttt{ec.edu.espe.datos.repository} - Capa de acceso a datos
+    \item \texttt{ec.edu.espe.logica\_negocio} - Servicios y lógica de negocio
+    \item \texttt{ec.edu.espe.presentacion} - Interfaces de usuario y punto de entrada
+\end{itemize}
+
+\subsection{Almacenamiento de Datos}
+\textbf{Colecciones en Memoria:} Se utiliza \texttt{ArrayList<Estudiante>} para almacenar los datos durante la ejecución. Los datos no persisten entre sesiones, permaneciendo en memoria solo mientras la aplicación está en ejecución.
+
+\subsection{Patrones de Diseño Implementados}
+\begin{itemize}
+    \item \textbf{MVC (Modelo-Vista-Controlador):} Patrón arquitectónico para organizar el código
+    \item \textbf{Singleton:} Patrón creacional para garantizar instancia única del repositorio
+    \item \textbf{JavaBean:} Patrón para la clase Estudiante con getters/setters
+\end{itemize}
+
+\subsection{Ejecución del Proyecto}
+La aplicación puede ejecutarse mediante:
+\begin{itemize}
+    \item \textbf{Maven:} Comando \texttt{mvn exec:java -Dexec.mainClass="ec.edu.espe.presentacion.Main"}
+    \item \textbf{IDE:} Ejecutando directamente la clase \texttt{Main.java} desde cualquier entorno de desarrollo integrado (IntelliJ IDEA, Eclipse, NetBeans)
+\end{itemize}
+
+\section{Casos de Prueba y Validaciones}
+
+El sistema implementa múltiples casos de prueba para verificar el correcto funcionamiento de todas las operaciones CRUD:
+
+\subsection{Pruebas de CREATE (Crear)}
+\begin{itemize}
+    \item Creación exitosa de estudiante con datos válidos
+    \item Validación de ID duplicado - debe rechazar con mensaje de error
+    \item Validación de edad inválida (cero o negativa) - debe rechazar
+    \item Validación de nombres vacíos - debe rechazar
+    \item Validación de formato de edad (debe ser numérico)
+\end{itemize}
+
+\subsection{Pruebas de READ (Leer)}
+\begin{itemize}
+    \item Listar todos los estudiantes en la tabla
+    \item Visualización correcta de columnas (ID, Nombres, Edad)
+    \item Selección de estudiantes desde la tabla
+    \item Carga automática de datos en el formulario al seleccionar
+\end{itemize}
+
+\subsection{Pruebas de UPDATE (Actualizar)}
+\begin{itemize}
+    \item Actualización exitosa de estudiante existente
+    \item Validación de ID no existente - debe rechazar con mensaje
+    \item Preservación del ID durante la edición
+    \item Actualización inmediata en la tabla
+\end{itemize}
+
+\subsection{Pruebas de DELETE (Eliminar)}
+\begin{itemize}
+    \item Eliminación exitosa de estudiante existente
+    \item Validación de ID no existente - debe rechazar con mensaje
+    \item Remoción inmediata de la tabla
+    \item Confirmación mediante mensajes al usuario
+\end{itemize}
+
+\subsection{Pruebas de Persistencia con Singleton}
+\begin{itemize}
+    \item Verificación de que los datos permanecen entre operaciones
+    \item Comprobación de que múltiples accesos usan la misma instancia
+    \item Validación de consistencia de datos durante toda la sesión
+\end{itemize}
+
 \section{Conclusiones}
 \begin{enumerate}
-    \item La implementación de la arquitectura de 3 capas permitió una clara separación de responsabilidades, facilitando el mantenimiento y la escalabilidad del código al aislar la lógica de negocio, el acceso a datos y la presentación.
+    \item La implementación de la arquitectura de 3 capas en conjunto con el patrón MVC permitió una clara separación de responsabilidades, facilitando el mantenimiento y la escalabilidad del código al aislar la lógica de negocio (EstudianteService), el acceso a datos (EstudianteRepository) y la presentación (EstudianteUI).
     
-    \item El patrón MVC en conjunto con la arquitectura de capas proporcionó una estructura organizada donde la interfaz de usuario no contiene lógica de negocio, cumpliendo con el principio de responsabilidad única y mejorando la testabilidad del sistema.
+    \item El patrón MVC proporcionó una estructura organizada donde la interfaz de usuario no contiene lógica de negocio, cumpliendo con el principio de responsabilidad única. Esto mejora significativamente la testabilidad del sistema al permitir probar cada capa de forma independiente y facilita cambios futuros en la tecnología de presentación sin afectar la lógica central.
     
-    \item El uso del patrón Singleton en el repositorio garantizó la consistencia de los datos durante toda la ejecución de la aplicación, evitando problemas de sincronización y duplicación de información.
+    \item El uso del patrón Singleton en el repositorio garantizó la consistencia de los datos durante toda la ejecución de la aplicación, evitando problemas de sincronización y duplicación de información. La implementación mediante constructor privado y método \texttt{getInstance()} asegura que todos los servicios compartan la misma instancia del repositorio.
+    
+    \item La validación multicapa (tanto en la interfaz como en la capa de servicio) proporciona una robustez superior al sistema, asegurando la integridad de los datos antes de ser persistidos. Las validaciones incluyen verificación de ID único, nombres obligatorios y edad mayor a cero, con mensajes descriptivos para el usuario.
+    
+    \item La combinación complementaria de MVC (patrón arquitectónico global) y Singleton (patrón de diseño creacional específico) demuestra cómo diferentes tipos de patrones pueden trabajar juntos para resolver problemas en distintos niveles de abstracción del sistema.
+    
+    \item El análisis comparativo de los patrones MVC y Singleton revela que, aunque tienen propósitos diferentes, ambos contribuyen a la calidad del software: MVC organiza la estructura general promoviendo la modularidad, mientras que Singleton garantiza la unicidad y consistencia de recursos críticos como el repositorio de datos.
 \end{enumerate}
 
 \section{Recomendaciones}
 \begin{enumerate}
-    \item Se recomienda implementar persistencia de datos en archivos o base de datos para evitar la pérdida de información al cerrar la aplicación, reemplazando el almacenamiento en memoria actual.
+    \item Se recomienda implementar persistencia de datos en archivos JSON, XML o base de datos relacional (como SQLite o MySQL) para evitar la pérdida de información al cerrar la aplicación, reemplazando el almacenamiento en memoria actual del \texttt{ArrayList}.
     
-    \item Considerar la implementación de un sistema de logging para registrar las operaciones CRUD realizadas, lo que facilitaría la auditoría y el diagnóstico de problemas en producción.
+    \item Considerar la implementación de un sistema de logging utilizando frameworks como Log4j o SLF4J para registrar las operaciones CRUD realizadas, incluyendo timestamps, usuario y detalles de la operación. Esto facilitaría la auditoría y el diagnóstico de problemas en producción.
     
-    \item Sería beneficioso agregar más validaciones en la capa de servicio, como la validación de formatos específicos para el ID, rangos de edad permitidos, y restricciones de caracteres en los nombres para mejorar la robustez del sistema.
+    \item Sería beneficioso agregar más validaciones en la capa de servicio, como la validación de formatos específicos para el ID (por ejemplo, patrón EST[0-9]{3}), rangos de edad permitidos (por ejemplo, entre 15 y 100 años), y restricciones de caracteres en los nombres para evitar caracteres especiales o números.
+    
+    \item Para mejorar la arquitectura, se podría separar el Controlador de la Vista creando una clase \texttt{EstudianteController} independiente que maneje la coordinación entre \texttt{EstudianteUI} y \texttt{EstudianteService}, haciendo el patrón MVC más explícito y puro.
+    
+    \item Implementar testing unitario utilizando JUnit para cada capa del sistema: tests para las validaciones del \texttt{EstudianteService}, tests para las operaciones CRUD del \texttt{EstudianteRepository}, y tests para verificar el comportamiento del patrón Singleton.
+    
+    \item Para aplicaciones concurrentes o multi-hilo, considerar hacer thread-safe la implementación del Singleton utilizando sincronización o el patrón "Bill Pugh Singleton" con clase interna estática, evitando así posibles condiciones de carrera.
+    
+    \item Agregar manejo de excepciones personalizado creando clases como \texttt{EstudianteNotFoundException} o \texttt{DuplicateIdException} en lugar de retornar mensajes de tipo String, lo que facilitaría el manejo de errores y haría el código más robusto y profesional.
 \end{enumerate}
+
+\section{Referencias y Recursos Adicionales}
+
+\subsection{Repositorio del Código Fuente}
+El código completo del proyecto está disponible en el repositorio de GitHub:
+
+\url{https://github.com/FloresCaetano/27837_G6_ADS/tree/main/U2/Talleres/TALLER1/CRUD}
+
+\subsection{Documentación Complementaria}
+En el directorio \texttt{DOCUMENTACION/} del proyecto se encuentran los siguientes archivos de referencia:
+\begin{itemize}
+    \item \texttt{Explicacion\_Arquitectura.md} - Descripción detallada de las 3 capas y patrones
+    \item \texttt{Diagrama\_Arquitectura.txt} - Diagramas visuales de arquitectura y flujos
+    \item \texttt{Cuadro\_Comparativo\_MVC\_vs\_Singleton.md} - Análisis crítico comparativo
+    \item \texttt{Guia\_Pruebas.md} - Casos de prueba detallados del CRUD
+    \item \texttt{RESUMEN\_ENTREGA.md} - Resumen completo de lo entregado
+    \item \texttt{INDICE\_GENERAL.md} - Índice de navegación del proyecto
+\end{itemize}
+
+\subsection{Bibliografía y Patrones de Diseño}
+\begin{itemize}
+    \item Gamma, E., Helm, R., Johnson, R., \& Vlissides, J. (1994). \textit{Design Patterns: Elements of Reusable Object-Oriented Software}. Addison-Wesley.
+    \item Oracle Corporation. (2024). \textit{Java Platform, Standard Edition Documentation}.
+    \item Reenskaug, T. (1979). \textit{The Model-View-Controller (MVC) - Its Past and Present}.
+    \item Martin, R. C. (2017). \textit{Clean Architecture: A Craftsman's Guide to Software Structure and Design}. Prentice Hall.
+\end{itemize}
+
+\subsection{Información del Proyecto}
+\begin{itemize}
+    \item \textbf{Institución:} Escuela Politécnica del Ejército (ESPE)
+    \item \textbf{Asignatura:} Arquitectura de Software
+    \item \textbf{Talleres:} U2T1, U2T2, U2T3
+    \item \textbf{Grupo:} G6
+    \item \textbf{Integrantes:} Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez
+    \item \textbf{Fecha:} Noviembre 2025
+\end{itemize}
 
 \end{document}
