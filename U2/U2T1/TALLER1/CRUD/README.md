@@ -9,8 +9,6 @@ El proyecto implementa:
 - ✅ Arquitectura de 3 Capas
 - ✅ Patrón Singleton
 - ✅ Patrón NVC (Negocio-Vista-Control)
-- ✅ Interfaz gráfica con Swing
-- ✅ Persistencia en memoria
 
 ---
 
