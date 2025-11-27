@@ -1,0 +1,365 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{hyperref}
+
+\geometry{margin=2.5cm}
+
+% Configuración para código
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\title{Informe: Aplicación CRUD con Arquitectura de 3 Capas y Patrón Observer}
+\author{Caetano Flores \\ Jordan Guaman \\ Anthony Morales \\ Leonardo Narvaez}
+\date{Noviembre 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Introducción}
+Este informe documenta el desarrollo de una aplicación CRUD (Create, Read, Update, Delete) para la gestión de estudiantes, implementando la arquitectura de 3 capas en conjunto con el patrón de diseño Observer. La aplicación permite administrar información básica de estudiantes (ID, nombres y edad) a través de una interfaz gráfica desarrollada en Java Swing, utilizando el patrón Observer para notificar eventos de cambio en los datos a múltiples observadores.
+
+\section{Arquitectura del Sistema}
+
+\subsection{Arquitectura MVC con 3 Capas}
+La aplicación está estructurada siguiendo el patrón de arquitectura de 3 capas en conjunto con el patrón Modelo-Vista-Controlador (MVC), que separa las responsabilidades en tres niveles distintos: la capa de presentación (Vista), la capa de lógica de negocio (Controlador/Servicio) y la capa de acceso a datos (Modelo + Repositorio). Esta separación permite un código más mantenible, escalable y facilita las pruebas unitarias de cada componente de forma independiente.
+
+\subsubsection{Capa 1: Datos (Modelo + Repositorio)}
+Esta capa se encuentra en el paquete \texttt{ec.edu.espe.datos} y tiene dos componentes principales:
+
+\textbf{Modelo (\texttt{Estudiante.java}):} Define la estructura de datos del estudiante con sus atributos (ID, Nombres, Edad). Representa la entidad de negocio con sus constructores, métodos getters y setters, \texttt{equals()}, \texttt{hashCode()} y \texttt{toString()}.
+
+\textbf{Repositorio (\texttt{EstudianteRepository.java}):} Gestiona el almacenamiento y recuperación de datos en memoria mediante un \texttt{ArrayList}. Implementa el patrón Observer actuando como Subject (Observable) que notifica a los observadores registrados cuando ocurren cambios en los datos (agregar, editar, eliminar). Proporciona los métodos CRUD: \texttt{agregar()}, \texttt{editar()}, \texttt{eliminar()}, \texttt{listar()}, \texttt{getById()} y \texttt{existsById()}, además de métodos para gestionar observadores: \texttt{agregarObservador()}, \texttt{removerObservador()}.
+
+\subsubsection{Capa 2: Lógica de Negocio (Servicio)}
+Esta capa se encuentra en el paquete \texttt{ec.edu.espe.logica\_negocio} y contiene la clase \texttt{EstudianteService.java}, que implementa las reglas de negocio y validaciones. Las validaciones incluyen: datos no nulos, ID obligatorio y único, nombres obligatorios, edad mayor a 0, y genera mensajes de error descriptivos. Esta capa coordina entre la presentación y los datos, aplicando todas las reglas de negocio antes de persistir la información.
+
+\subsubsection{Capa 3: Presentación (Vista)}
+Esta capa se encuentra en el paquete \texttt{ec.edu.espe.presentacion} y contiene dos clases principales:
+
+\textbf{Vista (\texttt{EstudianteUI.java}):} Implementa la interfaz gráfica utilizando Java Swing, con formulario para captura de datos (ID, Nombres, Edad), botones para operaciones CRUD (Guardar, Editar, Eliminar, Listar), tabla para visualizar estudiantes, y manejo de eventos y mensajes.
+
+\textbf{Main (\texttt{Main.java}):} Punto de entrada de la aplicación que inicializa la interfaz gráfica.
+
+El flujo de datos en la aplicación sigue una jerarquía clara: Usuario → Vista (UI) → Servicio (Negocio) → Repositorio (Datos) → Modelo. Esta estructura garantiza que cada capa tenga una responsabilidad única y bien definida, cumpliendo con el principio de separación de responsabilidades.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{1.png}
+    \caption{Diagrama de la arquitectura de 3 capas con patrón MVC implementada}
+\end{figure}
+
+\section{Descripción de las Clases}
+
+\subsection{Patrón Observer en EstudianteRepository}
+Antes de describir las clases individuales, es importante destacar que el repositorio implementa el patrón de diseño Observer. Este patrón define una dependencia de uno-a-muchos entre objetos, de manera que cuando un objeto cambia su estado, todos sus dependientes son notificados y actualizados automáticamente.
+
+La implementación del Observer se realiza mediante:
+\begin{itemize}
+    \item \texttt{EstudianteObserver}: Interfaz que define los métodos que serán notificados (\texttt{onEstudianteAgregado()}, \texttt{onEstudianteEditado()}, \texttt{onEstudianteEliminado()})
+    \item \texttt{EstudianteSubject}: Interfaz que define métodos para gestionar observadores (\texttt{agregarObservador()}, \texttt{removerObservador()})
+    \item \texttt{EstudianteRepository}: Implementa \texttt{EstudianteSubject} y notifica a los observadores cuando ocurren cambios
+    \item \texttt{EstudianteLogger}: Implementación concreta de observador que registra eventos en consola
+\end{itemize}
+
+Este patrón resuelve el problema de comunicación entre componentes: cuando se modifica un estudiante en el repositorio, todos los observadores registrados (como loggers, notificadores, auditores) son notificados automáticamente sin que el repositorio necesite conocer los detalles de cada observador. Esto promueve el bajo acoplamiento y alta cohesión.
+
+\subsection{Capa Modelo - Clase Estudiante}
+La clase \texttt{Estudiante.java} representa la entidad de dominio del sistema. Esta clase encapsula los atributos principales de un estudiante: identificador único (ID), nombres completos y edad. Implementa el patrón JavaBean con un constructor por defecto, un constructor parametrizado, y métodos getters y setters para cada atributo.
+
+Adicionalmente, la clase sobrescribe los métodos \texttt{equals()} y \texttt{hashCode()} utilizando el ID como criterio de igualdad, lo que permite comparar objetos de tipo Estudiante de manera efectiva. También implementa el método \texttt{toString()} para facilitar la representación textual del objeto durante procesos de depuración y logging.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{2.png}
+    \caption{Código de la clase Estudiante (Capa Modelo)}
+\end{figure}
+
+\subsection{Capa de Acceso a Datos - Clase EstudianteRepository}
+La clase \texttt{EstudianteRepository.java} constituye la capa de persistencia del sistema. Implementa la interfaz \texttt{EstudianteSubject} para actuar como sujeto observable en el patrón Observer, permitiendo que múltiples observadores sean notificados automáticamente cuando ocurren cambios en los datos.
+
+Esta clase mantiene dos colecciones internas: un \texttt{ArrayList<Estudiante>} que almacena todos los estudiantes registrados, y un \texttt{ArrayList<EstudianteObserver>} que mantiene la lista de observadores suscritos. Proporciona los métodos CRUD fundamentales: \texttt{agregar()}, \texttt{editar()}, \texttt{eliminar()} y \texttt{listar()}, cada uno notificando a los observadores después de realizar la operación exitosamente. Además, incluye métodos auxiliares como \texttt{existsById()} y \texttt{getById()}.
+
+\subsection{Capa Observer - Interfaces y Clases de Notificación}
+El patrón Observer se implementa mediante varias clases e interfaces en el paquete \texttt{ec.edu.espe.observer}:
+
+\texttt{EstudianteObserver.java} es la interfaz que define el contrato para todos los observadores. Declara tres métodos: \texttt{onEstudianteAgregado(Estudiante)}, \texttt{onEstudianteEditado(Estudiante)} y \texttt{onEstudianteEliminado(String)}, que serán invocados cuando ocurran los eventos correspondientes.
+
+\texttt{EstudianteSubject.java} es la interfaz que define el contrato para los sujetos observables. Declara métodos para \texttt{agregarObservador()}, \texttt{removerObservador()} y \texttt{notificarObservadores()}.
+
+\texttt{EstudianteLogger.java} es una implementación concreta de \texttt{EstudianteObserver} que imprime mensajes en consola cuando se notifican eventos. Esta clase demuestra cómo se pueden crear múltiples observadores con diferentes comportamientos (logging, auditoría, notificaciones, etc.) sin modificar el repositorio.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{3.png}
+    \caption{Código de la clase EstudianteRepository (Capa de Datos)}
+\end{figure}
+
+\subsection{Capa de Lógica de Negocio - Clase EstudianteService}
+La clase \texttt{EstudianteService.java} implementa la lógica de negocio de la aplicación. Actua como intermediario entre la capa de presentación y el repositorio de datos, aplicando todas las reglas de validación necesarias antes de realizar cualquier operación CRUD. Recibe el repositorio a través del constructor (inyección de dependencias), promoviendo bajo acoplamiento.
+
+Esta clase valida que el ID y los nombres no sean nulos o vacíos, que la edad sea un valor positivo mayor a cero, y que no existan IDs duplicados al intentar agregar un nuevo estudiante. Cada método retorna un mensaje de tipo String que indica el resultado de la operación ("OK" en caso de éxito o un mensaje descriptivo del error encontrado), permitiendo que la capa de presentación informe adecuadamente al usuario sobre el resultado de sus acciones.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{4.png}
+    \caption{Código de la clase EstudianteService (Capa de Lógica de Negocio)}
+\end{figure}
+
+\subsection{Capa de Presentación - Clase EstudianteUI}
+La clase \texttt{EstudianteUI.java} implementa la interfaz gráfica de usuario utilizando Java Swing. Extiende de \texttt{JFrame} y construye un formulario completo con campos de texto para capturar el ID, nombres y edad del estudiante, así como botones para ejecutar las operaciones de Guardar, Editar, Eliminar y Listar.
+
+La interfaz incluye una \texttt{JTable} que muestra todos los estudiantes registrados en formato tabular. La clase utiliza un \texttt{DefaultTableModel} para gestionar los datos de la tabla, configurado como no editable para mantener la integridad de la información. Implementa listeners para los eventos de los botones y para la selección de filas en la tabla, permitiendo que al hacer clic sobre un estudiante, sus datos se carguen automáticamente en el formulario para facilitar operaciones de edición o eliminación.
+
+Esta clase representa tanto la Vista como el Controlador del patrón MVC: maneja la presentación de la interfaz y también gestiona las interacciones del usuario, delegando la lógica de negocio al \texttt{EstudianteService}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{5.png}
+    \caption{Código de la clase EstudianteUI (Capa de Presentación)}
+\end{figure}
+
+\section{Ejecución del Programa}
+La aplicación se inicia ejecutando la clase \texttt{Main.java}, que crea una instancia de \texttt{EstudianteUI} en el Event Dispatch Thread de Swing y la hace visible. Una vez en ejecución, el usuario puede interactuar con la interfaz gráfica para realizar las siguientes operaciones:
+
+\begin{itemize}
+    \item \textbf{Guardar}: Ingresar los datos de un nuevo estudiante (ID, nombres y edad) y hacer clic en "Guardar" para agregarlo al sistema.
+    \item \textbf{Editar}: Seleccionar un estudiante de la tabla, modificar sus datos en el formulario y presionar "Editar" para actualizar la información.
+    \item \textbf{Eliminar}: Seleccionar un estudiante de la tabla y hacer clic en "Eliminar" para removerlo del sistema.
+    \item \textbf{Listar}: Actualizar la tabla para mostrar todos los estudiantes registrados actualmente en el sistema.
+\end{itemize}
+
+El sistema valida automáticamente los datos ingresados, mostrando mensajes de error cuando se detectan inconsistencias (como edad negativa o cero, ID duplicado, campos vacíos o edad con formato inválido). Al completar exitosamente una operación, se muestra un mensaje de confirmación y la tabla se actualiza automáticamente para reflejar los cambios.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{6.png}
+    \caption{Interfaz gráfica de la aplicación en ejecución}
+\end{figure}
+
+\subsection{Validación de ID}
+El sistema implementa una validación robusta para el identificador único de cada estudiante. Cuando el usuario intenta guardar un nuevo estudiante, la capa de servicio verifica que el ID no sea nulo, no esté vacío y que no exista previamente en el sistema. Si se detecta un ID duplicado, la aplicación rechaza la operación y muestra un mensaje de error al usuario indicando que "ID ya existe", impidiendo así la creación de registros duplicados y manteniendo la integridad referencial de los datos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{7.png}
+    \caption{Mensaje de error al intentar registrar un ID duplicado}
+\end{figure}
+
+\subsection{Validación de Edad}
+La validación de edad asegura que solo se ingresen valores numéricos positivos mayores a cero. En primer lugar, la interfaz gráfica valida que el texto ingresado sea convertible a un número entero; si no lo es, muestra un mensaje de "Edad inválida". Posteriormente, la capa de servicio verifica que el valor numérico sea mayor que cero, rechazando edades negativas o cero con el mensaje "Edad debe ser mayor que 0". Esta doble validación garantiza la coherencia de los datos almacenados.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{8.png}
+    \caption{Mensaje de error al intentar ingresar una edad inválida}
+\end{figure}
+
+\section{Análisis del Patrón Observer}
+
+\subsection{Fundamentos del Patrón Observer}
+
+El patrón Observer es un patrón de diseño de comportamiento que define una dependencia de uno-a-muchos entre objetos, de manera que cuando un objeto (Subject) cambia su estado, todos sus dependientes (Observers) son notificados y actualizados automáticamente. En este proyecto, se utiliza para notificar eventos de cambio en los datos del repositorio.
+
+\subsubsection{Problemas que Resuelve el Patrón}
+
+\textbf{Observer} resuelve el problema de comunicación y sincronización entre objetos de forma desacoplada. Evita que el \texttt{EstudianteRepository} tenga referencias directas a componentes específicos como loggers o notificadores. Permite que múltiples objetos reaccionen a cambios en los datos sin que el repositorio necesite conocer qué objetos están interesados o qué hacen con las notificaciones. Promueve el principio de responsabilidad única al separar la lógica de negocio de la lógica de notificación.
+
+\subsubsection{Capas de Utilización}
+
+\textbf{Observer} se utiliza principalmente en la capa de Datos, donde \texttt{EstudianteRepository} actúa como Subject. El paquete \texttt{ec.edu.espe.observer} contiene las interfaces y clases concretas de observadores. La configuración se realiza en la capa de Presentación (\texttt{Main.java}), donde se registran los observadores al repositorio. Esto permite que eventos de la capa de datos sean comunicados a cualquier capa interesada.
+
+\subsubsection{Influencia en el Mantenimiento}
+
+\textbf{Observer} mejora significativamente el mantenimiento al permitir agregar nuevos observadores (auditores, notificadores, estadísticas) sin modificar el código del repositorio (principio Open/Closed). Facilita el debugging al poder activar/desactivar observadores de logging según necesidad. Reduce el acoplamiento entre componentes, haciendo el sistema más modular. Permite que diferentes partes del sistema reaccionen a eventos sin conocerse entre sí.
+
+\subsubsection{Prevención de Fallas de Diseño}
+
+\textbf{Observer} previene el acoplamiento fuerte entre el repositorio y los componentes que necesitan saber sobre cambios en los datos. Evita referencias cíclicas y dependencias complejas entre objetos. Facilita el testing al poder registrar observadores mock para verificar que las notificaciones ocurren correctamente. Previene la duplicación de código de notificación en múltiples lugares. Promueve la extensibilidad al permitir agregar nuevos comportamientos mediante nuevos observadores.
+
+\subsection{Ventajas y Limitaciones del Patrón}
+
+\subsubsection{Ventajas del Observer}
+\begin{itemize}
+    \item Desacopla el objeto que genera eventos (Subject) de los objetos que reaccionan a ellos (Observers)
+    \item Permite agregar o remover observadores dinámicamente en tiempo de ejecución
+    \item Soporta el principio Open/Closed: se pueden agregar nuevos observadores sin modificar el Subject
+    \item Facilita la comunicación broadcast de uno-a-muchos de forma elegante
+    \item Promueve el bajo acoplamiento y alta cohesión entre componentes
+\end{itemize}
+
+\subsubsection{Limitaciones del Observer}
+\begin{itemize}
+    \item Las notificaciones ocurren en orden arbitrario, lo que puede causar problemas si hay dependencias entre observadores
+    \item Puede causar actualizaciones en cascada inesperadas si no se maneja cuidadosamente
+    \item Dificultad para detectar memory leaks si los observadores no se remueven correctamente
+    \item Overhead de rendimiento si hay muchos observadores siendo notificados frecuentemente
+\end{itemize}
+
+\subsection{Aplicación en el Proyecto CRUD}
+
+En este proyecto, el patrón Observer se aplica para notificar eventos de cambio en el repositorio. Cuando se agrega, edita o elimina un estudiante, el \texttt{EstudianteRepository} notifica automáticamente a todos los observadores registrados. Actualmente se implementa \texttt{EstudianteLogger} que imprime eventos en consola, pero fácilmente se podrían agregar otros observadores como \texttt{EstudianteAuditor} (para auditoría), \texttt{EstudianteNotifier} (para notificaciones por email), o \texttt{EstudianteStatistics} (para estadísticas) sin modificar el repositorio.
+
+\subsection{Recomendaciones de Uso del Patrón}
+
+Para el patrón Observer, se recomienda su uso cuando un cambio en un objeto requiere cambiar otros objetos sin saber cuántos objetos necesitan cambiar, cuando un objeto debe notificar a otros sin hacer suposiciones sobre quiénes son esos objetos, cuando se necesita una comunicación broadcast de eventos, y cuando se desea desacoplar el emisor de eventos de los receptores.
+
+En el contexto de este CRUD de Estudiantes, el patrón Observer es valioso porque permite agregar fácilmente nuevas funcionalidades reactivas: se podría crear un \texttt{EstudianteAuditor} para registrar cambios en una base de datos de auditoría, un \texttt{EstudianteEmailNotifier} para enviar emails cuando se crea un estudiante, o un \texttt{EstudianteStatisticsCollector} para mantener estadísticas en tiempo real, todo sin modificar el código del repositorio. Esta extensibilidad es crucial para sistemas que evolucionan con nuevos requisitos.
+
+\section{Tecnologías y Herramientas Utilizadas}
+
+\subsection{Framework de Interfaz Gráfica}
+\textbf{Java Swing:} Framework estándar de Java para desarrollo de interfaces gráficas de usuario (GUI). Se utilizaron componentes como \texttt{JFrame}, \texttt{JTable}, \texttt{JTextField}, \texttt{JButton} y \texttt{JOptionPane} para construir la interfaz de usuario completa.
+
+\subsection{Gestión de Dependencias y Compilación}
+\textbf{Apache Maven:} Herramienta de gestión y construcción de proyectos Java. El archivo \texttt{pom.xml} define la estructura del proyecto, dependencias y configuración de compilación.
+
+\subsection{Estructura de Paquetes}
+La organización del código sigue la convención de nombres de paquetes Java:
+\begin{itemize}
+    \item \texttt{ec.edu.espe.datos.model} - Entidades del dominio
+    \item \texttt{ec.edu.espe.datos.repository} - Capa de acceso a datos
+    \item \texttt{ec.edu.espe.observer} - Implementación del patrón Observer (interfaces y clases concretas)
+    \item \texttt{ec.edu.espe.logica\_negocio} - Servicios y lógica de negocio
+    \item \texttt{ec.edu.espe.presentacion} - Interfaces de usuario y punto de entrada
+\end{itemize}
+
+\subsection{Almacenamiento de Datos}
+\textbf{Colecciones en Memoria:} Se utiliza \texttt{ArrayList<Estudiante>} para almacenar los datos durante la ejecución. Los datos no persisten entre sesiones, permaneciendo en memoria solo mientras la aplicación está en ejecución.
+
+\subsection{Patrones de Diseño Implementados}
+\begin{itemize}
+    \item \textbf{MVC (Modelo-Vista-Controlador):} Patrón arquitectónico para organizar el código
+    \item \textbf{Observer:} Patrón de comportamiento para notificar eventos de cambio en los datos
+    \item \textbf{JavaBean:} Patrón para la clase Estudiante con getters/setters
+\end{itemize}
+
+\subsection{Ejecución del Proyecto}
+La aplicación puede ejecutarse mediante:
+\begin{itemize}
+    \item \textbf{Maven:} Comando \texttt{mvn exec:java -Dexec.mainClass="ec.edu.espe.presentacion.Main"}
+    \item \textbf{IDE:} Ejecutando directamente la clase \texttt{Main.java} desde cualquier entorno de desarrollo integrado (IntelliJ IDEA, Eclipse, NetBeans)
+\end{itemize}
+
+\section{Casos de Prueba y Validaciones}
+
+El sistema implementa múltiples casos de prueba para verificar el correcto funcionamiento de todas las operaciones CRUD:
+
+\subsection{Pruebas de CREATE (Crear)}
+\begin{itemize}
+    \item Creación exitosa de estudiante con datos válidos
+    \item Validación de ID duplicado - debe rechazar con mensaje de error
+    \item Validación de edad inválida (cero o negativa) - debe rechazar
+    \item Validación de nombres vacíos - debe rechazar
+    \item Validación de formato de edad (debe ser numérico)
+\end{itemize}
+
+\subsection{Pruebas de READ (Leer)}
+\begin{itemize}
+    \item Listar todos los estudiantes en la tabla
+    \item Visualización correcta de columnas (ID, Nombres, Edad)
+    \item Selección de estudiantes desde la tabla
+    \item Carga automática de datos en el formulario al seleccionar
+\end{itemize}
+
+\subsection{Pruebas de UPDATE (Actualizar)}
+\begin{itemize}
+    \item Actualización exitosa de estudiante existente
+    \item Validación de ID no existente - debe rechazar con mensaje
+    \item Preservación del ID durante la edición
+    \item Actualización inmediata en la tabla
+\end{itemize}
+
+\subsection{Pruebas de DELETE (Eliminar)}
+\begin{itemize}
+    \item Eliminación exitosa de estudiante existente
+    \item Validación de ID no existente - debe rechazar con mensaje
+    \item Remoción inmediata de la tabla
+    \item Confirmación mediante mensajes al usuario
+\end{itemize}
+
+\subsection{Pruebas de Notificación con Observer}
+\begin{itemize}
+    \item Verificación de que los observadores son notificados cuando se agregan estudiantes
+    \item Comprobación de que los observadores reciben notificaciones de edición
+    \item Validación de que los observadores son notificados al eliminar estudiantes
+    \item Prueba de registro y remoción dinámica de observadores
+\end{itemize}
+
+\section{Conclusiones}
+\begin{enumerate}
+    \item \textbf{Problema que resuelve:} El patrón Observer resuelve el problema de comunicación y sincronización entre objetos de forma desacoplada. Permite que múltiples componentes (loggers, auditores, notificadores) reaccionen automáticamente a cambios en el repositorio sin que éste necesite conocer quiénes son o qué hacen, promoviendo bajo acoplamiento y alta cohesión entre componentes del sistema.
+    
+    \item \textbf{Capa de utilización:} Se utiliza principalmente en la capa de Datos donde \texttt{EstudianteRepository} actúa como Subject observable. El paquete \texttt{ec.edu.espe.observer} contiene las interfaces y clases de observadores. La configuración se realiza en \texttt{Main.java}, permitiendo que eventos de la capa de datos sean comunicados a cualquier capa o componente interesado.
+    
+    \item \textbf{Influencia en mantenimiento:} Mejora significativamente el mantenimiento al permitir agregar nuevos observadores (auditores, estadísticas, notificadores) sin modificar el código del repositorio (principio Open/Closed). Facilita debugging activando/desactivando observadores según necesidad, reduce el acoplamiento entre componentes, y permite que diferentes partes del sistema reaccionen a eventos sin conocerse entre sí.
+    
+    \item \textbf{Prevención de fallas de diseño:} Previene el acoplamiento fuerte entre el repositorio y componentes que necesitan conocer cambios en los datos. Evita referencias cíclicas y dependencias complejas, facilita el testing con observadores mock, previene duplicación de código de notificación, y promueve extensibilidad al permitir agregar nuevos comportamientos mediante nuevos observadores sin modificar código existente.
+\end{enumerate}
+
+\section{Recomendaciones}
+\begin{enumerate}
+    \item Se recomienda implementar observadores adicionales aprovechando el patrón Observer: \texttt{EstudianteAuditor} para registrar cambios en una base de datos de auditoría con timestamps y usuario, \texttt{EstudianteEmailNotifier} para enviar notificaciones por correo cuando se realizan operaciones críticas, y \texttt{EstudianteStatisticsCollector} para mantener estadísticas en tiempo real sobre operaciones CRUD.
+    
+    \item Considerar la implementación de filtros de eventos en los observadores para que puedan elegir a qué tipos de eventos suscribirse (solo agregados, solo eliminaciones, etc.). Esto se puede lograr mediante interfaces más específicas como \texttt{EstudianteCreationObserver}, \texttt{EstudianteUpdateObserver} y \texttt{EstudianteDeletionObserver}.
+    
+    \item Implementar un sistema de prioridades para los observadores cuando el orden de notificación sea importante. Se podría agregar un método \texttt{getPriority()} a la interfaz del observador y ordenar la lista de observadores antes de notificar, garantizando que ciertos observadores (como auditores) se ejecuten antes que otros.
+    
+    \item Agregar manejo robusto de excepciones en el proceso de notificación para que si un observador falla, no impida que otros observadores reciban la notificación. Implementar un mecanismo de try-catch alrededor de cada notificación individual y posiblemente un \texttt{ErrorObserver} que registre fallos en las notificaciones.
+\end{enumerate}
+
+\section{Referencias y Recursos Adicionales}
+
+\subsection{Repositorio del Código Fuente}
+El código completo del proyecto está disponible en el repositorio de GitHub:
+
+\url{https://github.com/FloresCaetano/27837_G6_ADS/tree/main/U2/Talleres/TALLER1/CRUD}
+
+
+\subsection{Bibliografía y Patrones de Diseño}
+\begin{itemize}
+    \item Gamma, E., Helm, R., Johnson, R., \& Vlissides, J. (1994). \textit{Design Patterns: Elements of Reusable Object-Oriented Software}. Addison-Wesley.
+    \item Oracle Corporation. (2024). \textit{Java Platform, Standard Edition Documentation}.
+    \item Reenskaug, T. (1979). \textit{The Model-View-Controller (MVC) - Its Past and Present}.
+    \item Martin, R. C. (2017). \textit{Clean Architecture: A Craftsman's Guide to Software Structure and Design}. Prentice Hall.
+\end{itemize}
+
+\subsection{Información del Proyecto}
+\begin{itemize}
+    \item \textbf{Institución:} Escuela Politécnica del Ejército (ESPE)
+    \item \textbf{Asignatura:} Arquitectura de Software
+    \item \textbf{Talleres:} U2T1, U2T2, U2T3
+    \item \textbf{Grupo:} G6
+    \item \textbf{Integrantes:} Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez
+    \item \textbf{Fecha:} Noviembre 2025
+\end{itemize}
+
+\end{document}
