@@ -1,0 +1,64 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Introducción}{3}{section.1}%
+\contentsline {section}{\numberline {2}Descripción de los Patrones Implementados}{3}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Patrón Singleton}{3}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Implementación en el Proyecto}{3}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Características Principales}{4}{subsubsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.2}Patrón Abstract Factory}{4}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Implementación en el Proyecto (CRUD2)}{4}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Características Principales}{4}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}Patrón Observer}{4}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Implementación en el Proyecto (CRUD3)}{5}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Características Principales}{5}{subsubsection.2.3.2}%
+\contentsline {section}{\numberline {3}Comparación Detallada de los Patrones}{5}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Clasificación de Patrones}{5}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Problema que Resuelve Cada Patrón}{5}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Singleton}{5}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Abstract Factory}{6}{subsubsection.3.2.2}%
+\contentsline {subsubsection}{\numberline {3.2.3}Observer}{6}{subsubsection.3.2.3}%
+\contentsline {subsection}{\numberline {3.3}Capas de Utilización}{6}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Influencia en el Mantenimiento}{6}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Singleton}{6}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Abstract Factory}{7}{subsubsection.3.4.2}%
+\contentsline {subsubsection}{\numberline {3.4.3}Observer}{7}{subsubsection.3.4.3}%
+\contentsline {subsection}{\numberline {3.5}Prevención de Fallas de Diseño}{8}{subsection.3.5}%
+\contentsline {subsection}{\numberline {3.6}Complejidad de Implementación}{8}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.7}Extensibilidad y Escalabilidad}{8}{subsection.3.7}%
+\contentsline {subsubsection}{\numberline {3.7.1}Singleton}{8}{subsubsection.3.7.1}%
+\contentsline {subsubsection}{\numberline {3.7.2}Abstract Factory}{9}{subsubsection.3.7.2}%
+\contentsline {subsubsection}{\numberline {3.7.3}Observer}{9}{subsubsection.3.7.3}%
+\contentsline {subsection}{\numberline {3.8}Casos de Uso Óptimos}{9}{subsection.3.8}%
+\contentsline {subsubsection}{\numberline {3.8.1}Cuándo Usar Singleton}{9}{subsubsection.3.8.1}%
+\contentsline {subsubsection}{\numberline {3.8.2}Cuándo Usar Abstract Factory}{9}{subsubsection.3.8.2}%
+\contentsline {subsubsection}{\numberline {3.8.3}Cuándo Usar Observer}{10}{subsubsection.3.8.3}%
+\contentsline {section}{\numberline {4}Análisis de Principios SOLID}{10}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Single Responsibility Principle (SRP)}{10}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Open/Closed Principle (OCP)}{10}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Liskov Substitution Principle (LSP)}{10}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Interface Segregation Principle (ISP)}{10}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Dependency Inversion Principle (DIP)}{11}{subsection.4.5}%
+\contentsline {section}{\numberline {5}Testing y Mantenibilidad}{11}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Facilidad de Testing Unitario}{11}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Facilidad de Debugging}{11}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Refactoring y Evolución del Código}{11}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Rendimiento y Recursos}{12}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Overhead de Memoria}{12}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Overhead de Procesamiento}{12}{subsection.6.2}%
+\contentsline {subsection}{\numberline {6.3}Optimizaciones Posibles}{12}{subsection.6.3}%
+\contentsline {section}{\numberline {7}Combinación de Patrones}{12}{section.7}%
+\contentsline {subsection}{\numberline {7.1}Singleton + Observer}{12}{subsection.7.1}%
+\contentsline {subsection}{\numberline {7.2}Abstract Factory + Observer}{12}{subsection.7.2}%
+\contentsline {subsection}{\numberline {7.3}Implementación Ideal para el Proyecto}{12}{subsection.7.3}%
+\contentsline {section}{\numberline {8}Recomendaciones por Contexto}{13}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Para Proyectos Pequeños (< 10 clases)}{13}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Para Proyectos Medianos (10-50 clases)}{13}{subsection.8.2}%
+\contentsline {subsection}{\numberline {8.3}Para Proyectos Grandes (> 50 clases)}{13}{subsection.8.3}%
+\contentsline {subsection}{\numberline {8.4}Para Sistemas Distribuidos}{13}{subsection.8.4}%
+\contentsline {section}{\numberline {9}Lecciones Aprendidas}{13}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Del Patrón Singleton}{13}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Del Patrón Abstract Factory}{13}{subsection.9.2}%
+\contentsline {subsection}{\numberline {9.3}Del Patrón Observer}{14}{subsection.9.3}%
+\contentsline {section}{\numberline {10}Conclusiones}{14}{section.10}%
+\contentsline {section}{\numberline {11}Recomendaciones Finales}{14}{section.11}%
+\contentsline {section}{\numberline {12}Referencias}{15}{section.12}%
+\contentsline {subsection}{\numberline {12.1}Información del Proyecto}{15}{subsection.12.1}%
