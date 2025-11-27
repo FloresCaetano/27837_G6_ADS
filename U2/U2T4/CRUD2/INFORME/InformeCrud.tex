@@ -1,0 +1,363 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{hyperref}
+
+\geometry{margin=2.5cm}
+
+% Configuración para código
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\title{Informe: Aplicación CRUD con Arquitectura de 3 Capas y Patrón Abstract Factory}
+\author{Caetano Flores \\ Jordan Guaman \\ Anthony Morales \\ Leonardo Narvaez}
+\date{Noviembre 2025}
+
+\begin{document}
+
+\maketitle
+
+\section{Introducción}
+Este informe documenta el desarrollo de una aplicación CRUD (Create, Read, Update, Delete) para la gestión de estudiantes, implementando la arquitectura de 3 capas en conjunto con el patrón de diseño Abstract Factory. La aplicación permite administrar información básica de estudiantes (ID, nombres y edad) a través de una interfaz gráfica desarrollada en Java Swing, utilizando el patrón Abstract Factory para la creación de objetos del repositorio de datos.
+
+\section{Arquitectura del Sistema}
+
+\subsection{Arquitectura MVC con 3 Capas}
+La aplicación está estructurada siguiendo el patrón de arquitectura de 3 capas en conjunto con el patrón Modelo-Vista-Controlador (MVC), que separa las responsabilidades en tres niveles distintos: la capa de presentación (Vista), la capa de lógica de negocio (Controlador/Servicio) y la capa de acceso a datos (Modelo + Repositorio). Esta separación permite un código más mantenible, escalable y facilita las pruebas unitarias de cada componente de forma independiente.
+
+\subsubsection{Capa 1: Datos (Modelo + Repositorio)}
+Esta capa se encuentra en el paquete \texttt{ec.edu.espe.datos} y tiene dos componentes principales:
+
+\textbf{Modelo (\texttt{Estudiante.java}):} Define la estructura de datos del estudiante con sus atributos (ID, Nombres, Edad). Representa la entidad de negocio con sus constructores, métodos getters y setters, \texttt{equals()}, \texttt{hashCode()} y \texttt{toString()}.
+
+\textbf{Repositorio (\texttt{EstudianteRepository.java}):} Gestiona el almacenamiento y recuperación de datos en memoria mediante un \texttt{ArrayList}. Se crea a través del patrón Abstract Factory, permitiendo flexibilidad en la creación de instancias. Proporciona los métodos CRUD: \texttt{agregar()}, \texttt{editar()}, \texttt{eliminar()}, \texttt{listar()}, \texttt{getById()} y \texttt{existsById()}.
+
+\textbf{Factory (\texttt{AbstractRepositoryFactory.java} y \texttt{RepositoryFactory.java}):} Implementa el patrón Abstract Factory para la creación de repositorios. La clase abstracta define la interfaz para crear repositorios, mientras que la implementación concreta crea instancias específicas de \texttt{EstudianteRepository}.
+
+\subsubsection{Capa 2: Lógica de Negocio (Servicio)}
+Esta capa se encuentra en el paquete \texttt{ec.edu.espe.logica\_negocio} y contiene la clase \texttt{EstudianteService.java}, que implementa las reglas de negocio y validaciones. Las validaciones incluyen: datos no nulos, ID obligatorio y único, nombres obligatorios, edad mayor a 0, y genera mensajes de error descriptivos. Esta capa coordina entre la presentación y los datos, aplicando todas las reglas de negocio antes de persistir la información.
+
+\subsubsection{Capa 3: Presentación (Vista)}
+Esta capa se encuentra en el paquete \texttt{ec.edu.espe.presentacion} y contiene dos clases principales:
+
+\textbf{Vista (\texttt{EstudianteUI.java}):} Implementa la interfaz gráfica utilizando Java Swing, con formulario para captura de datos (ID, Nombres, Edad), botones para operaciones CRUD (Guardar, Editar, Eliminar, Listar), tabla para visualizar estudiantes, y manejo de eventos y mensajes.
+
+\textbf{Main (\texttt{Main.java}):} Punto de entrada de la aplicación que inicializa la interfaz gráfica.
+
+El flujo de datos en la aplicación sigue una jerarquía clara: Usuario → Vista (UI) → Servicio (Negocio) → Repositorio (Datos) → Modelo. Esta estructura garantiza que cada capa tenga una responsabilidad única y bien definida, cumpliendo con el principio de separación de responsabilidades.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{1.png}
+    \caption{Diagrama de la arquitectura de 3 capas con patrón MVC implementada}
+\end{figure}
+
+\section{Descripción de las Clases}
+
+\subsection{Patrón Abstract Factory para Creación de Repositorios}
+Antes de describir las clases individuales, es importante destacar que el sistema implementa el patrón de diseño Abstract Factory para la creación de repositorios. Este patrón proporciona una interfaz para crear familias de objetos relacionados sin especificar sus clases concretas.
+
+La implementación del Abstract Factory se realiza mediante:
+\begin{itemize}
+    \item \texttt{AbstractRepositoryFactory}: Clase abstracta que define el método \texttt{createEstudianteRepository()}
+    \item \texttt{RepositoryFactory}: Implementación concreta que crea instancias de \texttt{EstudianteRepository}
+    \item \texttt{EstudianteService}: Utiliza el factory para obtener instancias del repositorio
+\end{itemize}
+
+Este patrón resuelve el problema de acoplamiento directo entre el servicio y el repositorio: permite cambiar la implementación del repositorio (por ejemplo, de memoria a base de datos) sin modificar el código del servicio. El factory encapsula la lógica de creación, promoviendo el principio de inversión de dependencias.
+
+\subsection{Capa Modelo - Clase Estudiante}
+La clase \texttt{Estudiante.java} representa la entidad de dominio del sistema. Esta clase encapsula los atributos principales de un estudiante: identificador único (ID), nombres completos y edad. Implementa el patrón JavaBean con un constructor por defecto, un constructor parametrizado, y métodos getters y setters para cada atributo.
+
+Adicionalmente, la clase sobrescribe los métodos \texttt{equals()} y \texttt{hashCode()} utilizando el ID como criterio de igualdad, lo que permite comparar objetos de tipo Estudiante de manera efectiva. También implementa el método \texttt{toString()} para facilitar la representación textual del objeto durante procesos de depuración y logging.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{2.png}
+    \caption{Código de la clase Estudiante (Capa Modelo)}
+\end{figure}
+
+\subsection{Capa de Acceso a Datos - Clase EstudianteRepository}
+La clase \texttt{EstudianteRepository.java} constituye la capa de persistencia del sistema. A diferencia de un diseño acoplado, esta clase se crea mediante el patrón Abstract Factory, permitiendo flexibilidad en la creación de instancias y facilitando la extensibilidad del sistema.
+
+Esta clase mantiene una colección interna de tipo \texttt{ArrayList} que almacena todos los estudiantes registrados. Proporciona los métodos CRUD fundamentales: \texttt{agregar()}, \texttt{editar()}, \texttt{eliminar()} y \texttt{listar()}. Además, incluye métodos auxiliares como \texttt{existsById()} y \texttt{getById()} que facilitan las validaciones y búsquedas. El método \texttt{listar()} retorna una lista inmutable para proteger la integridad de los datos internos.
+
+\subsection{Capa Factory - Clases AbstractRepositoryFactory y RepositoryFactory}
+El patrón Abstract Factory se implementa mediante dos clases principales:
+
+\texttt{AbstractRepositoryFactory.java} es una clase abstracta que define la interfaz para crear repositorios. Declara el método abstracto \texttt{createEstudianteRepository()} que debe ser implementado por las subclases concretas.
+
+\texttt{RepositoryFactory.java} es la implementación concreta que extiende \texttt{AbstractRepositoryFactory}. Sobrescribe el método \texttt{createEstudianteRepository()} para retornar una nueva instancia de \texttt{EstudianteRepository}. Esta separación permite agregar fácilmente nuevas implementaciones de repositorios (en archivo, base de datos, etc.) sin modificar el código existente.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{3.png}
+    \caption{Código de la clase EstudianteRepository (Capa de Datos)}
+\end{figure}
+
+\subsection{Capa de Lógica de Negocio - Clase EstudianteService}
+La clase \texttt{EstudianteService.java} implementa la lógica de negocio de la aplicación. Actúa como intermediario entre la capa de presentación y el repositorio de datos, aplicando todas las reglas de validación necesarias antes de realizar cualquier operación CRUD.
+
+Esta clase valida que el ID y los nombres no sean nulos o vacíos, que la edad sea un valor positivo mayor a cero, y que no existan IDs duplicados al intentar agregar un nuevo estudiante. Cada método retorna un mensaje de tipo String que indica el resultado de la operación ("OK" en caso de éxito o un mensaje descriptivo del error encontrado), permitiendo que la capa de presentación informe adecuadamente al usuario sobre el resultado de sus acciones.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{4.png}
+    \caption{Código de la clase EstudianteService (Capa de Lógica de Negocio)}
+\end{figure}
+
+\subsection{Capa de Presentación - Clase EstudianteUI}
+La clase \texttt{EstudianteUI.java} implementa la interfaz gráfica de usuario utilizando Java Swing. Extiende de \texttt{JFrame} y construye un formulario completo con campos de texto para capturar el ID, nombres y edad del estudiante, así como botones para ejecutar las operaciones de Guardar, Editar, Eliminar y Listar.
+
+La interfaz incluye una \texttt{JTable} que muestra todos los estudiantes registrados en formato tabular. La clase utiliza un \texttt{DefaultTableModel} para gestionar los datos de la tabla, configurado como no editable para mantener la integridad de la información. Implementa listeners para los eventos de los botones y para la selección de filas en la tabla, permitiendo que al hacer clic sobre un estudiante, sus datos se carguen automáticamente en el formulario para facilitar operaciones de edición o eliminación.
+
+Esta clase representa tanto la Vista como el Controlador del patrón MVC: maneja la presentación de la interfaz y también gestiona las interacciones del usuario, delegando la lógica de negocio al \texttt{EstudianteService}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{5.png}
+    \caption{Código de la clase EstudianteUI (Capa de Presentación)}
+\end{figure}
+
+\section{Ejecución del Programa}
+La aplicación se inicia ejecutando la clase \texttt{Main.java}, que crea una instancia de \texttt{EstudianteUI} en el Event Dispatch Thread de Swing y la hace visible. Una vez en ejecución, el usuario puede interactuar con la interfaz gráfica para realizar las siguientes operaciones:
+
+\begin{itemize}
+    \item \textbf{Guardar}: Ingresar los datos de un nuevo estudiante (ID, nombres y edad) y hacer clic en "Guardar" para agregarlo al sistema.
+    \item \textbf{Editar}: Seleccionar un estudiante de la tabla, modificar sus datos en el formulario y presionar "Editar" para actualizar la información.
+    \item \textbf{Eliminar}: Seleccionar un estudiante de la tabla y hacer clic en "Eliminar" para removerlo del sistema.
+    \item \textbf{Listar}: Actualizar la tabla para mostrar todos los estudiantes registrados actualmente en el sistema.
+\end{itemize}
+
+El sistema valida automáticamente los datos ingresados, mostrando mensajes de error cuando se detectan inconsistencias (como edad negativa o cero, ID duplicado, campos vacíos o edad con formato inválido). Al completar exitosamente una operación, se muestra un mensaje de confirmación y la tabla se actualiza automáticamente para reflejar los cambios.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{6.png}
+    \caption{Interfaz gráfica de la aplicación en ejecución}
+\end{figure}
+
+\subsection{Validación de ID}
+El sistema implementa una validación robusta para el identificador único de cada estudiante. Cuando el usuario intenta guardar un nuevo estudiante, la capa de servicio verifica que el ID no sea nulo, no esté vacío y que no exista previamente en el sistema. Si se detecta un ID duplicado, la aplicación rechaza la operación y muestra un mensaje de error al usuario indicando que "ID ya existe", impidiendo así la creación de registros duplicados y manteniendo la integridad referencial de los datos.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{7.png}
+    \caption{Mensaje de error al intentar registrar un ID duplicado}
+\end{figure}
+
+\subsection{Validación de Edad}
+La validación de edad asegura que solo se ingresen valores numéricos positivos mayores a cero. En primer lugar, la interfaz gráfica valida que el texto ingresado sea convertible a un número entero; si no lo es, muestra un mensaje de "Edad inválida". Posteriormente, la capa de servicio verifica que el valor numérico sea mayor que cero, rechazando edades negativas o cero con el mensaje "Edad debe ser mayor que 0". Esta doble validación garantiza la coherencia de los datos almacenados.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.85\textwidth]{8.png}
+    \caption{Mensaje de error al intentar ingresar una edad inválida}
+\end{figure}
+
+\section{Análisis del Patrón Abstract Factory}
+
+\subsection{Fundamentos del Patrón Abstract Factory}
+
+El patrón Abstract Factory es un patrón de diseño creacional que proporciona una interfaz para crear familias de objetos relacionados o dependientes sin especificar sus clases concretas. En este proyecto, se utiliza para encapsular la creación de repositorios de datos.
+
+\subsubsection{Problemas que Resuelve el Patrón}
+
+\textbf{Abstract Factory} resuelve el problema de acoplamiento directo entre clases cliente y clases concretas. Evita que el \texttt{EstudianteService} dependa directamente de la implementación específica de \texttt{EstudianteRepository}, permitiendo cambiar fácilmente entre diferentes implementaciones (memoria, archivo, base de datos) sin modificar el código del servicio. Además, centraliza la lógica de creación de objetos, promoviendo el principio de responsabilidad única.
+
+\subsubsection{Capas de Utilización}
+
+\textbf{Abstract Factory} se utiliza principalmente entre la capa de Lógica de Negocio y la capa de Datos. La clase \texttt{EstudianteService} (capa de negocio) utiliza \texttt{AbstractRepositoryFactory} para obtener instancias del repositorio. El paquete \texttt{ec.edu.espe.datos.factory} contiene las clases del factory, actuando como puente entre las capas y desacoplando las dependencias.
+
+\subsubsection{Influencia en el Mantenimiento}
+
+\textbf{Abstract Factory} mejora significativamente el mantenimiento del código al permitir agregar nuevas implementaciones de repositorios sin modificar código existente (principio Open/Closed). Facilita el testing al poder inyectar implementaciones mock del repositorio a través del factory. Reduce el acoplamiento entre componentes, haciendo el sistema más modular y fácil de refactorizar. Centraliza la lógica de creación, evitando código duplicado de instanciación.
+
+\subsubsection{Prevención de Fallas de Diseño}
+
+\textbf{Abstract Factory} previene el acoplamiento fuerte entre el servicio y la implementación concreta del repositorio, cumpliendo con el principio de inversión de dependencias (DIP). Evita violaciones del principio Open/Closed al permitir extensión sin modificación. Facilita la aplicación de inyección de dependencias y frameworks IoC. Previene la proliferación de código de creación disperso por toda la aplicación. Permite cambiar entre implementaciones de forma transparente sin afectar la lógica de negocio.
+
+\subsection{Ventajas y Limitaciones del Patrón}
+
+\subsubsection{Ventajas del Abstract Factory}
+\begin{itemize}
+    \item Desacopla el código cliente de las clases concretas que necesita instanciar
+    \item Facilita el cambio entre familias de productos relacionados
+    \item Promueve la consistencia entre productos creados por el mismo factory
+    \item Facilita enormemente el testing unitario mediante inyección de dependencias
+    \item Cumple con el principio Open/Closed (abierto para extensión, cerrado para modificación)
+\end{itemize}
+
+\subsubsection{Limitaciones del Abstract Factory}
+\begin{itemize}
+    \item Introduce complejidad adicional con clases abstractas y concretas
+    \item Puede resultar excesivo para sistemas muy simples con pocas variaciones
+    \item Requiere crear nuevas clases factory para cada familia de productos
+    \item Curva de aprendizaje para desarrolladores no familiarizados con el patrón
+\end{itemize}
+
+\subsection{Aplicación en el Proyecto CRUD}
+
+En este proyecto, el patrón Abstract Factory se aplica para crear instancias del \texttt{EstudianteRepository}. Aunque actualmente solo existe una implementación concreta (repositorio en memoria), la arquitectura está preparada para agregar fácilmente nuevas implementaciones como \texttt{EstudianteRepositoryFile} o \texttt{EstudianteRepositoryDatabase} sin modificar el código del servicio. El \texttt{EstudianteService} solo conoce la interfaz del factory, no la implementación concreta del repositorio.
+
+\subsection{Recomendaciones de Uso del Patrón}
+
+Para el patrón Abstract Factory, se recomienda su uso cuando el sistema necesita ser independiente de cómo se crean sus objetos, cuando se necesita trabajar con múltiples familias de productos relacionados, cuando se prevén cambios en las implementaciones concretas sin afectar el código cliente, y cuando se requiere centralizar y encapsular la lógica de creación de objetos.
+
+En el contexto de este CRUD de Estudiantes, el patrón Abstract Factory es apropiado porque permite evolucionar el sistema fácilmente: se podría agregar un \texttt{DatabaseRepositoryFactory} para crear repositorios con persistencia en base de datos, o un \texttt{FileRepositoryFactory} para persistencia en archivos, sin modificar una sola línea del \texttt{EstudianteService}. Esta flexibilidad es valiosa para el mantenimiento a largo plazo y la escalabilidad del sistema.
+
+\section{Tecnologías y Herramientas Utilizadas}
+
+\subsection{Framework de Interfaz Gráfica}
+\textbf{Java Swing:} Framework estándar de Java para desarrollo de interfaces gráficas de usuario (GUI). Se utilizaron componentes como \texttt{JFrame}, \texttt{JTable}, \texttt{JTextField}, \texttt{JButton} y \texttt{JOptionPane} para construir la interfaz de usuario completa.
+
+\subsection{Gestión de Dependencias y Compilación}
+\textbf{Apache Maven:} Herramienta de gestión y construcción de proyectos Java. El archivo \texttt{pom.xml} define la estructura del proyecto, dependencias y configuración de compilación.
+
+\subsection{Estructura de Paquetes}
+La organización del código sigue la convención de nombres de paquetes Java:
+\begin{itemize}
+    \item \texttt{ec.edu.espe.datos.model} - Entidades del dominio
+    \item \texttt{ec.edu.espe.datos.repository} - Capa de acceso a datos
+    \item \texttt{ec.edu.espe.datos.factory} - Implementación del patrón Abstract Factory
+    \item \texttt{ec.edu.espe.logica\_negocio} - Servicios y lógica de negocio
+    \item \texttt{ec.edu.espe.presentacion} - Interfaces de usuario y punto de entrada
+\end{itemize}
+
+\subsection{Almacenamiento de Datos}
+\textbf{Colecciones en Memoria:} Se utiliza \texttt{ArrayList<Estudiante>} para almacenar los datos durante la ejecución. Los datos no persisten entre sesiones, permaneciendo en memoria solo mientras la aplicación está en ejecución.
+
+\subsection{Patrones de Diseño Implementados}
+\begin{itemize}
+    \item \textbf{MVC (Modelo-Vista-Controlador):} Patrón arquitectónico para organizar el código
+    \item \textbf{Abstract Factory:} Patrón creacional para la creación flexible de repositorios
+    \item \textbf{JavaBean:} Patrón para la clase Estudiante con getters/setters
+\end{itemize}
+
+\subsection{Ejecución del Proyecto}
+La aplicación puede ejecutarse mediante:
+\begin{itemize}
+    \item \textbf{Maven:} Comando \texttt{mvn exec:java -Dexec.mainClass="ec.edu.espe.presentacion.Main"}
+    \item \textbf{IDE:} Ejecutando directamente la clase \texttt{Main.java} desde cualquier entorno de desarrollo integrado (IntelliJ IDEA, Eclipse, NetBeans)
+\end{itemize}
+
+\section{Casos de Prueba y Validaciones}
+
+El sistema implementa múltiples casos de prueba para verificar el correcto funcionamiento de todas las operaciones CRUD:
+
+\subsection{Pruebas de CREATE (Crear)}
+\begin{itemize}
+    \item Creación exitosa de estudiante con datos válidos
+    \item Validación de ID duplicado - debe rechazar con mensaje de error
+    \item Validación de edad inválida (cero o negativa) - debe rechazar
+    \item Validación de nombres vacíos - debe rechazar
+    \item Validación de formato de edad (debe ser numérico)
+\end{itemize}
+
+\subsection{Pruebas de READ (Leer)}
+\begin{itemize}
+    \item Listar todos los estudiantes en la tabla
+    \item Visualización correcta de columnas (ID, Nombres, Edad)
+    \item Selección de estudiantes desde la tabla
+    \item Carga automática de datos en el formulario al seleccionar
+\end{itemize}
+
+\subsection{Pruebas de UPDATE (Actualizar)}
+\begin{itemize}
+    \item Actualización exitosa de estudiante existente
+    \item Validación de ID no existente - debe rechazar con mensaje
+    \item Preservación del ID durante la edición
+    \item Actualización inmediata en la tabla
+\end{itemize}
+
+\subsection{Pruebas de DELETE (Eliminar)}
+\begin{itemize}
+    \item Eliminación exitosa de estudiante existente
+    \item Validación de ID no existente - debe rechazar con mensaje
+    \item Remoción inmediata de la tabla
+    \item Confirmación mediante mensajes al usuario
+\end{itemize}
+
+\subsection{Pruebas de Creación con Abstract Factory}
+\begin{itemize}
+    \item Verificación de que el factory crea correctamente instancias del repositorio
+    \item Comprobación de que el servicio utiliza el factory para obtener el repositorio
+    \item Validación de que la arquitectura permite cambiar implementaciones fácilmente
+\end{itemize}
+
+\section{Conclusiones}
+\begin{enumerate}
+    \item \textbf{Problema que resuelve:} El patrón Abstract Factory resuelve el acoplamiento directo entre el \texttt{EstudianteService} y la implementación concreta de \texttt{EstudianteRepository}. Permite cambiar entre diferentes implementaciones de repositorios (memoria, archivo, base de datos) sin modificar el código del servicio, cumpliendo con el principio de inversión de dependencias y facilitando la extensibilidad del sistema.
+    
+    \item \textbf{Capa de utilización:} Se utiliza principalmente entre la capa de Lógica de Negocio y la capa de Datos. El paquete \texttt{ec.edu.espe.datos.factory} actúa como puente entre \texttt{EstudianteService} y \texttt{EstudianteRepository}, desacoplando estas capas y permitiendo que el servicio dependa de abstracciones en lugar de implementaciones concretas.
+    
+    \item \textbf{Influencia en mantenimiento:} Mejora significativamente el mantenimiento al permitir agregar nuevas implementaciones de repositorios sin modificar código existente (principio Open/Closed). Facilita el testing mediante inyección de implementaciones mock, reduce el acoplamiento haciendo el sistema más modular, y centraliza la lógica de creación evitando código duplicado de instanciación.
+    
+    \item \textbf{Prevención de fallas de diseño:} Previene el acoplamiento fuerte entre servicio y repositorio, evita violaciones del principio Open/Closed, facilita la aplicación de inyección de dependencias, y previene la proliferación de código de creación disperso. Permite evolucionar el sistema agregando nuevas implementaciones de forma transparente sin afectar la lógica de negocio existente.
+\end{enumerate}
+
+\section{Recomendaciones}
+\begin{enumerate}
+    \item Se recomienda implementar persistencia de datos en archivos JSON, XML o base de datos relacional (como SQLite o MySQL) aprovechando el patrón Abstract Factory. Se podría crear un \texttt{DatabaseRepositoryFactory} que genere repositorios con persistencia real, reemplazando el almacenamiento en memoria actual sin modificar el \texttt{EstudianteService}.
+    
+    \item Considerar la creación de una interfaz \texttt{IEstudianteRepository} que defina el contrato de los repositorios. Esto haría el patrón Abstract Factory más robusto al permitir que el factory retorne cualquier implementación que cumpla la interfaz, facilitando aún más el testing con mocks y la extensibilidad del sistema.
+    
+    \item Implementar testing unitario utilizando JUnit aprovechando las ventajas del Abstract Factory. Se pueden crear \texttt{MockRepositoryFactory} para pruebas que retornen repositorios simulados, permitiendo probar el \texttt{EstudianteService} de forma aislada sin depender de la implementación real del repositorio.
+    
+    \item Agregar más factories concretos según las necesidades del sistema: \texttt{FileRepositoryFactory} para persistencia en archivos, \texttt{InMemoryRepositoryFactory} para pruebas rápidas, o \texttt{CachedRepositoryFactory} que implemente caché para mejorar el rendimiento. El patrón permite esta extensión sin modificar código existente.
+\end{enumerate}
+
+\section{Referencias y Recursos Adicionales}
+
+\subsection{Repositorio del Código Fuente}
+El código completo del proyecto está disponible en el repositorio de GitHub:
+
+\url{https://github.com/FloresCaetano/27837_G6_ADS/tree/main/U2/Talleres/TALLER1/CRUD}
+
+
+\subsection{Bibliografía y Patrones de Diseño}
+\begin{itemize}
+    \item Gamma, E., Helm, R., Johnson, R., \& Vlissides, J. (1994). \textit{Design Patterns: Elements of Reusable Object-Oriented Software}. Addison-Wesley.
+    \item Oracle Corporation. (2024). \textit{Java Platform, Standard Edition Documentation}.
+    \item Reenskaug, T. (1979). \textit{The Model-View-Controller (MVC) - Its Past and Present}.
+    \item Martin, R. C. (2017). \textit{Clean Architecture: A Craftsman's Guide to Software Structure and Design}. Prentice Hall.
+\end{itemize}
+
+\subsection{Información del Proyecto}
+\begin{itemize}
+    \item \textbf{Institución:} Escuela Politécnica del Ejército (ESPE)
+    \item \textbf{Asignatura:} Arquitectura de Software
+    \item \textbf{Talleres:} U2T1, U2T2, U2T3
+    \item \textbf{Grupo:} G6
+    \item \textbf{Integrantes:} Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez
+    \item \textbf{Fecha:} Noviembre 2025
+\end{itemize}
+
+\end{document}
