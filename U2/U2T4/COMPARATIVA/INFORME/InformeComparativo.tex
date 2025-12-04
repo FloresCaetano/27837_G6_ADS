@@ -1,0 +1,579 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{float}
+\usepackage{hyperref}
+\usepackage{tabularx}
+\usepackage{booktabs}
+
+\geometry{margin=2.5cm}
+
+% Configuración para código
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+
+\title{Análisis Comparativo de Patrones de Diseño: \\
+Singleton, Abstract Factory y Observer}
+\author{Caetano Flores \\ Jordan Guaman \\ Anthony Morales \\ Leonardo Narvaez}
+\date{Noviembre 2025}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+\newpage
+
+\section{Introducción}
+
+Este informe presenta un análisis comparativo exhaustivo de tres patrones de diseño fundamentales aplicados en el desarrollo de una aplicación CRUD para la gestión de estudiantes: Singleton, Abstract Factory y Observer. Cada uno de estos patrones fue implementado en versiones separadas del mismo sistema para evaluar sus características, ventajas, limitaciones y casos de uso óptimos.
+
+La aplicación CRUD base implementa una arquitectura de 3 capas (Presentación, Lógica de Negocio y Datos) con las siguientes características comunes:
+\begin{itemize}
+    \item Gestión de estudiantes con atributos: ID, nombres y edad
+    \item Operaciones CRUD completas: Create, Read, Update, Delete
+    \item Interfaz gráfica desarrollada en Java Swing
+    \item Almacenamiento en memoria mediante \texttt{ArrayList}
+    \item Validaciones robustas en capa de negocio
+\end{itemize}
+
+El objetivo de este análisis es proporcionar una comprensión profunda de cómo cada patrón afecta la arquitectura, mantenibilidad, extensibilidad y calidad del código, ayudando a los desarrolladores a tomar decisiones informadas sobre qué patrón utilizar según el contexto y requisitos específicos de sus proyectos.
+
+\section{Descripción de los Patrones Implementados}
+
+\subsection{Patrón Singleton}
+
+El patrón Singleton es un patrón de diseño creacional que garantiza que una clase tenga una única instancia en toda la aplicación y proporciona un punto de acceso global a dicha instancia.
+
+\subsubsection{Implementación en el Proyecto}
+
+En la versión inicial del CRUD, el patrón Singleton se implementó en la clase \texttt{EstudianteRepository}:
+
+\begin{itemize}
+    \item \textbf{Instancia estática final:} \texttt{private static final EstudianteRepository INSTANCE}
+    \item \textbf{Constructor privado:} Previene la creación directa de instancias desde fuera de la clase
+    \item \textbf{Método de acceso:} \texttt{public static EstudianteRepository getInstance()} retorna siempre la misma instancia
+    \item \textbf{Uso en servicio:} \texttt{EstudianteService} accede al repositorio mediante \texttt{EstudianteRepository.getInstance()}
+\end{itemize}
+
+\subsubsection{Características Principales}
+
+\begin{itemize}
+    \item Garantiza una única instancia del repositorio durante toda la ejecución
+    \item Acceso global simplificado desde cualquier punto del código
+    \item Persistencia de datos garantizada en memoria compartida
+    \item Implementación técnicamente simple y directa
+    \item Control estricto sobre la instanciación de la clase
+\end{itemize}
+
+\subsection{Patrón Abstract Factory}
+
+El patrón Abstract Factory es un patrón de diseño creacional que proporciona una interfaz para crear familias de objetos relacionados o dependientes sin especificar sus clases concretas.
+
+\subsubsection{Implementación en el Proyecto (CRUD2)}
+
+En la versión CRUD2, el patrón Abstract Factory reemplazó al Singleton:
+
+\begin{itemize}
+    \item \textbf{Clase abstracta:} \texttt{AbstractRepositoryFactory} define el método abstracto \texttt{createEstudianteRepository()}
+    \item \textbf{Factory concreto:} \texttt{RepositoryFactory} extiende la clase abstracta e implementa la creación de repositorios
+    \item \textbf{Repositorio sin Singleton:} \texttt{EstudianteRepository} con constructor público, creado por el factory
+    \item \textbf{Uso en servicio:} \texttt{EstudianteService} utiliza el factory para obtener instancias del repositorio en el constructor
+\end{itemize}
+
+\subsubsection{Características Principales}
+
+\begin{itemize}
+    \item Desacopla el código cliente de las clases concretas
+    \item Permite cambiar fácilmente entre diferentes implementaciones
+    \item Centraliza la lógica de creación de objetos
+    \item Cumple con el principio de inversión de dependencias (DIP)
+    \item Facilita la extensibilidad sin modificar código existente (Open/Closed)
+\end{itemize}
+
+\subsection{Patrón Observer}
+
+El patrón Observer es un patrón de diseño de comportamiento que define una dependencia de uno-a-muchos entre objetos, de manera que cuando un objeto cambia su estado, todos sus dependientes son notificados y actualizados automáticamente.
+
+\subsubsection{Implementación en el Proyecto (CRUD3)}
+
+En la versión CRUD3, el patrón Observer se añadió al sistema:
+
+\begin{itemize}
+    \item \textbf{Interfaz Observer:} \texttt{EstudianteObserver} define métodos \texttt{onEstudianteAgregado()}, \texttt{onEstudianteEditado()}, \texttt{onEstudianteEliminado()}
+    \item \textbf{Interfaz Subject:} \texttt{EstudianteSubject} define \texttt{agregarObservador()}, \texttt{removerObservador()}
+    \item \textbf{Subject concreto:} \texttt{EstudianteRepository} implementa \texttt{EstudianteSubject} y notifica a observadores
+    \item \textbf{Observer concreto:} \texttt{EstudianteLogger} implementa \texttt{EstudianteObserver} para logging en consola
+    \item \textbf{Configuración:} Los observadores se registran en \texttt{Main.java} al iniciar la aplicación
+\end{itemize}
+
+\subsubsection{Características Principales}
+
+\begin{itemize}
+    \item Desacopla el emisor de eventos de los receptores
+    \item Permite agregar/remover observadores dinámicamente
+    \item Soporta comunicación broadcast de uno-a-muchos
+    \item Promueve bajo acoplamiento y alta cohesión
+    \item Facilita la extensibilidad mediante nuevos observadores
+\end{itemize}
+
+\section{Comparación Detallada de los Patrones}
+
+\subsection{Clasificación de Patrones}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Patrón} & \textbf{Categoría} & \textbf{Propósito Principal} \\
+\hline
+Singleton & Creacional & Control de instanciación \\
+\hline
+Abstract Factory & Creacional & Creación flexible de objetos \\
+\hline
+Observer & Comportamiento & Notificación de eventos \\
+\hline
+\end{tabular}
+\caption{Clasificación de los patrones según Gang of Four}
+\end{table}
+
+\subsection{Problema que Resuelve Cada Patrón}
+
+\subsubsection{Singleton}
+Resuelve el problema de \textbf{control de instanciación} cuando se necesita exactamente una instancia de una clase. En el proyecto CRUD, evita la creación de múltiples repositorios con listas diferentes de estudiantes, lo que causaría pérdida de datos y comportamiento inconsistente. Garantiza un punto de acceso global compartido a los datos.
+
+\subsubsection{Abstract Factory}
+Resuelve el problema de \textbf{acoplamiento directo} entre clases cliente y clases concretas. En CRUD2, permite que \texttt{EstudianteService} no dependa directamente de la implementación específica de \texttt{EstudianteRepository}, facilitando cambiar entre diferentes implementaciones (memoria, archivo, base de datos) sin modificar el código del servicio.
+
+\subsubsection{Observer}
+Resuelve el problema de \textbf{comunicación desacoplada} entre objetos. En CRUD3, permite que múltiples componentes (loggers, auditores, notificadores) reaccionen automáticamente a cambios en el repositorio sin que éste necesite conocer quiénes son o qué hacen, promoviendo bajo acoplamiento.
+
+\subsection{Capas de Utilización}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Patrón} & \textbf{Capa(s) de Utilización} \\
+\hline
+Singleton & Capa de Datos (\texttt{EstudianteRepository}). Accedido desde la capa de Lógica de Negocio mediante \texttt{getInstance()}. \\
+\hline
+Abstract Factory & Entre capa de Lógica de Negocio y Datos. El paquete \texttt{factory} actúa como puente desacoplando \texttt{EstudianteService} del repositorio. \\
+\hline
+Observer & Capa de Datos como Subject (\texttt{EstudianteRepository}). Observadores en paquete dedicado. Configuración en capa de Presentación (\texttt{Main}). \\
+\hline
+\end{tabularx}
+\caption{Ubicación de cada patrón en la arquitectura de 3 capas}
+\end{table}
+
+\subsection{Influencia en el Mantenimiento}
+
+\subsubsection{Singleton}
+\textbf{Ventajas:}
+\begin{itemize}
+    \item Simplifica el acceso a recursos compartidos con un único punto de acceso
+    \item Reduce bugs relacionados con múltiples instancias inconsistentes
+    \item Centraliza la gestión de datos facilitando debugging
+\end{itemize}
+
+\textbf{Desventajas:}
+\begin{itemize}
+    \item Dificulta el testing unitario por el estado global compartido
+    \item Complica el uso de inyección de dependencias modernas
+    \item Puede ocultar dependencias entre clases
+\end{itemize}
+
+\subsubsection{Abstract Factory}
+\textbf{Ventajas:}
+\begin{itemize}
+    \item Permite agregar nuevas implementaciones sin modificar código existente (Open/Closed)
+    \item Facilita testing mediante inyección de implementaciones mock
+    \item Reduce acoplamiento haciendo el sistema más modular
+    \item Centraliza lógica de creación evitando código duplicado
+\end{itemize}
+
+\textbf{Desventajas:}
+\begin{itemize}
+    \item Introduce complejidad adicional con clases abstractas y concretas
+    \item Puede resultar excesivo para sistemas muy simples
+    \item Requiere crear nuevas clases factory para cada familia de productos
+\end{itemize}
+
+\subsubsection{Observer}
+\textbf{Ventajas:}
+\begin{itemize}
+    \item Permite agregar nuevos observadores sin modificar el Subject (Open/Closed)
+    \item Facilita debugging activando/desactivando observadores según necesidad
+    \item Reduce acoplamiento entre componentes reactivos
+    \item Permite extensión mediante nuevos comportamientos
+\end{itemize}
+
+\textbf{Desventajas:}
+\begin{itemize}
+    \item Las notificaciones ocurren en orden arbitrario
+    \item Puede causar actualizaciones en cascada inesperadas
+    \item Riesgo de memory leaks si observadores no se remueven correctamente
+    \item Overhead de rendimiento con muchos observadores
+\end{itemize}
+
+\subsection{Prevención de Fallas de Diseño}
+
+\begin{table}[H]
+\centering
+\begin{tabularx}{\textwidth}{|l|X|}
+\hline
+\textbf{Patrón} & \textbf{Fallas de Diseño que Previene} \\
+\hline
+Singleton & 
+\begin{itemize}
+    \item Inconsistencias por múltiples instancias con datos diferentes
+    \item Problemas de sincronización de datos
+    \item Pérdida de estado compartido
+\end{itemize} \\
+\hline
+Abstract Factory & 
+\begin{itemize}
+    \item Acoplamiento fuerte entre servicio y repositorio
+    \item Violaciones del principio Open/Closed
+    \item Dificultad para testing con dependencias concretas
+    \item Código de creación disperso y duplicado
+\end{itemize} \\
+\hline
+Observer & 
+\begin{itemize}
+    \item Acoplamiento fuerte entre emisor y receptores de eventos
+    \item Referencias cíclicas y dependencias complejas
+    \item Dificultad para testing de notificaciones
+    \item Código duplicado de notificación
+\end{itemize} \\
+\hline
+\end{tabularx}
+\caption{Fallas de diseño prevenidas por cada patrón}
+\end{table}
+
+\subsection{Complejidad de Implementación}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|c|c|}
+\hline
+\textbf{Aspecto} & \textbf{Singleton} & \textbf{Factory} & \textbf{Observer} \\
+\hline
+Clases adicionales & 0 & 2 & 3+ \\
+\hline
+Interfaces necesarias & 0 & 0 & 2 \\
+\hline
+Complejidad código & Baja & Media & Media \\
+\hline
+Curva aprendizaje & Baja & Media & Media \\
+\hline
+Líneas de código & Mínimas & Moderadas & Moderadas \\
+\hline
+\end{tabular}
+\caption{Comparación de complejidad de implementación}
+\end{table}
+
+\subsection{Extensibilidad y Escalabilidad}
+
+\subsubsection{Singleton}
+\textbf{Extensibilidad:} Limitada. Agregar variantes del repositorio requeriría modificar el patrón Singleton o crear múltiples Singletons independientes, lo que complica el diseño.
+
+\textbf{Escalabilidad:} Problemática en sistemas distribuidos. El Singleton es específico a una JVM, dificultando la escalabilidad horizontal y sistemas multi-instancia.
+
+\subsubsection{Abstract Factory}
+\textbf{Extensibilidad:} Excelente. Se pueden agregar fácilmente nuevos factories concretos:
+\begin{itemize}
+    \item \texttt{DatabaseRepositoryFactory} para persistencia en BD
+    \item \texttt{FileRepositoryFactory} para archivos JSON/XML
+    \item \texttt{CachedRepositoryFactory} con sistema de caché
+\end{itemize}
+
+\textbf{Escalabilidad:} Buena. Facilita la migración a diferentes tecnologías de persistencia según las necesidades de escala del sistema.
+
+\subsubsection{Observer}
+\textbf{Extensibilidad:} Excelente. Se pueden agregar nuevos observadores sin límite:
+\begin{itemize}
+    \item \texttt{EstudianteAuditor} para auditoría en BD
+    \item \texttt{EstudianteEmailNotifier} para notificaciones
+    \item \texttt{EstudianteStatistics} para métricas en tiempo real
+    \item \texttt{EstudianteCacheInvalidator} para gestión de caché
+\end{itemize}
+
+\textbf{Escalabilidad:} Media. Puede presentar problemas de rendimiento con muchos observadores, pero se puede optimizar con observadores asíncronos o selectivos.
+
+\subsection{Casos de Uso Óptimos}
+
+\subsubsection{Cuándo Usar Singleton}
+\begin{itemize}
+    \item Necesitas exactamente una instancia de una clase (configuración, pool de conexiones)
+    \item Requieres punto de acceso global a un recurso compartido
+    \item El objeto es costoso de crear y no cambiará durante la ejecución
+    \item No necesitas inyección de dependencias ni testing avanzado
+    \item La aplicación es monolítica y no se distribuirá
+\end{itemize}
+
+\textbf{Ejemplo en el proyecto:} Repositorio en memoria cuando solo se necesita una lista compartida de estudiantes y la aplicación es simple.
+
+\subsubsection{Cuándo Usar Abstract Factory}
+\begin{itemize}
+    \item El sistema debe ser independiente de cómo se crean sus objetos
+    \item Necesitas trabajar con familias de productos relacionados
+    \item Prevés cambios en las implementaciones concretas
+    \item Requieres facilitar el testing con mocks
+    \item Quieres centralizar la lógica de creación
+\end{itemize}
+
+\textbf{Ejemplo en el proyecto:} Cuando se planea migrar de almacenamiento en memoria a base de datos, o soportar múltiples backends simultáneamente.
+
+\subsubsection{Cuándo Usar Observer}
+\begin{itemize}
+    \item Un cambio en un objeto requiere cambiar otros objetos desconocidos
+    \item Necesitas notificaciones broadcast de eventos
+    \item Quieres desacoplar emisores de receptores de eventos
+    \item Requieres comportamientos reactivos extensibles
+    \item Necesitas logging, auditoría o monitoreo de cambios
+\end{itemize}
+
+\textbf{Ejemplo en el proyecto:} Cuando necesitas auditoría, logging, notificaciones por email, o actualización de estadísticas cada vez que se modifican los datos.
+
+\section{Análisis de Principios SOLID}
+
+\subsection{Single Responsibility Principle (SRP)}
+
+\textbf{Singleton:} Cumplimiento parcial. El repositorio maneja tanto el almacenamiento como el control de instanciación.
+
+\textbf{Abstract Factory:} Excelente cumplimiento. Separa la responsabilidad de creación (factory) del almacenamiento (repositorio).
+
+\textbf{Observer:} Excelente cumplimiento. Separa la lógica de notificación de la lógica de negocio del repositorio.
+
+\subsection{Open/Closed Principle (OCP)}
+
+\textbf{Singleton:} Cumplimiento bajo. Difícil extender sin modificar la clase Singleton.
+
+\textbf{Abstract Factory:} Excelente cumplimiento. Abierto para extensión (nuevos factories) y cerrado para modificación.
+
+\textbf{Observer:} Excelente cumplimiento. Se pueden agregar observadores sin modificar el Subject.
+
+\subsection{Liskov Substitution Principle (LSP)}
+
+\textbf{Singleton:} No aplicable directamente (no hay jerarquía de herencia).
+
+\textbf{Abstract Factory:} Cumplimiento excelente. Cualquier factory concreto puede sustituir al abstracto.
+
+\textbf{Observer:} Cumplimiento excelente. Cualquier observador concreto puede sustituir a la interfaz.
+
+\subsection{Interface Segregation Principle (ISP)}
+
+\textbf{Singleton:} No aplicable (no usa interfaces).
+
+\textbf{Abstract Factory:} Cumplimiento bueno. Interfaces específicas para creación de repositorios.
+
+\textbf{Observer:} Cumplimiento excelente. Interfaces segregadas para Observer y Subject.
+
+\subsection{Dependency Inversion Principle (DIP)}
+
+\textbf{Singleton:} Cumplimiento bajo. El servicio depende directamente de la clase concreta Singleton.
+
+\textbf{Abstract Factory:} Excelente cumplimiento. El servicio depende de la abstracción (factory abstracto) no de la implementación concreta.
+
+\textbf{Observer:} Excelente cumplimiento. El Subject depende de la interfaz Observer, no de implementaciones concretas.
+
+\section{Testing y Mantenibilidad}
+
+\subsection{Facilidad de Testing Unitario}
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|l|c|p{7cm}|}
+\hline
+\textbf{Patrón} & \textbf{Puntuación} & \textbf{Observaciones} \\
+\hline
+Singleton & 3/10 & Muy difícil. Estado global compartido dificulta aislar tests. Requiere técnicas especiales como reflection. \\
+\hline
+Abstract Factory & 9/10 & Excelente. Fácil inyectar mocks mediante factory de prueba. Testing aislado y limpio. \\
+\hline
+Observer & 8/10 & Muy bueno. Fácil crear observadores mock para verificar notificaciones. Posible aislar Subject. \\
+\hline
+\end{tabular}
+\caption{Evaluación de facilidad para testing unitario}
+\end{table}
+
+\subsection{Facilidad de Debugging}
+
+\textbf{Singleton:} Media. El estado global puede ser conveniente para inspeccionar, pero dificulta rastrear quién modifica los datos.
+
+\textbf{Abstract Factory:} Alta. El flujo de creación es claro y rastreable. Fácil identificar qué factory se está usando.
+
+\textbf{Observer:} Media-Alta. Los logs de observadores ayudan al debugging, pero las cascadas de notificaciones pueden complicar el rastreo.
+
+\subsection{Refactoring y Evolución del Código}
+
+\textbf{Singleton:} Difícil. Migrar de Singleton a otro patrón requiere cambios en todo el código que lo usa.
+
+\textbf{Abstract Factory:} Fácil. Agregar nuevas implementaciones o modificar existentes es straightforward.
+
+\textbf{Observer:} Fácil. Agregar, modificar o remover observadores no afecta al código existente.
+
+\section{Rendimiento y Recursos}
+
+\subsection{Overhead de Memoria}
+
+\begin{itemize}
+    \item \textbf{Singleton:} Mínimo. Solo una instancia en memoria durante toda la ejecución.
+    \item \textbf{Abstract Factory:} Bajo. Una instancia del factory más las instancias creadas (similar a uso normal).
+    \item \textbf{Observer:} Medio. Lista de observadores más instancias de cada observador concreto.
+\end{itemize}
+
+\subsection{Overhead de Procesamiento}
+
+\begin{itemize}
+    \item \textbf{Singleton:} Mínimo. Acceso directo mediante método estático.
+    \item \textbf{Abstract Factory:} Bajo. Llamada adicional al factory durante la creación.
+    \item \textbf{Observer:} Medio-Alto. Iteración sobre observadores y llamadas a métodos de notificación en cada evento.
+\end{itemize}
+
+\subsection{Optimizaciones Posibles}
+
+\textbf{Singleton:} Lazy initialization, double-checked locking para thread-safety.
+
+\textbf{Abstract Factory:} Caché de instancias creadas, factories con pools de objetos.
+
+\textbf{Observer:} Notificaciones asíncronas, observadores selectivos por tipo de evento, weak references para prevenir memory leaks.
+
+\section{Combinación de Patrones}
+
+Los tres patrones no son mutuamente excluyentes y pueden combinarse efectivamente:
+
+\subsection{Singleton + Observer}
+El repositorio puede ser Singleton para garantizar una única instancia Y Observer para notificar cambios. Esto combina consistencia de datos con capacidad de reacción.
+
+\subsection{Abstract Factory + Observer}
+El factory puede crear repositorios que implementan el patrón Observer. Diferentes factories podrían crear repositorios con diferentes estrategias de notificación.
+
+\subsection{Implementación Ideal para el Proyecto}
+Para un sistema CRUD completo y profesional, la combinación óptima sería:
+\begin{itemize}
+    \item \textbf{Abstract Factory:} Para crear repositorios (flexibilidad de implementación)
+    \item \textbf{Observer:} En el repositorio para notificar eventos (logging, auditoría)
+    \item \textbf{Sin Singleton:} Usar inyección de dependencias en su lugar
+\end{itemize}
+
+\section{Recomendaciones por Contexto}
+
+\subsection{Para Proyectos Pequeños (< 10 clases)}
+\textbf{Recomendación:} Singleton o implementación directa sin patrón.
+
+\textbf{Justificación:} La simplicidad es más valiosa que la flexibilidad. Abstract Factory y Observer añaden complejidad innecesaria.
+
+\subsection{Para Proyectos Medianos (10-50 clases)}
+\textbf{Recomendación:} Abstract Factory + Observer selectivo.
+
+\textbf{Justificación:} La extensibilidad comienza a ser importante. El Factory facilita testing y cambios futuros. Observer para funcionalidades críticas como auditoría.
+
+\subsection{Para Proyectos Grandes (> 50 clases)}
+\textbf{Recomendación:} Abstract Factory + Observer + Inyección de Dependencias.
+
+\textbf{Justificación:} La arquitectura sólida es crucial. Evitar Singleton en favor de DI frameworks. Usar extensivamente Factory y Observer para modularidad.
+
+\subsection{Para Sistemas Distribuidos}
+\textbf{Recomendación:} Evitar Singleton. Usar Abstract Factory + Observer con implementaciones distribuidas.
+
+\textbf{Justificación:} Singleton no funciona en entornos distribuidos. Factory permite crear repositorios distribuidos. Observer puede usar sistemas de mensajería (Kafka, RabbitMQ).
+
+\section{Lecciones Aprendidas}
+
+\subsection{Del Patrón Singleton}
+\begin{itemize}
+    \item La simplicidad es valiosa, pero puede convertirse en deuda técnica
+    \item El estado global facilita el desarrollo inicial pero complica el testing
+    \item Útil para prototipos y MVPs, pero considerar alternativas para producción
+    \item Excelente para configuraciones y recursos verdaderamente únicos
+\end{itemize}
+
+\subsection{Del Patrón Abstract Factory}
+\begin{itemize}
+    \item La inversión inicial en abstracciones paga dividendos a largo plazo
+    \item Facilita enormemente cambios de tecnología (de memoria a BD)
+    \item El testing se vuelve trivial con la capacidad de inyectar mocks
+    \item La complejidad adicional está justificada en sistemas que evolucionarán
+\end{itemize}
+
+\subsection{Del Patrón Observer}
+\begin{itemize}
+    \item La comunicación desacoplada es poderosa para extensibilidad
+    \item Permite agregar funcionalidades (logging, auditoría) sin tocar código existente
+    \item Requiere disciplina para evitar cascadas de notificaciones complejas
+    \item Ideal para sistemas reactivos y event-driven architectures
+\end{itemize}
+
+\section{Conclusiones}
+
+\begin{enumerate}
+    \item \textbf{Singleton vs Factory - Problema que resuelven:} Singleton resuelve control de instanciación garantizando una única instancia, mientras Factory resuelve acoplamiento directo permitiendo flexibilidad en la creación. Para un CRUD evolutivo, Factory es superior al facilitar migración entre implementaciones (memoria → BD) sin modificar el servicio.
+    
+    \item \textbf{Factory vs Observer - Capa de utilización:} Factory opera entre capas de Negocio y Datos como puente de creación, mientras Observer opera dentro de la capa de Datos con configuración en Presentación. Son complementarios: Factory decide QUÉ crear, Observer determina QUIÉN es notificado de cambios. Su combinación proporciona máxima flexibilidad arquitectónica.
+    
+    \item \textbf{Los tres patrones - Influencia en mantenimiento:} Singleton dificulta testing y extensión pero simplifica acceso. Factory facilita testing y cambios de implementación cumpliendo Open/Closed. Observer permite agregar comportamientos reactivos sin modificar código existente. Para mantenibilidad a largo plazo, Factory + Observer superan a Singleton, justificando su mayor complejidad inicial.
+    
+    \item \textbf{Prevención de fallas y selección de patrón:} Singleton previene inconsistencias de múltiples instancias pero crea acoplamiento global. Factory previene acoplamiento fuerte y violaciones de DIP facilitando arquitecturas limpias. Observer previene acoplamiento entre emisores y receptores de eventos promoviendo extensibilidad. La selección debe basarse en: proyecto pequeño → Singleton, proyecto evolutivo → Factory, sistema con auditoría/logging → Observer, sistema empresarial → Factory + Observer.
+\end{enumerate}
+
+\section{Recomendaciones Finales}
+
+\begin{enumerate}
+    \item \textbf{Evaluar el contexto antes de elegir:} No existe un patrón universalmente superior. Singleton es apropiado para prototipos y configuraciones simples. Factory es ideal cuando se prevén cambios de implementación. Observer es necesario para sistemas reactivos con auditoría y logging.
+    
+    \item \textbf{Combinar patrones estratégicamente:} Los patrones no son mutuamente excluyentes. Una arquitectura robusta puede beneficiarse de Factory para creación flexible + Observer para notificaciones + evitar Singleton en favor de inyección de dependencias, obteniendo lo mejor de cada enfoque.
+    
+    \item \textbf{Priorizar testing y mantenibilidad:} En proyectos empresariales, la facilidad de testing debe ser un criterio primordial. Factory y Observer facilitan testing unitario mediante inyección de mocks, mientras que Singleton lo dificulta significativamente. El costo inicial de abstracción se recupera rápidamente en mantenimiento.
+    
+    \item \textbf{Prepararse para evolución:} Los sistemas de software evolucionan inevitablemente. Usar Factory desde el inicio permite migrar de almacenamiento en memoria a archivos o base de datos sin refactoring masivo. Implementar Observer tempranamente facilita agregar auditoría, métricas y notificaciones cuando los requisitos cambien, evitando reescrituras costosas.
+\end{enumerate}
+
+\section{Referencias}
+
+\begin{itemize}
+    \item Gamma, E., Helm, R., Johnson, R., \& Vlissides, J. (1994). \textit{Design Patterns: Elements of Reusable Object-Oriented Software}. Addison-Wesley.
+    \item Martin, R. C. (2017). \textit{Clean Architecture: A Craftsman's Guide to Software Structure and Design}. Prentice Hall.
+    \item Freeman, E., \& Robson, E. (2020). \textit{Head First Design Patterns}. O'Reilly Media.
+    \item Fowler, M. (2018). \textit{Refactoring: Improving the Design of Existing Code}. Addison-Wesley Professional.
+    \item Oracle Corporation. (2024). \textit{Java Platform, Standard Edition Documentation}.
+\end{itemize}
+
+\subsection{Información del Proyecto}
+\begin{itemize}
+    \item \textbf{Institución:} Escuela Politécnica del Ejército (ESPE)
+    \item \textbf{Asignatura:} Arquitectura de Software
+    \item \textbf{Taller:} U2T4 - Análisis Comparativo de Patrones de Diseño
+    \item \textbf{Grupo:} G6
+    \item \textbf{Integrantes:} Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez
+    \item \textbf{Fecha:} Noviembre 2025
+\end{itemize}
+
+\end{document}
