@@ -1,0 +1,38 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Introduccion}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Proposito}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Alcance}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Documentos de Referencia}{2}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Objetivos de las Pruebas}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Objetivos Generales}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Criterios de Exito}{3}{subsection.2.2}%
+\contentsline {section}{\numberline {3}Estrategia de Pruebas}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Niveles de Prueba}{3}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Pruebas Unitarias}{3}{subsubsection.3.1.1}%
+\contentsline {subsubsection}{\numberline {3.1.2}Pruebas de Integracion}{3}{subsubsection.3.1.2}%
+\contentsline {subsubsection}{\numberline {3.1.3}Pruebas Funcionales}{3}{subsubsection.3.1.3}%
+\contentsline {subsection}{\numberline {3.2}Tipos de Prueba}{3}{subsection.3.2}%
+\contentsline {section}{\numberline {4}Casos de Prueba}{4}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Modulo: ProductoController}{4}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Modulo: NutricionalService (CRITICO)}{4}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Modulo: PedidoController}{4}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Modulo: MezclaController}{5}{subsection.4.4}%
+\contentsline {subsection}{\numberline {4.5}Modulo: LogObserver (Patron Observer)}{5}{subsection.4.5}%
+\contentsline {subsection}{\numberline {4.6}Frontend: Componentes React}{6}{subsection.4.6}%
+\contentsline {section}{\numberline {5}Priorizacion de Casos de Prueba}{6}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Prioridad Critica}{6}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Prioridad Alta}{6}{subsection.5.2}%
+\contentsline {subsection}{\numberline {5.3}Prioridad Media}{7}{subsection.5.3}%
+\contentsline {section}{\numberline {6}Recursos y Responsabilidades}{7}{section.6}%
+\contentsline {subsection}{\numberline {6.1}Equipo de Pruebas}{7}{subsection.6.1}%
+\contentsline {subsection}{\numberline {6.2}Entorno de Pruebas}{7}{subsection.6.2}%
+\contentsline {section}{\numberline {7}Cronograma de Pruebas}{7}{section.7}%
+\contentsline {section}{\numberline {8}Criterios de Aceptacion}{8}{section.8}%
+\contentsline {subsection}{\numberline {8.1}Criterios de Entrada}{8}{subsection.8.1}%
+\contentsline {subsection}{\numberline {8.2}Criterios de Salida}{8}{subsection.8.2}%
+\contentsline {section}{\numberline {9}Gestion de Defectos}{8}{section.9}%
+\contentsline {subsection}{\numberline {9.1}Clasificacion de Severidad}{8}{subsection.9.1}%
+\contentsline {subsection}{\numberline {9.2}Proceso de Reporte}{8}{subsection.9.2}%
+\contentsline {section}{\numberline {10}Entregables}{9}{section.10}%
+\contentsline {section}{\numberline {11}Riesgos y Mitigacion}{9}{section.11}%
+\contentsline {section}{\numberline {12}Conclusiones}{9}{section.12}%

@@ -1,0 +1,501 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+\geometry{margin=2.5cm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Plan de Pruebas - Kairos Mix}
+\fancyhead[R]{27837\_G6\_ADS}
+\fancyfoot[C]{\thepage}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries Plan de Pruebas\par}
+    \vspace{0.5cm}
+    {\Large Sistema Kairos Mix\par}
+    \vspace{1cm}
+    {\large Tienda de frutos secos "Kairos de Dios"\par}
+    
+    \vspace{2cm}
+    
+    \begin{tabular}{ll}
+        \textbf{Proyecto:} & Kairos Mix \\
+        \textbf{Codigo ECS:} & PP \\
+        \textbf{Version:} & 1.0.0 \\
+        \textbf{Fecha:} & 14 de enero de 2026 \\
+        \textbf{ID Proyecto:} & 27837\_G6\_ADS \\
+    \end{tabular}
+    
+    \vfill
+    
+    \textbf{Equipo de Desarrollo:}\\
+    \vspace{0.5cm}
+    \begin{tabular}{l}
+        Caetano Flores \\
+        Jordan Guaman \\
+        Anthony Morales \\
+        Leonardo Narvaez \\
+    \end{tabular}
+    
+    \vspace{1cm}
+    {\large Enero 2026\par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+\section{Introduccion}
+
+\subsection{Proposito}
+Este documento define el plan de pruebas para el sistema Kairos Mix, un aplicativo web diseñado para digitalizar los procesos de venta, gestion de inventario y pedidos de la tienda de frutos secos "Kairos de Dios", con un diferenciador competitivo: el diseñador de mezclas personalizadas con calculo nutricional automatico.
+
+\subsection{Alcance}
+El plan de pruebas abarca:
+\begin{itemize}
+    \item Pruebas unitarias de componentes individuales
+    \item Pruebas de integracion entre capas del sistema
+    \item Pruebas funcionales de casos de uso
+    \item Pruebas del diferenciador: NutricionalService
+    \item Pruebas de seguridad y auditoria (LogObserver)
+\end{itemize}
+
+\subsection{Documentos de Referencia}
+\begin{itemize}
+    \item SRS - Especificacion de Requisitos de Software (G6\_SRS\_KairosMix.pdf)
+    \item DCD - Diagrama de Clases de Diseño (ClassDiagKairo\_G6\_V2.pdf)
+    \item ECU - Especificacion de Casos de Uso (G6\_CasosDeUso.pdf)
+    \item DAS - Descripcion de Arquitectura (Arquitectura\_G6\_V2.pdf)
+\end{itemize}
+
+\section{Objetivos de las Pruebas}
+
+\subsection{Objetivos Generales}
+\begin{enumerate}
+    \item Verificar que todos los requisitos funcionales estan correctamente implementados
+    \item Validar la precision del algoritmo de calculo nutricional (componente critico)
+    \item Garantizar la integridad de los datos en todas las operaciones CRUD
+    \item Asegurar el correcto funcionamiento del patron Observer para auditoria
+    \item Validar la comunicacion entre las 3 capas del sistema
+\end{enumerate}
+
+\subsection{Criterios de Exito}
+\begin{itemize}
+    \item Cobertura de codigo $\geq$ 80\%
+    \item 0 defectos criticos en produccion
+    \item Precision del calculo nutricional: 100\% exactitud
+    \item Todos los casos de prueba de alta prioridad ejecutados exitosamente
+    \item Registro correcto de logs para operaciones criticas
+\end{itemize}
+
+\section{Estrategia de Pruebas}
+
+\subsection{Niveles de Prueba}
+
+\subsubsection{Pruebas Unitarias}
+\textbf{Objetivo:} Validar componentes individuales de forma aislada.
+
+\textbf{Herramientas:}
+\begin{itemize}
+    \item Backend (Node.js): Jest / Mocha
+    \item Frontend (React): Jest + React Testing Library
+\end{itemize}
+
+\textbf{Responsable:} Cada desarrollador prueba sus propios componentes.
+
+\subsubsection{Pruebas de Integracion}
+\textbf{Objetivo:} Verificar la comunicacion entre modulos y capas.
+
+\textbf{Enfoque:} Pruebas de API REST, integracion con base de datos MySQL.
+
+\subsubsection{Pruebas Funcionales}
+\textbf{Objetivo:} Validar que el sistema cumple con los casos de uso definidos.
+
+\textbf{Basadas en:} Especificacion de Casos de Uso (ECU).
+
+\subsection{Tipos de Prueba}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|p{6cm}|}
+\hline
+\textbf{Tipo} & \textbf{Nivel} & \textbf{Descripcion} \\
+\hline
+Funcionales & Unitaria & Validacion de logica de negocio \\
+\hline
+Integracion & Integracion & Comunicacion entre capas \\
+\hline
+Regresion & Unitaria/Integracion & Verificar que nuevos cambios no rompen funcionalidad existente \\
+\hline
+Seguridad & Unitaria & Validacion de entradas, registro de logs \\
+\hline
+Performance & Sistema & Tiempo de respuesta del calculo nutricional \\
+\hline
+\end{tabular}
+\caption{Tipos de prueba a ejecutar}
+\end{table}
+
+\section{Casos de Prueba}
+
+\subsection{Modulo: ProductoController}
+
+\begin{longtable}{|p{2.5cm}|p{4cm}|p{4cm}|p{3cm}|}
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Entrada} & \textbf{Resultado Esperado} \\
+\hline
+\endfirsthead
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Entrada} & \textbf{Resultado Esperado} \\
+\hline
+\endhead
+
+TC-PR-001 & Crear producto con datos validos & nombre, categoria, precio, stock & Producto creado, status 201 \\
+\hline
+TC-PR-002 & Crear producto sin nombre & categoria, precio, stock & Error de validacion, status 400 \\
+\hline
+TC-PR-003 & Actualizar precio de producto & idProducto, nuevoPrecio & Precio actualizado correctamente \\
+\hline
+TC-PR-004 & Eliminar producto existente & idProducto & Producto eliminado, status 200 \\
+\hline
+TC-PR-005 & Consultar stock de producto & idProducto & Valor de stock correcto \\
+\hline
+\caption{Casos de prueba - ProductoController}
+\end{longtable}
+
+\subsection{Modulo: NutricionalService (CRITICO)}
+
+\begin{longtable}{|p{2.5cm}|p{4cm}|p{4cm}|p{3cm}|}
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Entrada} & \textbf{Resultado Esperado} \\
+\hline
+\endfirsthead
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Entrada} & \textbf{Resultado Esperado} \\
+\hline
+\endhead
+
+TC-NS-001 & Calcular calorias totales de mezcla & ingredientes con valores nutricionales, proporciones & Suma exacta de calorias \\
+\hline
+TC-NS-002 & Calcular proteinas basadas en proporciones & 50\% Almendras (20g prot), 50\% Nueces (15g prot) & 17.5g proteinas totales \\
+\hline
+TC-NS-003 & Calcular precio total de mezcla & Ingrediente A (\$10, 40\%), Ingrediente B (\$15, 60\%) & \$13.00 total \\
+\hline
+TC-NS-004 & Validar suma de porcentajes = 100\% & proporciones: 30\%, 40\%, 20\% & Error: suma != 100\% \\
+\hline
+TC-NS-005 & Calcular grasas de mezcla compleja & 3 ingredientes con diferentes valores & Calculo correcto ponderado \\
+\hline
+TC-NS-006 & Calcular carbohidratos & ingredientes, proporciones & Suma ponderada correcta \\
+\hline
+TC-NS-007 & Verificar precision decimal & valores con decimales & Precision hasta 2 decimales \\
+\hline
+\caption{Casos de prueba - NutricionalService (COMPONENTE CRITICO)}
+\end{longtable}
+
+\subsection{Modulo: PedidoController}
+
+\begin{longtable}{|p{2.5cm}|p{4cm}|p{4cm}|p{3cm}|}
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Entrada} & \textbf{Resultado Esperado} \\
+\hline
+\endfirsthead
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Entrada} & \textbf{Resultado Esperado} \\
+\hline
+\endhead
+
+TC-PE-001 & Crear pedido con estado inicial & cliente, productos & Estado = "Por preparar" \\
+\hline
+TC-PE-002 & Transicion valida de estados & estado actual: "Por preparar", nuevo: "Preparado" & Cambio exitoso \\
+\hline
+TC-PE-003 & Transicion invalida de estados & estado actual: "Entregado", nuevo: "Por preparar" & Error: transicion no permitida \\
+\hline
+TC-PE-004 & Calcular total del pedido & lista de productos con precios & Suma correcta del total \\
+\hline
+TC-PE-005 & Generar reporte de pedido & idPedido & Reporte con datos completos \\
+\hline
+\caption{Casos de prueba - PedidoController}
+\end{longtable}
+
+\subsection{Modulo: MezclaController}
+
+\begin{longtable}{|p{2.5cm}|p{4cm}|p{4cm}|p{3cm}|}
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Entrada} & \textbf{Resultado Esperado} \\
+\hline
+\endfirsthead
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Entrada} & \textbf{Resultado Esperado} \\
+\hline
+\endhead
+
+TC-MZ-001 & Crear mezcla personalizada & nombre, ingredientes, proporciones & Mezcla creada \\
+\hline
+TC-MZ-002 & Agregar ingrediente a mezcla & idMezcla, idIngrediente, proporcion & Ingrediente agregado \\
+\hline
+TC-MZ-003 & Invocar calculo nutricional & idMezcla & Valores nutricionales calculados \\
+\hline
+TC-MZ-004 & Guardar mezcla como pedido & idMezcla, idCliente & Pedido creado desde mezcla \\
+\hline
+\caption{Casos de prueba - MezclaController}
+\end{longtable}
+
+\subsection{Modulo: LogObserver (Patron Observer)}
+
+\begin{longtable}{|p{2.5cm}|p{4cm}|p{4cm}|p{3cm}|}
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Entrada} & \textbf{Resultado Esperado} \\
+\hline
+\endfirsthead
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Entrada} & \textbf{Resultado Esperado} \\
+\hline
+\endhead
+
+TC-LO-001 & Registrar creacion de producto & ProductoController.crear() & Log generado con timestamp \\
+\hline
+TC-LO-002 & Registrar cambio de estado de pedido & PedidoController.cambiarEstado() & Log con estado anterior y nuevo \\
+\hline
+TC-LO-003 & Registrar eliminacion de producto & ProductoController.eliminar() & Log con datos del producto eliminado \\
+\hline
+TC-LO-004 & Verificar formato de log & cualquier operacion critica & JSON con entidad, operacion, usuario, timestamp \\
+\hline
+\caption{Casos de prueba - LogObserver}
+\end{longtable}
+
+\subsection{Frontend: Componentes React}
+
+\begin{longtable}{|p{2.5cm}|p{4cm}|p{4cm}|p{3cm}|}
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Entrada} & \textbf{Resultado Esperado} \\
+\hline
+\endfirsthead
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Entrada} & \textbf{Resultado Esperado} \\
+\hline
+\endhead
+
+TC-UI-001 & Renderizar lista de productos & array de productos & Productos mostrados en pantalla \\
+\hline
+TC-UI-002 & Validar formulario de producto & campos vacios & Mensajes de error visibles \\
+\hline
+TC-UI-003 & Diseñador de mezclas - agregar ingrediente & click en ingrediente & Ingrediente aparece en lista de seleccion \\
+\hline
+TC-UI-004 & Mostrar valores nutricionales & mezcla calculada & Tabla nutricional visible \\
+\hline
+TC-UI-005 & Cambiar estado de pedido & click en boton de estado & Estado actualizado en UI \\
+\hline
+\caption{Casos de prueba - Componentes Frontend}
+\end{longtable}
+
+\section{Priorizacion de Casos de Prueba}
+
+\subsection{Prioridad Critica}
+\begin{itemize}
+    \item \textbf{TC-NS-001 a TC-NS-007:} Calculo nutricional (diferenciador del sistema)
+    \item \textbf{TC-PR-001:} Crear producto
+    \item \textbf{TC-PE-001, TC-PE-002:} Gestion de pedidos y estados
+    \item \textbf{TC-LO-001 a TC-LO-004:} Auditoria y seguridad
+\end{itemize}
+
+\subsection{Prioridad Alta}
+\begin{itemize}
+    \item \textbf{TC-MZ-001 a TC-MZ-004:} Diseñador de mezclas
+    \item \textbf{TC-PR-003, TC-PR-005:} Operaciones CRUD de productos
+    \item \textbf{TC-UI-003, TC-UI-004:} UI del diseñador de mezclas
+\end{itemize}
+
+\subsection{Prioridad Media}
+\begin{itemize}
+    \item \textbf{TC-PR-002, TC-PR-004:} Validaciones y eliminaciones
+    \item \textbf{TC-PE-003, TC-PE-004, TC-PE-005:} Funciones adicionales de pedidos
+    \item \textbf{TC-UI-001, TC-UI-002, TC-UI-005:} Componentes UI generales
+\end{itemize}
+
+\section{Recursos y Responsabilidades}
+
+\subsection{Equipo de Pruebas}
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Rol} & \textbf{Responsable} \\
+\hline
+Lider de Pruebas & Caetano Flores \\
+\hline
+Tester Backend & Jordan Guaman \\
+\hline
+Tester Frontend & Anthony Morales \\
+\hline
+Tester de Integracion & Leonardo Narvaez \\
+\hline
+\end{tabular}
+\caption{Equipo de pruebas}
+\end{table}
+
+\subsection{Entorno de Pruebas}
+\begin{itemize}
+    \item \textbf{Sistema Operativo:} Windows
+    \item \textbf{Backend:} Node.js v18+
+    \item \textbf{Frontend:} React 18+
+    \item \textbf{Base de Datos:} MySQL 8.0 (instancia de prueba)
+    \item \textbf{Framework de Pruebas:} Jest, Mocha, React Testing Library
+    \item \textbf{CI/CD:} GitHub Actions (opcional)
+\end{itemize}
+
+\section{Cronograma de Pruebas}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Fase} & \textbf{Duracion} & \textbf{Actividades} \\
+\hline
+Preparacion & Semana 1 & Configuracion de entorno, preparacion de datos \\
+\hline
+Pruebas Unitarias & Semana 2-3 & Ejecucion de TC-PR, TC-NS, TC-PE, TC-MZ \\
+\hline
+Pruebas de Integracion & Semana 4 & Pruebas de API y base de datos \\
+\hline
+Pruebas Funcionales & Semana 5 & Validacion de casos de uso completos \\
+\hline
+Pruebas de Regresion & Semana 6 & Re-ejecucion de casos criticos \\
+\hline
+Reporte Final & Semana 6 & Documentacion de resultados \\
+\hline
+\end{tabular}
+\caption{Cronograma de pruebas}
+\end{table}
+
+\section{Criterios de Aceptacion}
+
+\subsection{Criterios de Entrada}
+\begin{itemize}
+    \item Codigo fuente completo y desplegado en entorno de pruebas
+    \item Base de datos configurada con datos de prueba
+    \item Documentacion de diseño disponible (DCD, DAS, ECU)
+    \item Herramientas de prueba instaladas y configuradas
+\end{itemize}
+
+\subsection{Criterios de Salida}
+\begin{itemize}
+    \item Todos los casos de prueba de prioridad critica ejecutados exitosamente
+    \item 0 defectos criticos abiertos
+    \item Cobertura de codigo $\geq$ 80\%
+    \item Reporte de pruebas completo y aprobado
+    \item Precision del NutricionalService validada al 100\%
+\end{itemize}
+
+\section{Gestion de Defectos}
+
+\subsection{Clasificacion de Severidad}
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|p{8cm}|}
+\hline
+\textbf{Severidad} & \textbf{Descripcion} \\
+\hline
+Critico & Sistema no funcional, calculo nutricional incorrecto, perdida de datos \\
+\hline
+Alta & Funcionalidad principal afectada, workaround complicado \\
+\hline
+Media & Funcionalidad secundaria afectada, workaround disponible \\
+\hline
+Baja & Problemas cosmeticos o de UI \\
+\hline
+\end{tabular}
+\caption{Niveles de severidad}
+\end{table}
+
+\subsection{Proceso de Reporte}
+\begin{enumerate}
+    \item Deteccion del defecto durante prueba
+    \item Registro en sistema de seguimiento (carpeta 1.8 Reportes de errores)
+    \item Asignacion a desarrollador responsable
+    \item Correccion del defecto
+    \item Re-prueba y verificacion
+    \item Cierre del defecto
+\end{enumerate}
+
+\section{Entregables}
+
+\begin{enumerate}
+    \item Plan de Pruebas (este documento)
+    \item Casos de Prueba Detallados (ECP)
+    \item Scripts de prueba automatizadas
+    \item Reporte de Ejecucion de Pruebas
+    \item Reporte de Defectos
+    \item Reporte de Cobertura de Codigo
+    \item Informe Final de Pruebas
+\end{enumerate}
+
+\section{Riesgos y Mitigacion}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|p{5cm}|p{5cm}|p{3cm}|}
+\hline
+\textbf{Riesgo} & \textbf{Impacto} & \textbf{Mitigacion} \\
+\hline
+Error en algoritmo de calculo nutricional & Critico - Funcionalidad principal incorrecta & Pruebas exhaustivas con datos reales, validacion matematica \\
+\hline
+Falta de datos de prueba & Alto - Retraso en pruebas & Preparar dataset de prueba con anticipacion \\
+\hline
+Cambios de requisitos durante pruebas & Medio - Re-trabajo & Congelar requisitos antes de inicio de pruebas \\
+\hline
+Falta de tiempo para pruebas completas & Alto - Pruebas incompletas & Priorizar casos criticos primero \\
+\hline
+\end{tabular}
+\caption{Riesgos y mitigacion}
+\end{table}
+
+\section{Conclusiones}
+
+Este plan de pruebas asegura la calidad del sistema Kairos Mix mediante:
+
+\begin{itemize}
+    \item Cobertura exhaustiva de todos los modulos criticos
+    \item Enfasis especial en el diferenciador: NutricionalService
+    \item Validacion de seguridad mediante LogObserver
+    \item Pruebas de integracion entre las 3 capas del sistema
+    \item Proceso estructurado de gestion de defectos
+\end{itemize}
+
+La ejecucion exitosa de este plan garantizara un sistema robusto, confiable y listo para produccion.
+
+\vfill
+
+\begin{center}
+\begin{tabular}{ccc}
+\rule{5cm}{0.5pt} & \hspace{1cm} & \rule{5cm}{0.5pt} \\
+Caetano Flores & & Jordan Guaman \\
+Lider de Pruebas & & Tester Backend \\
+\\
+\\
+\rule{5cm}{0.5pt} & \hspace{1cm} & \rule{5cm}{0.5pt} \\
+Anthony Morales & & Leonardo Narvaez \\
+Tester Frontend & & Tester de Integracion \\
+\end{tabular}
+\end{center}
+
+\end{document}
