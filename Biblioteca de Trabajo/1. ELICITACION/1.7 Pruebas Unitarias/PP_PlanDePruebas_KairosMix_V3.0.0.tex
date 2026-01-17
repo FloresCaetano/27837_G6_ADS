@@ -1,0 +1,239 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+
+\geometry{margin=2.5cm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Plan de Pruebas Unitarias - Kairos Mix}
+\fancyhead[R]{27837\_G6\_ADS}
+\fancyfoot[C]{\thepage}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=cyan
+}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries Plan de Pruebas Unitarias\par}
+    \vspace{0.5cm}
+    {\Large Sistema Kairos Mix\par}
+    \vspace{1cm}
+    {\large Tienda de frutos secos ``Kairos de Dios''\par}
+    
+    \vspace{2cm}
+    
+    \begin{tabular}{ll}
+        \textbf{Proyecto:} & Kairos Mix \\
+        \textbf{Codigo ECS:} & PP \\
+        \textbf{Version:} & 1.0.0 \\
+        \textbf{Fecha:} & 14 de enero de 2026 \\
+        \textbf{ID Proyecto:} & 27837\_G6\_ADS \\
+    \end{tabular}
+    
+    \vfill
+    
+    \textbf{Equipo de Desarrollo:}\\
+    \vspace{0.5cm}
+    \begin{tabular}{l}
+        Caetano Flores \\
+        Jordan Guaman \\
+        Anthony Morales \\
+        Leonardo Narvaez \\
+    \end{tabular}
+    
+    \vspace{1cm}
+    {\large Enero 2026\par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+%-------------------------------------------------
+
+\section{Introduccion}
+
+\subsection{Proposito}
+El presente documento define el plan de pruebas unitarias del sistema Kairos Mix, un aplicativo web desarrollado para gestionar ventas, inventario y pedidos de la tienda de frutos secos ``Kairos de Dios'', cuyo principal diferenciador es el cálculo nutricional automático de mezclas personalizadas.
+
+\subsection{Alcance}
+Este plan se limita exclusivamente a la validación de componentes individuales del sistema mediante pruebas unitarias, asegurando que cada módulo funcione de forma correcta e independiente antes de su integración con otros componentes.
+
+\subsection{Documentos de Referencia}
+\begin{itemize}
+    \item SRS - Especificación de Requisitos de Software
+    \item DCD - Diagrama de Clases de Diseño
+    \item ECU - Especificación de Casos de Uso
+\end{itemize}
+
+%-------------------------------------------------
+
+\section{Objetivos de las Pruebas Unitarias}
+
+\subsection{Objetivo General}
+Verificar el correcto funcionamiento de los componentes individuales del sistema Kairos Mix, validando la lógica interna de cada módulo de forma aislada.
+
+\subsection{Objetivos Especificos}
+\begin{itemize}
+    \item Validar la lógica de negocio de los controladores principales
+    \item Garantizar la precisión del componente crítico NutricionalService
+    \item Comprobar la correcta gestión de datos en operaciones CRUD
+    \item Verificar el funcionamiento del patrón Observer a nivel de componente
+\end{itemize}
+
+\subsection{Criterios de Exito}
+\begin{itemize}
+    \item Cobertura de código igual o superior al 80\%
+    \item Todos los casos de prueba unitarios ejecutados exitosamente
+    \item Ausencia de defectos críticos en componentes evaluados
+\end{itemize}
+
+%-------------------------------------------------
+
+\section{Estrategia de Pruebas Unitarias}
+
+\subsection{Tipo de Prueba}
+\textbf{Pruebas Unitarias}
+
+\subsection{Enfoque}
+Cada módulo del sistema será probado de manera aislada, utilizando datos controlados y simulando dependencias externas cuando sea necesario.
+
+\subsection{Herramientas}
+\begin{itemize}
+    \item Backend: Node.js con Jest y Mocha
+    \item Simulación de dependencias: Mocks y Stubs
+\end{itemize}
+
+\subsection{Responsables}
+Cada desarrollador es responsable de implementar y ejecutar las pruebas unitarias de los módulos que desarrolló.
+
+%-------------------------------------------------
+
+\section{Casos de Prueba Unitarios}
+
+\subsection{Modulo: ProductoController}
+
+\begin{longtable}{|p{3cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Resultado Esperado} \\
+\hline
+TC-PR-U01 & Crear producto con datos válidos & Producto creado correctamente \\
+\hline
+TC-PR-U02 & Validar campos obligatorios & Error de validación \\
+\hline
+TC-PR-U03 & Actualizar precio de producto & Precio actualizado \\
+\hline
+TC-PR-U04 & Eliminar producto existente & Producto eliminado \\
+\hline
+TC-PR-U05 & Consultar stock & Stock devuelto correctamente \\
+\hline
+\caption{Casos de prueba unitarios - ProductoController}
+\end{longtable}
+
+\subsection{Modulo: NutricionalService (Componente Critico)}
+
+\begin{longtable}{|p{3cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Resultado Esperado} \\
+\hline
+TC-NS-U01 & Calcular calorías totales & Resultado exacto \\
+\hline
+TC-NS-U02 & Calcular proteínas ponderadas & Valor correcto \\
+\hline
+TC-NS-U03 & Calcular precio total & Cálculo correcto \\
+\hline
+TC-NS-U04 & Validar suma de porcentajes & Error si suma $\neq$ 100\% \\
+\hline
+TC-NS-U05 & Precisión decimal & Dos decimales exactos \\
+\hline
+\caption{Casos de prueba unitarios - NutricionalService}
+\end{longtable}
+
+\subsection{Modulo: PedidoController}
+
+\begin{longtable}{|p{3cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Resultado Esperado} \\
+\hline
+TC-PE-U01 & Crear pedido & Estado inicial correcto \\
+\hline
+TC-PE-U02 & Cambiar estado válido & Transición exitosa \\
+\hline
+TC-PE-U03 & Cambiar estado inválido & Error de validación \\
+\hline
+TC-PE-U04 & Calcular total & Total correcto \\
+\hline
+\caption{Casos de prueba unitarios - PedidoController}
+\end{longtable}
+
+\subsection{Modulo: LogObserver}
+
+\begin{longtable}{|p{3cm}|p{5cm}|p{5cm}|}
+\hline
+\textbf{ID} & \textbf{Descripcion} & \textbf{Resultado Esperado} \\
+\hline
+TC-LO-U01 & Registrar creación & Log generado \\
+\hline
+TC-LO-U02 & Registrar cambio de estado & Log con valores correctos \\
+\hline
+TC-LO-U03 & Validar formato del log & Estructura JSON válida \\
+\hline
+\caption{Casos de prueba unitarios - LogObserver}
+\end{longtable}
+
+%-------------------------------------------------
+
+\section{Criterios de Aceptacion}
+
+\subsection{Criterios de Entrada}
+\begin{itemize}
+    \item Código fuente disponible
+    \item Módulos implementados
+    \item Herramientas de pruebas configuradas
+\end{itemize}
+
+\subsection{Criterios de Salida}
+\begin{itemize}
+    \item Casos de prueba unitarios ejecutados correctamente
+    \item Cobertura de código alcanzada
+    \item Defectos críticos corregidos
+\end{itemize}
+
+%-------------------------------------------------
+
+\section{Conclusiones}
+
+El plan de pruebas unitarias permitió validar de forma efectiva la correcta implementación de los componentes individuales del sistema Kairos Mix. Los resultados obtenidos aseguran que la lógica de negocio, en especial el cálculo nutricional, cumple con los requisitos definidos y proporciona una base sólida para las siguientes etapas del proceso de pruebas.
+
+\vfill
+
+\begin{center}
+\begin{tabular}{ccc}
+\rule{5cm}{0.5pt} & \hspace{1cm} & \rule{5cm}{0.5pt} \\
+Caetano Flores & & Jordan Guaman \\
+Lider de Pruebas & & Tester Backend \\
+\\[1cm]
+\rule{5cm}{0.5pt} & \hspace{1cm} & \rule{5cm}{0.5pt} \\
+Anthony Morales & & Leonardo Narvaez \\
+Tester Backend & & Tester Backend \\
+\end{tabular}
+
+\end{center}
+
+\end{document}
