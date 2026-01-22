@@ -1,0 +1,287 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{float}
+
+\geometry{margin=2.5cm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Plan de Pruebas Unitarias - Kairos Mix}
+\fancyhead[R]{27837\_G6\_ADS}
+\fancyfoot[C]{\thepage}
+
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=cyan
+}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{2cm}
+    
+    {\Huge\bfseries Plan de Pruebas Unitarias\par}
+    \vspace{0.5cm}
+    {\Large Sistema Kairos Mix\par}
+    \vspace{1cm}
+    {\large Tienda de frutos secos ``Kairos de Dios''\par}
+    
+    \vspace{2cm}
+    
+    \begin{tabular}{ll}
+        \textbf{Proyecto:} & Kairos Mix \\
+        \textbf{Codigo ECS:} & PP \\
+        \textbf{Version:} & 4.0.0 \\
+        \textbf{Fecha:} & 22 de enero de 2026 \\
+        \textbf{ID Proyecto:} & 27837\_G6\_ADS \\
+    \end{tabular}
+    
+    \vfill
+    
+    \textbf{Equipo de Desarrollo:}\\
+    \vspace{0.5cm}
+    \begin{tabular}{l}
+        Caetano Flores \\
+        Jordan Guaman \\
+        Anthony Morales \\
+        Leonardo Narvaez \\
+    \end{tabular}
+    
+    \vspace{1cm}
+    {\large Enero 2026\par}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+%-------------------------------------------------
+
+\section{Introduccion}
+
+\subsection{Proposito}
+El presente documento define el plan y reporte de resultados de las pruebas unitarias del sistema Kairos Mix. Se detallan los módulos evaluados, los casos de prueba ejecutados y los resultados obtenidos en la validación del código fuente.
+
+\subsection{Alcance}
+Este plan se limita \textbf{exclusivamente} a la validación de componentes individuales del sistema mediante \textbf{pruebas unitarias} automatizadas. El alcance cubre los componentes de gestión de datos, utilidades, y componentes de interfaz definidos en el directorio \texttt{src}.
+
+\subsection{Documentos de Referencia}
+\begin{itemize}
+    \item SRS - Especificación de Requisitos de Software
+    \item Repositorio de Código Fuente (Branch v4.0.17)
+\end{itemize}
+
+%-------------------------------------------------
+
+\section{Objetivos de las Pruebas Unitarias}
+
+\subsection{Objetivo General}
+Verificar la integridad y corrección lógica de los componentes React y funciones de utilidad JavaScript del proyecto Kairos Mix.
+
+\subsection{Objetivos Especificos}
+\begin{itemize}
+    \item Validar las funciones de utilidad (formateo, validación, cálculos).
+    \item Asegurar que los componentes de gestión (Productos, Clientes, Pedidos) funcionen según lo esperado.
+    \item Verificar la lógica del Diseñador de Mezclas (CustomMix).
+    \item Confirmar la integridad de los datos semilla (Seed Data).
+\end{itemize}
+
+%-------------------------------------------------
+
+\section{Estrategia de Pruebas}
+
+\subsection{Herramientas Utilizadas}
+\begin{itemize}
+    \item \textbf{Framework de Pruebas:} Vitest (Compatible con Jest)
+    \item \textbf{Entorno:} JSDOM / Node.js
+    \item \textbf{Librerías Auxiliares:} React Testing Library
+\end{itemize}
+
+\subsection{Resumen de Ejecucion}
+Se han ejecutado un total de \textbf{176 pruebas unitarias} distribuidas en 6 archivos de prueba principales. El tiempo total de ejecución fue de aproximadamente 5.58 segundos.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{|l|c|c|}
+\hline
+\textbf{Archivo de Prueba} & \textbf{Modulo} & \textbf{Estado} \\
+\hline
+src/utils/utils.test.js & Utilidades Generales & \textcolor{green}{PASSED} (33 tests) \\
+\hline
+src/components/CustomMix/ & Diseñador de Mezclas & \textcolor{green}{PASSED} (32 tests) \\
+CustomMixDesigner.test.jsx & & \\
+\hline
+src/components/Orders/ & Gestión de Pedidos & \textcolor{green}{PASSED} (35 tests) \\
+OrderManager.test.jsx & & \\
+\hline
+src/components/Clients/ & Gestión de Clientes & \textcolor{green}{PASSED} (34 tests) \\
+ClientManager.test.jsx & & \\
+\hline
+src/components/Products/ & Gestión de Productos & \textcolor{green}{PASSED} (22 tests) \\
+ProductManager.test.jsx & & \\
+\hline
+src/data/seedData.test.js & Datos Semilla & \textcolor{green}{PASSED} (20 tests) \\
+\hline
+\end{tabular}
+\caption{Resumen de Archivos Probados}
+\end{table}
+
+%-------------------------------------------------
+
+\section{Resultados de Pruebas por Modulo}
+
+\subsection{Modulo: Utilidades (src/utils/utils.test.js)}
+Este módulo contiene funciones críticas transversales a toda la aplicación. Se validaron 33 casos de prueba con éxito.
+
+\begin{longtable}{|p{6cm}|p{7cm}|}
+\hline
+\textbf{Categoría} & \textbf{Validaciones Realizadas} \\
+\hline
+Formateo de fechas & Formato DD/MM/YYYY, agregación de ceros, parseo inverso. \\
+\hline
+Formateo de moneda & Decimales (2), redondeo, separadores de miles. \\
+\hline
+Validaciones comunes & Strings vacíos, null/undefined, arrays vacíos, validación de números y rangos. \\
+\hline
+Generación de IDs & Prefijos, unicidad, integridad del timestamp. \\
+\hline
+Normalización de texto & Conversión a minúsculas, remoción de acentos y espacios. \\
+\hline
+Comparación de objetos & Igualdad profunda, diferencias, manejo de primitivos y nulos. \\
+\hline
+Cálculos de porcentajes & Cálculo exacto, manejo de ceros. \\
+\hline
+Configuración SweetAlert & Diálogos de confirmación y eliminación. \\
+\hline
+Manejo de localStorage & Retorno por defecto, parseo JSON, manejo de errores. \\
+\hline
+\caption{Detalle de pruebas - Utils}
+\end{longtable}
+
+\subsection{Modulo: Gestión de Productos (ProductManager)}
+Se validaron 22 casos de prueba enfocados en la administración del inventario.
+\begin{itemize}
+    \item Renderizado correcto del listado de productos.
+    \item Funcionalidad de agregar nuevo producto.
+    \item Edición de información de productos existentes.
+    \item Eliminación lógica o física de items.
+    \item Validación de campos en formularios de producto.
+\end{itemize}
+
+\subsection{Modulo: Diseñador de Mezclas (CustomMixDesigner)}
+Componente crítico para el valor del negocio. Se ejecutaron 32 pruebas.
+\begin{itemize}
+    \item Selección de ingredientes base.
+    \item Cálculo dinámico de información nutricional.
+    \item Restricciones de mezcla (porcentajes, pesos).
+    \item Visualización de resumen de mezcla.
+\end{itemize}
+
+\subsection{Modulo: Gestión de Clientes (ClientManager)}
+Se verificaron 34 casos relacionados con la cartera de clientes.
+\begin{itemize}
+    \item CRUD de clientes.
+    \item Búsqueda y filtrado de usuarios.
+    \item Validación de datos de contacto (email, teléfono).
+    \item Historial de pedidos por cliente.
+\end{itemize}
+
+\subsection{Modulo: Gestión de Pedidos (OrderManager)}
+Se ejecutaron 35 pruebas para asegurar el flujo de ventas.
+\begin{itemize}
+    \item Creación de nuevos pedidos.
+    \item Cambios de estado (Pendiente $\rightarrow$ Completado).
+    \item Cálculo de totales y subtotales.
+    \item Asociación de clientes y productos a la orden.
+\end{itemize}
+
+\subsection{Modulo: Datos Semilla (seedData.test.js)}
+Se aseguraron 20 pruebas para verificar la integridad de los datos iniciales.
+\begin{itemize}
+    \item Estructura correcta del JSON inicial.
+    \item Existencia de categorías y productos base requeridos.
+    \item Consistencia de IDs y relaciones en datos precargados.
+\end{itemize}
+
+%-------------------------------------------------
+
+\section{Evidencias de Ejecucion}
+
+A continuación se presentan las capturas de pantalla obtenidas durante la ejecución de las pruebas unitarias.
+
+\subsection{Ejecucion Exitosa de Suite Completa}
+La siguiente imagen muestra la ejecución completa de todos los archivos de prueba en modo UI de Vitest, confirmando que las 176 pruebas pasaron satisfactoriamente.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{imagenes/Ejecución Exitosa de Suite Completa (Modo UI).jpeg}
+    \caption{Ejecución exitosa de la suite completa de pruebas en Vitest UI}
+\end{figure}
+
+\subsection{Verificacion Unitaria - Modulo Utils}
+Esta captura detalla los 33 casos de prueba del módulo de utilidades, mostrando todas las categorías validadas: formateo de fechas, moneda, validaciones, generación de IDs, normalización de texto, comparación de objetos, cálculos de porcentajes y manejo de localStorage.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{imagenes/Verificación Unitaria - Módulo Utils (Post-Fix).jpeg}
+    \caption{Detalle de pruebas unitarias del módulo Utils - Todas pasadas}
+\end{figure}
+
+\subsection{Deteccion de Error Controlado}
+Se evidencia el manejo correcto de errores en el módulo Utils, específicamente en la función \texttt{safeGetFromStorage} que maneja correctamente JSON inválido sin interrumpir la ejecución.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{imagenes/Detección de Error Controlado en Utils.jpeg}
+    \caption{Detección y manejo controlado de errores en localStorage}
+\end{figure}
+
+\subsection{Validacion de Integridad de Datos Semilla}
+Captura que muestra la verificación de los datos iniciales del sistema (seedData), asegurando la estructura correcta de productos, categorías y relaciones.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.95\textwidth]{imagenes/Validación de Integridad de Datos Semilla.jpeg}
+    \caption{Pruebas de integridad de datos semilla (seedData)}
+\end{figure}
+
+%-------------------------------------------------
+
+\section{Conclusiones}
+
+La ejecución de pruebas unitarias para la versión actual del sistema Kairos Mix ha sido exitosa.
+\begin{itemize}
+    \item \textbf{Total de Pruebas:} 176
+    \item \textbf{Pruebas Exitosas:} 176 (100\%)
+    \item \textbf{Pruebas Fallidas:} 0
+\end{itemize}
+
+El módulo de utilidades ha demostrado robustez en el manejo de tipos de datos y formatos, lo cual es fundamental para la integridad de los datos en los módulos de negocio (Productos, Pedidos, Clientes). La cobertura de pruebas abarca los flujos principales de la aplicación.
+
+\vfill
+
+\begin{center}
+\begin{tabular}{ccc}
+\rule{5cm}{0.5pt} & \hspace{1cm} & \rule{5cm}{0.5pt} \\
+Caetano Flores & & Jordan Guaman \\
+Lider de Pruebas & & Tester Backend/Frontend \\
+\\[1cm]
+\rule{5cm}{0.5pt} & \hspace{1cm} & \rule{5cm}{0.5pt} \\
+Anthony Morales & & Leonardo Narvaez \\
+Tester Backend/Frontend & & Tester Backend/Frontend \\
+\end{tabular}
+
+\end{center}
+
+\end{document}
