@@ -6,7 +6,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 describe('Formateo de fechas', () => {
-  
+
   const formatDateToDDMMYYYY = (date) => {
     const d = new Date(date)
     const day = d.getDate().toString().padStart(2, '0')
@@ -33,7 +33,7 @@ describe('Formateo de fechas', () => {
   it('debe parsear fecha desde DD/MM/YYYY', () => {
     const dateString = '15/01/2026'
     const parsed = parseDDMMYYYYToDate(dateString)
-    
+
     expect(parsed.getDate()).toBe(15)
     expect(parsed.getMonth()).toBe(0) // Enero = 0
     expect(parsed.getFullYear()).toBe(2026)
@@ -43,13 +43,13 @@ describe('Formateo de fechas', () => {
     const original = '25/12/2025'
     const parsed = parseDDMMYYYYToDate(original)
     const formatted = formatDateToDDMMYYYY(parsed)
-    
+
     expect(formatted).toBe(original)
   })
 })
 
 describe('Formateo de moneda', () => {
-  
+
   const formatCurrency = (amount) => {
     return `$${amount.toFixed(2)}`
   }
@@ -80,7 +80,7 @@ describe('Formateo de moneda', () => {
 })
 
 describe('Validaciones comunes', () => {
-  
+
   describe('Validación de campos vacíos', () => {
     const isEmpty = (value) => {
       if (value === null || value === undefined) return true
@@ -133,7 +133,7 @@ describe('Validaciones comunes', () => {
 })
 
 describe('Generación de IDs únicos', () => {
-  
+
   const generateUniqueId = (prefix = '') => {
     return `${prefix}${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
   }
@@ -155,7 +155,7 @@ describe('Generación de IDs únicos', () => {
     const before = Date.now()
     const id = generateUniqueId()
     const after = Date.now()
-    
+
     const timestamp = parseInt(id.split('-')[0])
     expect(timestamp).toBeGreaterThanOrEqual(before)
     expect(timestamp).toBeLessThanOrEqual(after)
@@ -163,7 +163,7 @@ describe('Generación de IDs únicos', () => {
 })
 
 describe('Normalización de texto', () => {
-  
+
   const normalizeText = (text) => {
     return text
       .toLowerCase()
@@ -192,17 +192,17 @@ describe('Normalización de texto', () => {
 })
 
 describe('Comparación de objetos', () => {
-  
+
   const deepEqual = (obj1, obj2) => {
     if (obj1 === obj2) return true
     if (typeof obj1 !== 'object' || typeof obj2 !== 'object') return false
     if (obj1 === null || obj2 === null) return false
-    
+
     const keys1 = Object.keys(obj1)
     const keys2 = Object.keys(obj2)
-    
+
     if (keys1.length !== keys2.length) return false
-    
+
     return keys1.every(key => deepEqual(obj1[key], obj2[key]))
   }
 
@@ -231,7 +231,7 @@ describe('Comparación de objetos', () => {
 })
 
 describe('Cálculos de porcentajes', () => {
-  
+
   const calculatePercentage = (value, total) => {
     if (total === 0) return 0
     return (value / total) * 100
@@ -258,7 +258,7 @@ describe('Cálculos de porcentajes', () => {
 })
 
 describe('Configuración de SweetAlert', () => {
-  
+
   const swalConfig = {
     confirmDialog: {
       confirmButtonColor: '#28a745',
@@ -295,7 +295,7 @@ describe('Configuración de SweetAlert', () => {
 })
 
 describe('Manejo de localStorage', () => {
-  
+
   const safeGetFromStorage = (key, defaultValue = null) => {
     try {
       const item = localStorage.getItem(key)
@@ -322,22 +322,25 @@ describe('Manejo de localStorage', () => {
 
   it('debe retornar valor por defecto si key no existe', () => {
     localStorage.getItem.mockReturnValue(null)
-    
+
     const result = safeGetFromStorage('nonexistent', [])
     expect(result).toEqual([])
   })
 
   it('debe parsear JSON correctamente', () => {
     localStorage.getItem.mockReturnValue('{"name":"test"}')
-    
+
     const result = safeGetFromStorage('key')
     expect(result).toEqual({ name: 'test' })
   })
 
   it('debe manejar errores de parseo', () => {
+    const consoleSpy = vi.spyOn(console, 'error').mockImplementation(() => { })
     localStorage.getItem.mockReturnValue('invalid json')
-    
+
     const result = safeGetFromStorage('key', 'default')
     expect(result).toBe('default')
+    expect(consoleSpy).toHaveBeenCalled()
+    consoleSpy.mockRestore()
   })
 })
