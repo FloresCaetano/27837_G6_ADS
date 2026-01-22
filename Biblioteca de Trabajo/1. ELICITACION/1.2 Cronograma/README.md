@@ -18,8 +18,8 @@ Este directorio contiene los documentos que forman parte del Elemento de Configu
 
 | Versión                  | Fecha       | Responsable       | Aprobado por                                         |
 |--------------------------|-------------|-------------------|------------------------------------------------------|
-| `Cronograma_V1.0.0.pdf`  | 14/01/2026  | Caetano Flores    | Jordan Guaman, Anthony Morales                       |
-| `Cronograma_V2.0.0.pdf`  | 21/01/2026  | Jordan Guaman     | Caetano Flores, Anthony Morales, Leonardo Narvaez    |
+| `Cronograma_V1.0.0.xlsx`  | 14/01/2026  | Caetano Flores    | Jordan Guaman, Anthony Morales                       |
+| `Cronograma_V2.0.0.xlsx`  | 21/01/2026  | Jordan Guaman     | Caetano Flores, Anthony Morales, Leonardo Narvaez    |
 
 Estas versiones reflejan la evolución del cronograma conforme al avance del proyecto. Cada versión ha sido validada y aprobada como parte de la gestión del proyecto.
 
