@@ -18,7 +18,7 @@ Este directorio contiene los documentos que forman parte del Elemento de Configu
 
 | Version          | Fecha      | Responsable     | Aprobado por                                                  |
 | ---------------- | ---------- | --------------- | ------------------------------------------------------------- |
-| `HU_V1.0.0.xlsx` | 14/01/2026 | Caetano Flores  | La version fue aprobada por Jordan Guaman y Anthony Morales   |
+| `G6°_Matriz_Marco_Trabado_HU_V1.0.xlsx` | 14/01/2026 | Caetano Flores  | La version fue aprobada por Jordan Guaman y Anthony Morales   |
 
 Estas versiones reflejan la evolucion y refinamiento de las historias de usuario, aprobadas formalmente para el desarrollo del sistema.
 

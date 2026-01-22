@@ -19,8 +19,9 @@ Este directorio contiene los documentos que forman parte del Elemento de Configu
 
 | Version           | Fecha       | Responsable       | Aprobado por                         |
 |------------------|-------------|-------------------|--------------------------------------|
-| `SRS_V1.0.0.pdf` | 14/01/2026  | Caetano Flores    | Jordan Guaman, Anthony Morales       |
- 
+| `G6_SRS_KairosMix.pdf` | 14/01/2026  | Caetano Flores    | Jordan Guaman, Anthony Morales       |
+|------------------|-------------|-------------------|--------------------------------------|
+| `G6°_HU_V1.0.xlsx` | 15/01/2026 | Caetano Flores  | Jordan Guaman, Anthony Morales   |
 
 Estas versiones reflejan la evolucion del documento conforme al proceso de analisis y validacion de requisitos. Cada version corresponde a una revision validada en la linea base.
 
