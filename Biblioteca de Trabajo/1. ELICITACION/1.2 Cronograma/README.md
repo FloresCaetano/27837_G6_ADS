@@ -23,6 +23,11 @@ Este directorio contiene los documentos que forman parte del Elemento de Configu
 
 Estas versiones reflejan la evolución del cronograma conforme al avance del proyecto. Cada versión ha sido validada y aprobada como parte de la gestión del proyecto.
 
+## Acrónimos 
+- **SCRUM-XX:** Etapa de DesarrollO
+- **DOCM-XX:** Etapas de Diseno y Documentacion
+
+
 ## Hitos Principales
 
 1. **Elicitación de Requisitos** – Semana 1-2  
