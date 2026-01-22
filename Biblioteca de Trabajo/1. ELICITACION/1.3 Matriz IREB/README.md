@@ -18,7 +18,11 @@ Este directorio contiene los documentos que forman parte del Elemento de Configu
 
 | Version                   | Fecha      | Responsable     | Aprobado por                                                  |
 | ------------------------- | ---------- | --------------- | ------------------------------------------------------------- |
-| `Matriz_IREB_V1.0.0.xlsx` | 14/01/2026 | Caetano Flores  | La version fue aprobada por Jordan Guaman y Anthony Morales   |
+| `G6_Matriz_IREB_V1.xlsx` | 14/01/2026 | Caetano Flores  | Jordan Guaman y Anthony Morales   |
+| `G6_Matriz_IREB_V2.xlsx` | 15/01/2026 | Caetano Flores  | Jordan Guaman y Anthony Morales   |
+| `G6_Informe_Matriz_IREB_V1.docx` | 15/01/2026 | Caetano Flores  | Jordan Guaman y Leonardo Narvaez   |
+| `G6_Informe_Matriz_IREB_V2.docx` | 20/01/2026 | Caetano Flores  | Jordan Guaman y Leonardo Narvaez   |
+
 
 Estas versiones reflejan la evolucion del analisis de requisitos conforme al enfoque propuesto por el estandar IREB. Cada version representa una validacion formal en la linea base de requisitos.
 
