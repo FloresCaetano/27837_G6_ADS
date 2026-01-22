@@ -1,40 +1,41 @@
-# Biblioteca de Trabajo - Kairos Mix
+# Biblioteca de Soporte
+> Recursos, Histórico y Referencias
 
-## Grupo 6
-
-**Integrantes:**
-1. Caetano Flores
-2. Jordan Guaman
-3. Anthony Morales
-4. Leonardo Narváez
-
-**Código:** 27837_G6_ADS
+Esta biblioteca sirve como repositorio de **activos de soporte, versiones históricas y documentación base** del proyecto "Kairos Mix". A diferencia de la Biblioteca de Trabajo (que contiene el desarrollo activo), aquí se almacenan elementos que sirven de referencia o respaldo.
 
 ---
 
-## Proyecto: Kairos Mix
+## 📂 Contenido de la Biblioteca
 
-**Negocio:** Tienda de frutos secos "Kairos de Dios"
+### 1. [ELICITACION](./1.%20ELICITACION)
+Contiene las **Líneas Base** aprobadas y documentación de requisitos congelada para referencia.
+- Especificaciones de Requisitos (SRS)
+- Historias de Usuario (Versiones iniciales/aprobadas)
+- Matrices de Trazabilidad
 
-**Propósito:** Sistema web para digitalizar procesos de venta, gestión de inventario y pedidos, con funcionalidad diferenciadora de diseño de mezclas personalizadas con cálculo nutricional.
+### 2. [PERFIL DEL PROYECTO](./2.%20PERFIL%20DEL%20PROYECTO)
+Documentación fundamental del inicio del proyecto.
+- Visión y Alcance
+- Planificación inicial
+
+### 3. [DISEÑOS](./3.%20DISEÑOS)
+Material de referencia para el diseño del sistema.
+- Plantillas de diseño
+- Diagramas de referencia
+
+### 4. [CODIGO](./4.%20CODIGO)
+**Repositorio Histórico de Versiones.**
+Aquí se resguardan las versiones anteriores del sistema para fines de auditoría y rollback.
+- 📦 **KairosMix_V1.0**
+- 📦 **KairosMix_V2.0**
+
+*(La versión activa V3.0+ se encuentra en la Biblioteca de Trabajo)*
 
 ---
 
-## Estructura de la Biblioteca de Trabajo
+## ℹ️ Uso de esta Biblioteca
 
-Esta biblioteca contiene todos los documentos activos del proyecto en desarrollo:
-
-### 1. ELICITACION
-Documentación de requisitos, historias de usuario, cronogramas y gestión del proyecto.
-
-### 2. PERFIL DEL PROYECTO
-Descripción general del proyecto, objetivos, alcance y stakeholders.
-
-### 3. DISEÑOS
-Diseños técnicos del sistema: patrones, arquitectura, casos de uso, diagramas de clases y componentes.
-
----
-
-## Objetivo de esta Biblioteca
-
-La **Biblioteca de Trabajo** es el espacio activo donde se desarrollan y modifican todos los artefactos del proyecto antes de ser promovidos a la Biblioteca Maestra.
+Utilice los recursos de esta carpeta cuando necesite:
+1.  Consultar requisitos originales o líneas base.
+2.  Revisar cómo estaba implementada una funcionalidad en versiones previas (V1/V2).
+3.  Acceder a plantillas y estándares definidos al inicio del proyecto.
