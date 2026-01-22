@@ -73,7 +73,7 @@
 El presente documento define el plan de pruebas unitarias del sistema Kairos Mix, un aplicativo web desarrollado para gestionar ventas, inventario y pedidos de la tienda de frutos secos ``Kairos de Dios'', cuyo principal diferenciador es el cálculo nutricional automático de mezclas personalizadas.
 
 \subsection{Alcance}
-Este plan se limita exclusivamente a la validación de componentes individuales del sistema mediante pruebas unitarias, asegurando que cada módulo funcione de forma correcta e independiente antes de su integración con otros componentes.
+Este plan se limita \textbf{exclusivamente} a la validación de componentes individuales del sistema mediante \textbf{pruebas unitarias}. No se contemplan pruebas de integración, sistema ni aceptación. El enfoque es verificar que cada módulo funcione de forma correcta e independiente, validando la lógica interna sin considerar la interacción con otros componentes.
 
 \subsection{Documentos de Referencia}
 \begin{itemize}
@@ -112,7 +112,7 @@ Verificar el correcto funcionamiento de los componentes individuales del sistema
 \textbf{Pruebas Unitarias}
 
 \subsection{Enfoque}
-Cada módulo del sistema será probado de manera aislada, utilizando datos controlados y simulando dependencias externas cuando sea necesario.
+Cada módulo del sistema será probado de manera completamente aislada, utilizando datos controlados y simulando dependencias externas mediante mocks y stubs. No se realizarán pruebas de integración entre módulos ni pruebas end-to-end.
 
 \subsection{Herramientas}
 \begin{itemize}
@@ -219,7 +219,9 @@ TC-LO-U03 & Validar formato del log & Estructura JSON válida \\
 
 \section{Conclusiones}
 
-El plan de pruebas unitarias permitió validar de forma efectiva la correcta implementación de los componentes individuales del sistema Kairos Mix. Los resultados obtenidos aseguran que la lógica de negocio, en especial el cálculo nutricional, cumple con los requisitos definidos y proporciona una base sólida para las siguientes etapas del proceso de pruebas.
+El plan de pruebas unitarias permitió validar de forma efectiva la correcta implementación de los componentes individuales del sistema Kairos Mix. Los resultados obtenidos aseguran que la lógica de negocio, en especial el cálculo nutricional, cumple con los requisitos definidos a nivel de unidad.
+
+\textbf{Nota:} Este documento cubre únicamente pruebas unitarias. No se han realizado ni están contempladas pruebas de integración, sistema o aceptación en esta fase del proyecto.
 
 \vfill
 

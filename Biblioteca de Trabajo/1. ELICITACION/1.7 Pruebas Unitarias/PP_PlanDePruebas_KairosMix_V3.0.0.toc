@@ -1,0 +1,23 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Introduccion}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Proposito}{2}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Alcance}{2}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Documentos de Referencia}{2}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Objetivos de las Pruebas Unitarias}{2}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Objetivo General}{2}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Objetivos Especificos}{2}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}Criterios de Exito}{2}{subsection.2.3}%
+\contentsline {section}{\numberline {3}Estrategia de Pruebas Unitarias}{3}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Tipo de Prueba}{3}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Enfoque}{3}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Herramientas}{3}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Responsables}{3}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Casos de Prueba Unitarios}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Modulo: ProductoController}{3}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Modulo: NutricionalService (Componente Critico)}{3}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Modulo: PedidoController}{4}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Modulo: LogObserver}{4}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Criterios de Aceptacion}{4}{section.5}%
+\contentsline {subsection}{\numberline {5.1}Criterios de Entrada}{4}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.2}Criterios de Salida}{4}{subsection.5.2}%
+\contentsline {section}{\numberline {6}Conclusiones}{4}{section.6}%
