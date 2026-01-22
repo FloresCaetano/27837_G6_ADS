@@ -1,0 +1,283 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{longtable}
+\usepackage{booktabs}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{float}
+\usepackage{tabularx}
+
+\geometry{margin=2.5cm}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Plan y Reporte de Pruebas Unitarias — Kairos Mix v4.0.0}
+\fancyhead[R]{27837\_G6\_ADS}
+\fancyfoot[C]{\thepage}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=cyan
+}
+
+\begin{document}
+	
+	% Portada
+	\begin{titlepage}
+		\centering
+		\vspace*{2cm}
+		
+		{\Huge\bfseries Plan y Reporte de Pruebas Unitarias\par}
+		\vspace{0.6cm}
+		{\LARGE Sistema Kairos Mix — Versión 4.0.0\par}
+		\vspace{1cm}
+		{\Large Tienda de frutos secos y mezclas personalizadas ``Kairos de Dios''\par}
+		
+		\vspace{2.5cm}
+		
+		\begin{tabular}{ll}
+			\textbf{Proyecto:}          & Kairos Mix \\
+			\textbf{Código ECS:}        & PP \\
+			\textbf{Versión del documento:} & 4.0.0 \\
+			\textbf{Fecha de emisión:}  & 22 de enero de 2026 \\
+			\textbf{ID de proyecto:}    & 27837\_G6\_ADS \\
+			\textbf{Branch base:}       & v4.0.17
+		\end{tabular}
+		
+		\vfill
+		
+		\textbf{Equipo responsable de pruebas y documentación:}\\
+		\vspace{0.6cm}
+		\begin{tabular}{l}
+			Caetano Flores \quad — Coordinación general y pruebas críticas \\
+			Jordan Guaman  \quad — Backend y lógica de negocio \\
+			Anthony Morales \quad — Frontend y componentes React \\
+			Leonardo Narvaez \quad — Utilidades, seed y estabilidad transversal
+		\end{tabular}
+		
+		\vspace{1.5cm}
+		{\large Quito, enero 2026\par}
+	\end{titlepage}
+	
+	\tableofcontents
+	\newpage
+	
+	\section{Introducción}
+	
+	\subsection{Propósito del documento}
+	Este documento recoge el plan que seguimos para las pruebas unitarias de la versión 4.0.0 de Kairos Mix, junto con el reporte detallado de lo que efectivamente salió en la ejecución del 22 de enero de 2026.  
+	El objetivo principal es dejar evidencia clara de que las piezas más pequeñas del sistema (funciones puras, utilidades y componentes React individuales) funcionan correctamente por sí solas, antes de meterse en pruebas más grandes (integración, flujos completos, carga, etc.).
+	
+	No pretendemos cubrir aquí pruebas de interfaz gráfica manual, validaciones de UX, comportamiento en distintos navegadores ni ataques de seguridad. Eso va en otros documentos.
+	
+	\subsection{Alcance de estas pruebas}
+	Nos enfocamos exclusivamente en pruebas unitarias automatizadas ejecutadas con Vitest.  
+	Cubrimos:
+	- Funciones de utilidad ubicadas en \texttt{src/utils/}
+	- Componentes principales de gestión (Productos, Pedidos, Clientes)
+	- El componente más importante del negocio: CustomMixDesigner
+	- Los datos semilla que usamos para desarrollo y pruebas locales (\texttt{seedData})
+	
+	Quedan fuera (por ahora):
+	- Pruebas de integración entre módulos
+	- Pruebas contra la API real o base de datos
+	- Pruebas E2E con Playwright o Cypress
+	- Validación visual pixel-perfect
+	- Pruebas de rendimiento y carga
+	
+	\subsection{Documentos y referencias usados}
+	\begin{itemize}
+		\item Especificación de Requisitos de Software (SRS) — versión más reciente en el drive del proyecto
+		\item Repositorio GitHub — branch \texttt{v4.0.17} (commit base para la corrida de pruebas)
+		\item Archivo de configuración de Vitest (\texttt{vitest.config.js})
+		\item Resultados exportados de Vitest UI y terminal (capturas incluidas más adelante)
+	\end{itemize}
+	
+	\section{Objetivos perseguidos con estas pruebas}
+	
+	\subsection{Objetivo general}
+	Tener la certeza razonable de que las unidades de código críticas no tienen errores lógicos evidentes y que se comportan de forma predecible ante entradas válidas, inválidas y de borde.
+	
+	\subsection{Objetivos específicos}
+	\begin{itemize}
+		\item Confirmar que todas las funciones de formateo, validación y transformación de datos devuelven exactamente lo esperado (fechas, moneda, IDs, normalización de texto, etc.)
+		\item Verificar que los gestores de estado y CRUD (Productos, Clientes, Pedidos) manejan correctamente creación, lectura, actualización, eliminación y validaciones de formulario
+		\item Asegurarnos de que el Diseñador de Mezclas calcula correctamente valores nutricionales, respeta restricciones de porcentaje y peso, y muestra la información de forma coherente
+		\item Comprobar que los datos semilla tienen la estructura esperada, IDs únicos y relaciones lógicas entre categorías, productos y valores nutricionales
+		\item Detectar y documentar el manejo adecuado de errores comunes (JSON malformado en localStorage, valores nulos, cadenas vacías, etc.)
+	\end{itemize}
+	
+	\section{Estrategia y herramientas empleadas}
+	
+	Decidimos usar Vitest por varias razones prácticas:
+	- Es muy rápido comparado con Jest puro
+	- Tiene excelente soporte para React Testing Library
+	- Integra bien con Vite (que ya usamos en el proyecto)
+	- Permite modo UI para revisar fallos de forma visual
+	
+	Entorno de ejecución:
+	- Node.js 20.x
+	- JSDOM como entorno de navegador simulado
+	- React Testing Library + @testing-library/jest-dom
+	- Mocks mínimos (solo para localStorage en algunos casos)
+	
+	Resumen de la corrida del 22/ene/2026:
+	- Total pruebas definidas: 176
+	- Pruebas aprobadas: 176 (100\%)
+	- Tiempo total: 5.58 segundos
+	- Archivos de prueba involucrados: 6
+	
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|l|c|c|}
+			\hline
+			\textbf{Archivo de Prueba} & \textbf{Modulo} & \textbf{Estado} \\
+			\hline
+			src/utils/utils.test.js & Utilidades Generales & \textcolor{green}{PASSED} (33 tests) \\
+			\hline
+			src/components/CustomMix/ & Diseñador de Mezclas & \textcolor{green}{PASSED} (32 tests) \\
+			CustomMixDesigner.test.jsx & & \\
+			\hline
+			src/components/Orders/ & Gestión de Pedidos & \textcolor{green}{PASSED} (35 tests) \\
+			OrderManager.test.jsx & & \\
+			\hline
+			src/components/Clients/ & Gestión de Clientes & \textcolor{green}{PASSED} (34 tests) \\
+			ClientManager.test.jsx & & \\
+			\hline
+			src/components/Products/ & Gestión de Productos & \textcolor{green}{PASSED} (22 tests) \\
+			ProductManager.test.jsx & & \\
+			\hline
+			src/data/seedData.test.js & Datos Semilla & \textcolor{green}{PASSED} (20 tests) \\
+			\hline
+		\end{tabular}
+		\caption{Resumen de Archivos Probados}
+	\end{table}
+	
+	\section{Resultados detallados por módulo}
+	
+	\subsection{Utilidades generales (src/utils/utils.test.js)}
+	Este archivo es el más transversal: prácticamente todo el sistema lo usa.  
+	Hicimos 33 pruebas cubriendo:
+	
+	\begin{longtable}{p{5cm} p{9cm}}
+		\toprule
+		Categoría & Casos principales validados \\
+		\midrule
+		Formateo de fechas & DD/MM/YYYY con ceros a la izquierda, parseo desde string, manejo de objetos Date inválidos \\
+		Formateo de moneda & Dos decimales obligatorios, separador de miles con punto o coma según locale, redondeo bancario \\
+		Validaciones básicas & isEmpty (string, array, object), isNumber, inRange, email básico, teléfono EC \\
+		Generación de IDs & Prefijo + timestamp + random, verificación de unicidad en 1000 iteraciones \\
+		Normalización de texto & toLowerCase, quitar acentos, eliminar espacios múltiples, trim agresivo \\
+		Comparación profunda & deepEqual para objetos anidados, arrays desordenados, manejo de null/undefined \\
+		Cálculos porcentuales & porcentaje exacto, evitar división por cero, redondeo configurable \\
+		SweetAlert wrappers & mock de confirmación y eliminación con retorno booleano correcto \\
+		localStorage seguro & safeGet / safeSet con fallback, parseo JSON silencioso ante error \\
+		\bottomrule
+		\caption{Detalle de cobertura en utilidades}
+	\end{longtable}
+	
+	\subsection{Gestión de Productos (ProductManager)}
+	22 pruebas centradas en:
+	- Renderizado de tabla con 20+ productos de seed
+	- Agregar producto nuevo (validación nombre, precio, stock, categoría)
+	- Editar producto existente (cambio parcial y total)
+	- Eliminación lógica (soft-delete con flag)
+	- Búsqueda por nombre y categoría
+	
+	\subsection{Diseñador de Mezclas — CustomMixDesigner}
+	32 pruebas — el corazón del sistema.  
+	Validamos:
+	- Carga inicial de ingredientes disponibles desde seed
+	- Agregar/quitar líneas de mezcla
+	- Cálculo automático de gramos totales y porcentajes (siempre suman 100\%)
+	- Validación de restricciones (mínimo 3 ingredientes, máximo 15, ningún porcentaje > 60\% en algunos casos)
+	- Cálculo nutricional ponderado (proteína, carbohidratos, grasa, calorías)
+	- Renderizado correcto del resumen (tabla + gráfico de pastel)
+	
+	\subsection{Gestión de Clientes}
+	34 pruebas:
+	- CRUD completo
+	- Búsqueda por nombre, cédula, email
+	- Validación formato cédula EC, teléfono, email
+	- Asociación de historial de pedidos (lectura sola en esta capa)
+	
+	\subsection{Gestión de Pedidos}
+	35 pruebas:
+	- Crear pedido vacío y con items
+	- Cambio de estados (Pendiente → En preparación → Completado → Anulado)
+	- Cálculo subtotal, IVA, total
+	- Asociación cliente + items + cantidades
+	- Validación stock disponible antes de confirmar
+	
+	\subsection{Datos Semilla}
+	20 pruebas de integridad:
+	- Estructura JSON válida
+	- IDs únicos en productos, categorías y nutrientes
+	- Existencia de al menos 5 categorías principales
+	- Valores nutricionales coherentes (ningún producto con proteína negativa, etc.)
+	- Relaciones categoría–producto–nutrientes
+	
+	\section{Evidencias gráficas}
+	
+	Incluimos las capturas más representativas de la ejecución.
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.95\textwidth]{imagenes/Ejecución Exitosa de Suite Completa (Modo UI).jpeg}
+		\caption{Vista general de Vitest UI — 176 pruebas pasaron sin errores}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.95\textwidth]{imagenes/Verificación Unitaria - Módulo Utils (Post-Fix).jpeg}
+		\caption{Detalle del módulo de utilidades — cobertura por categoría}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.95\textwidth]{imagenes/Detección de Error Controlado en Utils.jpeg}
+		\caption{Prueba específica: manejo silencioso de JSON inválido en localStorage}
+	\end{figure}
+	
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=0.95\textwidth]{imagenes/Validación de Integridad de Datos Semilla.jpeg}
+		\caption{Verificación completa de datos semilla — todo en verde}
+	\end{figure}
+	
+	\section{Conclusiones y próximos pasos}
+	
+	La suite de pruebas unitarias para la versión 4.0.0 se ejecutó con éxito total: 176/176 pruebas aprobadas.
+	
+	Esto nos da confianza razonable en que:
+	- Las utilidades base son robustas y no introducen errores silenciosos
+	- Los componentes principales respetan las reglas de negocio definidas
+	- El cálculo nutricional del diseñador de mezclas está implementado correctamente
+	- Los datos iniciales no tienen inconsistencias estructurales
+	
+	Próximos pasos recomendados:
+	- Subir cobertura a > 85\% en líneas (actual 78–82\% según reporte)
+	- Agregar pruebas de integración básicas (gestor + hook + mock API)
+	- Iniciar suite E2E para flujos críticos (crear mezcla → agregar a carrito → checkout)
+	- Automatizar corrida en CI/CD (GitHub Actions)
+	
+	\vfill
+	
+	\begin{center}
+		\begin{tabular}{ccc}
+			\rule{5cm}{0.5pt} & \hspace{1.5cm} & \rule{5cm}{0.5pt} \\
+			Caetano Flores & & Jordan Guaman \\
+			Coordinador de pruebas & & Desarrollo y pruebas backend \\
+			\\[1.2cm]
+			\rule{5cm}{0.5pt} & \hspace{1.5cm} & \rule{5cm}{0.5pt} \\
+			Anthony Morales & & Leonardo Narvaez \\
+			Frontend y componentes & & Utilidades y estabilidad \\
+		\end{tabular}
+	\end{center}
+	
+\end{document}

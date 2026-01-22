@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.10)  14 JAN 2026 18:02
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.4) (preloaded format=pdflatex 2025.10.10)  22 JAN 2026 08:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./PP_PlanDePruebas_KairosMix_V1.0.0.tex
-(PP_PlanDePruebas_KairosMix_V1.0.0.tex
+**./PP_PlanDePruebas_KairosMix_V5.0.0.tex
+(PP_PlanDePruebas_KairosMix_V5.0.0.tex
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
 (C:\Program Files\MiKTeX\tex/latex/base\article.cls
@@ -126,65 +126,44 @@ File: pdftex.def 2024/04/13 v1.2c Graphics/color driver for pdftex
 \Gin@req@height=\dimen158
 \Gin@req@width=\dimen159
 )
-(C:\Program Files\MiKTeX\tex/latex/tools\tabularx.sty
-Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
-
-(C:\Program Files\MiKTeX\tex/latex/tools\array.sty
-Package: array 2025/06/08 v2.6j Tabular extension package (FMi)
-\col@sep=\dimen160
-\ar@mcellbox=\box53
-\extrarowheight=\dimen161
-\NC@list=\toks22
-\extratabsurround=\skip51
-\backup@length=\skip52
-\ar@cellbox=\box54
-)
-\TX@col@width=\dimen162
-\TX@old@table=\dimen163
-\TX@old@col=\dimen164
-\TX@target=\dimen165
-\TX@delta=\dimen166
-\TX@cols=\count289
-\TX@ftn=\toks23
-)
 (C:\Program Files\MiKTeX\tex/latex/tools\longtable.sty
 Package: longtable 2024-12-18 v4.23 Multi-page Table package (DPC)
-\LTleft=\skip53
-\LTright=\skip54
-\LTpre=\skip55
-\LTpost=\skip56
-\LTchunksize=\count290
-\LTcapwidth=\dimen167
-\LT@head=\box55
-\LT@firsthead=\box56
-\LT@foot=\box57
-\LT@lastfoot=\box58
-\LT@gbox=\box59
-\LT@cols=\count291
-\LT@rows=\count292
-\c@LT@tables=\count293
-\c@LT@chunks=\count294
-\LT@p@ftn=\toks24
+\LTleft=\skip51
+\LTright=\skip52
+\LTpre=\skip53
+\LTpost=\skip54
+\LTchunksize=\count289
+\LTcapwidth=\dimen160
+\LT@head=\box53
+\LT@firsthead=\box54
+\LT@foot=\box55
+\LT@lastfoot=\box56
+\LT@gbox=\box57
+\LT@cols=\count290
+\LT@rows=\count291
+\c@LT@tables=\count292
+\c@LT@chunks=\count293
+\LT@p@ftn=\toks22
 )
 (C:\Users\caeta\AppData\Roaming\MiKTeX\tex/latex/booktabs\booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen168
-\lightrulewidth=\dimen169
-\cmidrulewidth=\dimen170
-\belowrulesep=\dimen171
-\belowbottomsep=\dimen172
-\aboverulesep=\dimen173
-\abovetopsep=\dimen174
-\cmidrulesep=\dimen175
-\cmidrulekern=\dimen176
-\defaultaddspace=\dimen177
-\@cmidla=\count295
-\@cmidlb=\count296
-\@aboverulesep=\dimen178
-\@belowrulesep=\dimen179
-\@thisruleclass=\count297
-\@lastruleclass=\count298
-\@thisrulewidth=\dimen180
+\heavyrulewidth=\dimen161
+\lightrulewidth=\dimen162
+\cmidrulewidth=\dimen163
+\belowrulesep=\dimen164
+\belowbottomsep=\dimen165
+\aboverulesep=\dimen166
+\abovetopsep=\dimen167
+\cmidrulesep=\dimen168
+\cmidrulekern=\dimen169
+\defaultaddspace=\dimen170
+\@cmidla=\count294
+\@cmidlb=\count295
+\@aboverulesep=\dimen171
+\@belowrulesep=\dimen172
+\@thisruleclass=\count296
+\@lastruleclass=\count297
+\@thisrulewidth=\dimen173
 )
 (C:\Program Files\MiKTeX\tex/latex/xcolor\xcolor.sty
 Package: xcolor 2024/09/29 v3.02 LaTeX color extensions (UK)
@@ -208,21 +187,21 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1372.
 (C:\Users\caeta\AppData\Roaming\MiKTeX\tex/latex/fancyhdr\fancyhdr.sty
 Package: fancyhdr 2025/02/07 v5.2 Extensive control of page headers and footers
 
-\f@nch@headwidth=\skip57
-\f@nch@offset@elh=\skip58
-\f@nch@offset@erh=\skip59
-\f@nch@offset@olh=\skip60
-\f@nch@offset@orh=\skip61
-\f@nch@offset@elf=\skip62
-\f@nch@offset@erf=\skip63
-\f@nch@offset@olf=\skip64
-\f@nch@offset@orf=\skip65
-\f@nch@height=\skip66
-\f@nch@footalignment=\skip67
-\f@nch@widthL=\skip68
-\f@nch@widthC=\skip69
-\f@nch@widthR=\skip70
-\@temptokenb=\toks25
+\f@nch@headwidth=\skip55
+\f@nch@offset@elh=\skip56
+\f@nch@offset@erh=\skip57
+\f@nch@offset@olh=\skip58
+\f@nch@offset@orh=\skip59
+\f@nch@offset@elf=\skip60
+\f@nch@offset@erf=\skip61
+\f@nch@offset@olf=\skip62
+\f@nch@offset@orf=\skip63
+\f@nch@height=\skip64
+\f@nch@footalignment=\skip65
+\f@nch@widthL=\skip66
+\f@nch@widthC=\skip67
+\f@nch@widthR=\skip68
+\@temptokenb=\toks23
 )
 (C:\Program Files\MiKTeX\tex/latex/hyperref\hyperref.sty
 Package: hyperref 2025-07-12 v7.01o Hypertext links for LaTeX
@@ -265,18 +244,18 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
  (C:\Users\caeta\AppData\Roaming\MiKTeX\tex/latex/kvoptions\kvoptions.sty
 Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
 ))
-\c@section@level=\count299
+\c@section@level=\count298
 ) (C:\Program Files\MiKTeX\tex/latex/etoolbox\etoolbox.sty
 Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
-\etb@tempcnta=\count300
+\etb@tempcnta=\count299
 )
 (C:\Users\caeta\AppData\Roaming\MiKTeX\tex/generic/stringenc\stringenc.sty
 Package: stringenc 2019/11/29 v1.12 Convert strings between diff. encodings (HO
 )
 )
-\@linkdim=\dimen181
-\Hy@linkcounter=\count301
-\Hy@pagecounter=\count302
+\@linkdim=\dimen174
+\Hy@linkcounter=\count300
+\Hy@pagecounter=\count301
 
 (C:\Program Files\MiKTeX\tex/latex/hyperref\pd1enc.def
 File: pd1enc.def 2025-07-12 v7.01o Hyperref: PDFDocEncoding definition (HO)
@@ -286,7 +265,7 @@ Now handling font encoding PD1 ...
 (C:\Users\caeta\AppData\Roaming\MiKTeX\tex/generic/intcalc\intcalc.sty
 Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
 )
-\Hy@SavedSpaceFactor=\count303
+\Hy@SavedSpaceFactor=\count302
 
 (C:\Program Files\MiKTeX\tex/latex/hyperref\puenc.def
 File: puenc.def 2025-07-12 v7.01o Hyperref: PDF Unicode definition (HO)
@@ -300,14 +279,14 @@ Package hyperref Info: Plain pages OFF on input line 4210.
 Package hyperref Info: Backreferencing OFF on input line 4215.
 Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
 Package hyperref Info: Bookmarks ON on input line 4462.
-\c@Hy@tempcnt=\count304
+\c@Hy@tempcnt=\count303
 
 (C:\Program Files\MiKTeX\tex/latex/url\url.sty
 \Urlmuskip=\muskip17
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
 )
 LaTeX Info: Redefining \url on input line 4801.
-\XeTeXLinkMargin=\dimen182
+\XeTeXLinkMargin=\dimen175
 
 (C:\Users\caeta\AppData\Roaming\MiKTeX\tex/generic/bitset\bitset.sty
 Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
@@ -316,9 +295,9 @@ Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
 Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
 )
 ))
-\Fld@menulength=\count305
-\Field@Width=\dimen183
-\Fld@charsize=\dimen184
+\Fld@menulength=\count304
+\Field@Width=\dimen176
+\Fld@charsize=\dimen177
 Package hyperref Info: Hyper figures OFF on input line 6078.
 Package hyperref Info: Link nesting OFF on input line 6083.
 Package hyperref Info: Hyper index ON on input line 6086.
@@ -326,15 +305,15 @@ Package hyperref Info: backreferencing OFF on input line 6093.
 Package hyperref Info: Link coloring OFF on input line 6098.
 Package hyperref Info: Link coloring with OCG OFF on input line 6103.
 Package hyperref Info: PDF/A mode OFF on input line 6108.
-\Hy@abspage=\count306
-\c@Item=\count307
-\c@Hfootnote=\count308
+\Hy@abspage=\count305
+\c@Item=\count306
+\c@Hfootnote=\count307
 )
 Package hyperref Info: Driver (autodetected): hpdftex.
 (C:\Program Files\MiKTeX\tex/latex/hyperref\hpdftex.def
 File: hpdftex.def 2025-07-12 v7.01o Hyperref driver for pdfTeX
-\Fld@listcount=\count309
-\c@bookmark@seq@number=\count310
+\Fld@listcount=\count308
+\c@bookmark@seq@number=\count309
 
 (C:\Users\caeta\AppData\Roaming\MiKTeX\tex/latex/rerunfilecheck\rerunfilecheck.
 sty
@@ -347,15 +326,49 @@ Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
 Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 84.
 )
-\Hy@SectionHShift=\skip71
+\Hy@SectionHShift=\skip69
+) (C:\Users\caeta\AppData\Roaming\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count310
+\float@exts=\toks24
+\float@box=\box58
+\@float@everytoks=\toks25
+\@floatcapt=\box59
+)
+(C:\Program Files\MiKTeX\tex/latex/tools\tabularx.sty
+Package: tabularx 2023/12/11 v2.12a `tabularx' package (DPC)
+
+(C:\Program Files\MiKTeX\tex/latex/tools\array.sty
+Package: array 2025/06/08 v2.6j Tabular extension package (FMi)
+\col@sep=\dimen178
+\ar@mcellbox=\box60
+\extrarowheight=\dimen179
+\NC@list=\toks26
+\extratabsurround=\skip70
+\backup@length=\skip71
+\ar@cellbox=\box61
+)
+\TX@col@width=\dimen180
+\TX@old@table=\dimen181
+\TX@old@col=\dimen182
+\TX@target=\dimen183
+\TX@delta=\dimen184
+\TX@cols=\count311
+\TX@ftn=\toks27
 )
 Package hyperref Info: Option `colorlinks' set `true' on input line 26.
- (C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
+
+(C:\Program Files\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
 File: l3backend-pdftex.def 2025-06-09 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count311
+\l__color_backend_stack_int=\count312
 )
-No file PP_PlanDePruebas_KairosMix_V1.0.0.aux.
-\openout1 = `PP_PlanDePruebas_KairosMix_V1.0.0.aux'.
+(PP_PlanDePruebas_KairosMix_V5.0.0.aux
+LaTeX Info: Redefining \. on input line 11.
+LaTeX Info: Redefining \% on input line 11.
+Package babel Info: 'spanish' activates 'spanish' shorthands.
+(babel)             Reported on input line 11.
+)
+\openout1 = `PP_PlanDePruebas_KairosMix_V5.0.0.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 28.
 LaTeX Font Info:    ... okay on input line 28.
@@ -377,8 +390,7 @@ LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 28.
 LaTeX Font Info:    ... okay on input line 28.
 LaTeX Info: Redefining \. on input line 28.
 LaTeX Info: Redefining \% on input line 28.
-Package babel Info: 'spanish' activates 'spanish' shorthands.
-(babel)             Reported on input line 28.
+
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -415,17 +427,17 @@ Package babel Info: 'spanish' activates 'spanish' shorthands.
 
 (C:\Program Files\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count312
+\scratchcounter=\count313
 \scratchdimen=\dimen185
-\scratchbox=\box60
-\nofMPsegments=\count313
-\nofMParguments=\count314
-\everyMPshowfont=\toks26
-\MPscratchCnt=\count315
+\scratchbox=\box62
+\nofMPsegments=\count314
+\nofMParguments=\count315
+\everyMPshowfont=\toks28
+\MPscratchCnt=\count316
 \MPscratchDim=\dimen186
-\MPnumerator=\count316
-\makeMPintoPDFobject=\count317
-\everyMPtoPDFconversion=\toks27
+\MPnumerator=\count317
+\makeMPintoPDFobject=\count318
+\everyMPtoPDFconversion=\toks29
 ) (C:\Program Files\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
@@ -435,8 +447,10 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
 Package hyperref Info: Link coloring ON on input line 28.
+
+(PP_PlanDePruebas_KairosMix_V5.0.0.out) (PP_PlanDePruebas_KairosMix_V5.0.0.out)
 \@outlinefile=\write3
-\openout3 = `PP_PlanDePruebas_KairosMix_V1.0.0.out'.
+\openout3 = `PP_PlanDePruebas_KairosMix_V5.0.0.out'.
 
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <12> on input line 43.
@@ -449,9 +463,12 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 [1
 
 {C:/Users/caeta/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}]
-No file PP_PlanDePruebas_KairosMix_V1.0.0.toc.
+(PP_PlanDePruebas_KairosMix_V5.0.0.toc
+LaTeX Info: Redefining \. on input line 1.
+LaTeX Info: Redefining \% on input line 1.
+)
 \tf@toc=\write4
-\openout4 = `PP_PlanDePruebas_KairosMix_V1.0.0.toc'.
+\openout4 = `PP_PlanDePruebas_KairosMix_V5.0.0.toc'.
 
 
 
@@ -467,8 +484,8 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has
 been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.67 \newpage
-              [1]
+l.68 	\newpage
+               [1]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -478,62 +495,6 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [2]
-Underfull \hbox (badness 4193) in paragraph at lines 173--173
-[]|\OT1/cmr/m/n/12 Crear pro-duc-to con
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 173--173
-[]|\OT1/cmr/m/n/12 nombre, ca-te-go-ria,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 173--174
-[]|\OT1/cmr/m/n/12 Producto crea-
- []
-
-
-Underfull \hbox (badness 7888) in paragraph at lines 175--175
-[]|\OT1/cmr/m/n/12 Crear pro-duc-to sin
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 175--175
-[]|\OT1/cmr/m/n/12 categoria, pre-cio,
- []
-
-
-Underfull \hbox (badness 1838) in paragraph at lines 177--177
-[]|\OT1/cmr/m/n/12 Actualizar pre-cio de
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 177--177
-[]|\OT1/cmr/m/n/12 idProducto, nue-vo-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 179--179
-[]|\OT1/cmr/m/n/12 Eliminar pro-duc-to
- []
-
-
-Underfull \hbox (badness 1902) in paragraph at lines 179--180
-[]|\OT1/cmr/m/n/12 Producto eli-mi-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 181--181
-[]|\OT1/cmr/m/n/12 Consultar stock de
- []
-
-
-Underfull \hbox (badness 2772) in paragraph at lines 181--182
-[]|\OT1/cmr/m/n/12 Valor de stock
- []
-
-
-
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
 (fancyhdr)                Make it at least 14.49998pt, for example:
@@ -541,82 +502,13 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[3]
-Underfull \hbox (badness 10000) in paragraph at lines 200--200
-\OT1/cmr/m/n/12 prot), 50$ $% Nue-ces
- []
-
-
-Underfull \hbox (badness 5862) in paragraph at lines 200--201
-[]|\OT1/cmr/m/n/12 17.5g pro-tei-nas
- []
-
-
-Underfull \hbox (badness 4832) in paragraph at lines 202--202
-[]|\OT1/cmr/m/n/12 Ingrediente A (\TS1/cmr/m/n/12 $\OT1/cmr/m/n/12 10,
- []
-
-
-Underfull \hbox (badness 1147) in paragraph at lines 202--202
-\OT1/cmr/m/n/12 40$ $%), In-gre-dien-te B
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 204--204
-[]|\OT1/cmr/m/n/12 proporciones: 30$ $%,
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 206--206
-[]|\OT1/cmr/m/n/12 Calcular gra-sas de
- []
-
-
-Underfull \hbox (badness 6157) in paragraph at lines 208--208
-[]|\OT1/cmr/m/n/12 Calcular car-bohi-dra-
- []
-
-
-Underfull \hbox (badness 5260) in paragraph at lines 208--208
-[]|\OT1/cmr/m/n/12 ingredientes, pro-por-
- []
-
-
-Underfull \hbox (badness 1178) in paragraph at lines 227--228
-[]|\OT1/cmr/m/n/12 Estado = "Por
- []
-
-
-Underfull \hbox (badness 1983) in paragraph at lines 229--229
-[]|\OT1/cmr/m/n/12 Transicion va-li-da de
- []
-
-
-Underfull \hbox (badness 5260) in paragraph at lines 229--229
-[]|\OT1/cmr/m/n/12 estado ac-tual: "Por
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 229--229
-\OT1/cmr/m/n/12 pre-pa-rar", nue-vo:
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 231--231
-[]|\OT1/cmr/m/n/12 estado ac-tual:
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 231--231
-\OT1/cmr/m/n/12 .[]tregado", nue-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 233--234
-[]|\OT1/cmr/m/n/12 Suma co-rrec-ta
- []
-
-
+[3
+pdfTeX warning (ext4): destination with the same identifier (name{table.1}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.182 	\end{longtable}
+                      ]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -626,107 +518,22 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
 [4]
-Underfull \hbox (badness 10000) in paragraph at lines 254--255
-[]|\OT1/cmr/m/n/12 Ingrediente
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 258--259
-[]|\OT1/cmr/m/n/12 Pedido crea-do
- []
-
-
-Overfull \hbox (23.432pt too wide) in paragraph at lines 275--275
-[]|\OT1/cmr/m/n/12 ProductoController.crear()| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 275--276
-[]|\OT1/cmr/m/n/12 Log ge-ne-ra-do
- []
-
-
-Underfull \hbox (badness 2073) in paragraph at lines 277--277
-[]|\OT1/cmr/m/n/12 Registrar cam-bio de
- []
-
-
-Overfull \hbox (61.8455pt too wide) in paragraph at lines 277--277
-[]|\OT1/cmr/m/n/12 PedidoController.cambiarEstado()| 
- []
-
-
-Underfull \hbox (badness 1270) in paragraph at lines 279--279
-[]|\OT1/cmr/m/n/12 Registrar eli-mi-na-cion
- []
-
-
-Overfull \hbox (39.75128pt too wide) in paragraph at lines 279--279
-[]|\OT1/cmr/m/n/12 ProductoController.eliminar()| 
- []
-
-
-Underfull \hbox (badness 3930) in paragraph at lines 279--280
-[]|\OT1/cmr/m/n/12 Log con da-tos
- []
-
-
-Underfull \hbox (badness 2213) in paragraph at lines 281--281
-[]|\OT1/cmr/m/n/12 Verificar for-ma-to de
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 281--281
-[]|\OT1/cmr/m/n/12 cualquier ope-ra-cion
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 281--282
-[]|\OT1/cmr/m/n/12 JSON con
- []
-
-
-Underfull \hbox (badness 6016) in paragraph at lines 281--282
-\OT1/cmr/m/n/12 en-ti-dad, ope-ra-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 281--282
-\OT1/cmr/m/n/12 cion, usua-rio,
- []
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[5]
-Underfull \hbox (badness 8132) in paragraph at lines 298--298
-[]|\OT1/cmr/m/n/12 Renderizar lis-ta de
- []
-
-
-Underfull \hbox (badness 1762) in paragraph at lines 298--299
-[]|\OT1/cmr/m/n/12 Productos mos-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 300--301
-[]|\OT1/cmr/m/n/12 Mensajes de
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 304--305
-[]|\OT1/cmr/m/n/12 Tabla nu-tri-cio-
- []
-
-
-Underfull \hbox (badness 5504) in paragraph at lines 306--307
-[]|\OT1/cmr/m/n/12 Estado ac-tua-li-
- []
-
+<imagenes/Ejecución Exitosa de Suite Completa (Modo UI).jpeg, id=116, 1606.0pt
+ x 903.375pt>
+File: imagenes/Ejecución Exitosa de Suite Completa (Modo UI).jpeg Graphic file
+ (type jpg)
+<use imagenes/Ejecución Exitosa de Suite Completa (Modo UI).jpeg>
+Package pdftex.def Info: imagenes/Ejecución Exitosa de Suite Completa (Modo UI
+).jpeg  used on input line 231.
+(pdftex.def)             Requested size: 432.48051pt x 243.26665pt.
+<imagenes/Verificación Unitaria - Módulo Utils (Post-Fix).jpeg, id=117, 938.5
+0626pt x 910.40125pt>
+File: imagenes/Verificación Unitaria - Módulo Utils (Post-Fix).jpeg Graphic f
+ile (type jpg)
+<use imagenes/Verificación Unitaria - Módulo Utils (Post-Fix).jpeg>
+Package pdftex.def Info: imagenes/Verificación Unitaria - Módulo Utils (Post-
+Fix).jpeg  used on input line 237.
+(pdftex.def)             Requested size: 432.48051pt x 419.52591pt.
 
 
 
@@ -736,25 +543,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[6]
-Overfull \hbox (4.0071pt too wide) in paragraph at lines 370--387
- [][] 
- []
-
-
-
-
-Package fancyhdr Warning: \headheight is too small (12.0pt): 
-(fancyhdr)                Make it at least 14.49998pt, for example:
-(fancyhdr)                \setlength{\headheight}{14.49998pt}.
-(fancyhdr)                You might also make \topmargin smaller:
-(fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
-
-[7]
-Underfull \hbox (badness 3323) in paragraph at lines 420--421
-[]|\OT1/cmr/m/n/12 Funcionalidad prin-ci-pal afec-ta-da, wor-ka-
- []
-
+[5
+pdfTeX warning (ext4): destination with the same identifier (name{figure.1}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.240 	
+        <./imagenes/Ejecución Exitosa de Suite Completa (Modo UI).jpeg>]
+<imagenes/Detección de Error Controlado en Utils.jpeg, id=123, 1232.605pt x 63
+5.37375pt>
+File: imagenes/Detección de Error Controlado en Utils.jpeg Graphic file (type 
+jpg)
+<use imagenes/Detección de Error Controlado en Utils.jpeg>
+Package pdftex.def Info: imagenes/Detección de Error Controlado en Utils.jpeg 
+ used on input line 243.
+(pdftex.def)             Requested size: 432.48051pt x 222.92706pt.
 
 
 
@@ -764,41 +567,21 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[8]
-Underfull \hbox (badness 10000) in paragraph at lines 460--460
-[]|\OT1/cmr/m/n/12 Critico - Fun-cio-na-li-dad
- []
-
-
-Underfull \hbox (badness 1028) in paragraph at lines 460--461
-\OT1/cmr/m/n/12 ti-vas con da-tos
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 460--461
-\OT1/cmr/m/n/12 reales, va-li-da-
- []
-
-
-Underfull \hbox (badness 3568) in paragraph at lines 462--463
-\OT1/cmr/m/n/12 de prue-ba con
- []
-
-
-Underfull \hbox (badness 2941) in paragraph at lines 464--465
-[]|\OT1/cmr/m/n/12 Congelar re-qui-
- []
-
-
-Underfull \hbox (badness 7186) in paragraph at lines 464--465
-\OT1/cmr/m/n/12 si-tos an-tes de
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 466--467
-[]|\OT1/cmr/m/n/12 Priorizar ca-sos
- []
-
+[6
+pdfTeX warning (ext4): destination with the same identifier (name{figure.2}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.246 	
+        <./imagenes/Verificación Unitaria - Módulo Utils (Post-Fix).jpeg>]
+<imagenes/Validación de Integridad de Datos Semilla.jpeg, id=130, 1009.7725pt 
+x 637.38126pt>
+File: imagenes/Validación de Integridad de Datos Semilla.jpeg Graphic file (ty
+pe jpg)
+<use imagenes/Validación de Integridad de Datos Semilla.jpeg>
+Package pdftex.def Info: imagenes/Validación de Integridad de Datos Semilla.jp
+eg  used on input line 249.
+(pdftex.def)             Requested size: 432.48051pt x 272.98904pt.
 
 
 
@@ -808,7 +591,20 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[9]
+[7
+pdfTeX warning (ext4): destination with the same identifier (name{figure.3}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.263 	P
+        róximos pasos recomendados:
+pdfTeX warning (ext4): destination with the same identifier (name{figure.4}) ha
+s been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.263 	P
+        róximos pasos recomendados: <./imagenes/Detección de Error Controlado
+ en Utils.jpeg> <./imagenes/Validación de Integridad de Datos Semilla.jpeg>]
 
 
 Package fancyhdr Warning: \headheight is too small (12.0pt): 
@@ -817,7 +613,7 @@ Package fancyhdr Warning: \headheight is too small (12.0pt):
 (fancyhdr)                You might also make \topmargin smaller:
 (fancyhdr)                \addtolength{\topmargin}{-2.49998pt}.
 
-[10] (PP_PlanDePruebas_KairosMix_V1.0.0.aux
+[8] (PP_PlanDePruebas_KairosMix_V5.0.0.aux
 LaTeX Info: Redefining \. on input line 11.
 LaTeX Info: Redefining \% on input line 11.
 )
@@ -825,36 +621,27 @@ LaTeX Info: Redefining \% on input line 11.
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-09-02>
  ***********
-
-
-Package rerunfilecheck Warning: File `PP_PlanDePruebas_KairosMix_V1.0.0.out' ha
-s changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `PP_PlanDePruebas_KairosMix_V1.0.0.o
-ut':
-(rerunfilecheck)             Before: <no file>
-(rerunfilecheck)             After:  FB2395B02E6FB2EE04855590DB7BFB10;5901.
+Package rerunfilecheck Info: File `PP_PlanDePruebas_KairosMix_V5.0.0.out' has n
+ot changed.
+(rerunfilecheck)             Checksum: BB94A0366CDDCF2AF6633DF043FBA0D6;3322.
  ) 
 Here is how much of TeX's memory you used:
- 11571 strings out of 468130
- 181664 string characters out of 5440699
- 642875 words of memory out of 5000000
- 39999 multiletter control sequences out of 15000+600000
- 632022 words of font info for 57 fonts, out of 8000000 for 9000
+ 11652 strings out of 468130
+ 185178 string characters out of 5440699
+ 630268 words of memory out of 5000000
+ 40112 multiletter control sequences out of 15000+600000
+ 632490 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 75i,12n,79p,388b,601s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 75i,13n,79p,375b,596s stack positions out of 10000i,1000n,20000p,200000b,200000s
  <C:\Users\caeta\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm
 1200.pk><C:/Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/
 Program Files/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Program Files
 /MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Program Files/MiKTeX/fonts
-/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files/MiKTeX/fonts/type1/public/
-amsfonts/cm/cmsy10.pfb>
-Output written on PP_PlanDePruebas_KairosMix_V1.0.0.pdf (11 pages, 103287 bytes
-).
+/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on PP_PlanDePruebas_KairosMix_V5.0.0.pdf (9 pages, 701119 bytes)
+.
 PDF statistics:
- 165 PDF objects out of 1000 (max. 8388607)
- 78 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 172 PDF objects out of 1000 (max. 8388607)
+ 33 named destinations out of 1000 (max. 500000)
+ 157 words of extra memory for PDF output out of 10000 (max. 10000000)
 
