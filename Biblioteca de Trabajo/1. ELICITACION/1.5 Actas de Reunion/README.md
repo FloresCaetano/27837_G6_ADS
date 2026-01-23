@@ -14,6 +14,14 @@ Este directorio contiene los registros formales de las reuniones realizadas con 
 - **Fecha de creacion:** 14/01/2026
 - **ID del proyecto:** 27837_G6_ADS
 
+## Historial de Versiones del Cronograma
+
+| Versión                  | Fecha       | Responsable       | Aprobado por                                         |
+|--------------------------|-------------|-------------------|------------------------------------------------------|
+| `GN°6_ActaDeReunion_V1.docx`  | 14/01/2026  | Caetano Flores    | Jordan Guaman, Anthony Morales                       |
+| `GN°6_ActaDeReunion_V2.docx`  | 21/01/2026  | Jordan Guaman     | Caetano Flores, Anthony Morales, Leonardo Narvaez    |
+
+
 ## Proposito
 
 Registrar formalmente las decisiones, acuerdos y compromisos alcanzados durante las sesiones de trabajo con el cliente y el equipo de desarrollo.
