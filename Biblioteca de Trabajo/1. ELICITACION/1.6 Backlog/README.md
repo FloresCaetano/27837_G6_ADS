@@ -18,7 +18,12 @@ Este directorio contiene los documentos que forman parte del Elemento de Configu
 
 | Version            | Fecha       | Responsable       | Aprobado por                                   |
 |--------------------|-------------|-------------------|------------------------------------------------|
-| `BL_V1.0.0.xlsx`   | 14/01/2026  | Caetano Flores    | La version fue aprobada por Jordan Guaman y Anthony Morales |
+| `GNº6_Backlog_VNo1_Plantilla.xlsx`   | 10/01/2026  | Caetano Flores    | Jordan Guaman y Anthony Morales |
+| `GNº6_Backlog_VNo2_Plantilla.xlsx`   | 13/01/2026  | Caetano Flores    | Jordan Guaman y Anthony Morales |
+| `GNº6_Backlog_VNo3_Plantilla.xlsx`   | 14/01/2026  | Leonardo Narvaez    | Jordan Guaman y Anthony Morales |
+| `GNº6_Backlog_VNo4_Plantilla.xlsx`   | 15/01/2026  | Leonardo Narvaez    | Jordan Guaman y Anthony Morales |
+| `GNº6_Backlog_VNo5_Plantilla.xlsx`   | 20/01/2026  | Leonardo Narvaez    | Jordan Guaman y Anthony Morales |
+| `GNº6_Backlog_VNo6_Plantilla.xlsx`   | 22/01/2026  | Caetano Flores    | Leonardo Narvaez y Anthony Morales |
 
 Estas versiones reflejan la evolucion continua del backlog, validado y aprobado para el seguimiento del proyecto.
 
