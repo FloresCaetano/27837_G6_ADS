@@ -2,7 +2,8 @@
 
 | **Codigo del ECS** | **Descripcion del ECS** | **Version/Variante** | **Fecha de creacion** | **Autor(es)**                                   | **Localizacion**                               | **Observaciones**                    | **Variante de requisitos de usuario** | **Variante de plataforma** |
 | ------------------ | ----------------------- | -------------------- | --------------------- | ----------------------------------------------- | ---------------------------------------------- | ------------------------------------ | ------------------------------------- | -------------------------- |
-| DC                 | Diagrama de Clases      | V1.0.0               | 14/01/2026            | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.4 Diagrama De Clases | Primera version del diagrama         | Español                               | Windows                 |
+| DC                 | Diagrama de Clases      | V1.0.0               | 10/01/2026            | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.4 Diagrama De Clases | Primera version del diagrama         | Español                               | Windows                 |
+| DC                 | Diagrama de Clases      | V2.0.0               | 14/01/2026            | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.4 Diagrama De Clases | Segunda version del diagrama         | Español                               | Windows                 |
 
 ## Descripcion
 
