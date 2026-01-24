@@ -2,8 +2,8 @@
 
 | **Codigo del ECS** | **Descripcion del ECS**              | **Version/Variante** | **Fecha de creacion** | **Autor(es)**                                   | **Localizacion**                                | **Observaciones**                                             | **Variante de requisitos de usuario** | **Variante de plataforma** |
 | ------------------ | ------------------------------------ | -------------------- | --------------------- | ----------------------------------------------- | ----------------------------------------------- | ------------------------------------------------------------- | ------------------------------------- | -------------------------- |
-| ARQ                | Arquitectura 3 capas para el sistema | V1.0.0               | 14/01/2026            | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.2 Diseño De Arquitectura | Primera version de la arquitectura del proyecto Kairos Mix | Español                               | Windows                 |
-| ARQ                | Arquitectura 3 capas para el sistema | V2.0.0               | 16/01/2026            | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.2 Diseño De Arquitectura | Primera version de la arquitectura del proyecto Kairos Mix | Español                               | Windows                 |
+| ARQ                | Arquitectura 3 capas para el sistema | V1.0.0               | 10/01/2026            | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.2 Diseño De Arquitectura | Primera version de la arquitectura del proyecto Kairos Mix | Español                               | Windows                 |
+| ARQ                | Arquitectura 3 capas para el sistema | V2.0.0               | 16/01/2026            | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.2 Diseño De Arquitectura | Segunda version de la arquitectura del proyecto Kairos Mix | Español                               | Windows                 |
 
 ## Descripcion
 
