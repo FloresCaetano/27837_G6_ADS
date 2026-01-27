@@ -1,13 +1,15 @@
 # Versiones y Variantes
 
-| **Codigo del ECS** | **Descripcion del ECS**         | **Version/Variante** | **Fecha de creacion** | **Autor(es)**                                   | **Localizacion**                                  | **Observaciones**                     | **Variante de requisitos de usuario** | **Variante de plataforma** |
-| ------------------ | ------------------------------- | -------------------- | --------------------- | ----------------------------------------------- | ------------------------------------------------- | ------------------------------------- | ------------------------------------- | -------------------------- |
-| COMP-BE            | Diagrama de Componente Backend  | V1.0.0               | 14/01/2026            | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.5 Diagrama De Componentes | Primera version del diagrama backend  | Español                               | Windows                 |
-| COMP-FE            | Diagrama de Componente Frontend | V1.0.0               | 14/01/2026            | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.5 Diagrama De Componentes | Primera version del diagrama frontend | Español                               | Windows                 |
+| **Codigo del ECS** | **Descripcion del ECS** | **Version/Variante** | **Fecha de creacion** | **Autor(es)** | **Localizacion** | **Observaciones** | **Variante de requisitos de usuario** | **Variante de plataforma** |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| COMP-BE | Diagrama de Componente Backend | V1.0.0 | 14/01/2026 | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.5 Diagrama De Componentes | Primera version del diagrama backend | Español | Windows |
+| COMP-FE-V1 | **Diagrama de Componentes Frontend - Nivel 1** | V1.0.0 (Básico) | 27/01/2026 | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.5 Diagrama De Componentes\ **Diagrama_De_Componentes_KairosMix_V1.pdf** | Vista general de arquitectura y navegación | Español | Windows |
+| COMP-FE-V2 | **Diagrama de Componentes Frontend - Nivel 2** | V1.0.0 (Intermedio) | 27/01/2026 | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.5 Diagrama De Componentes\ **Diagrama_De_Componentes_KairosMix_V2.pdf** | Vista de estructura funcional y contenedores | Español | Windows |
+| COMP-FE-V3 | **Diagrama de Componentes Frontend - Nivel 3** | V1.0.0 (Completo) | 27/01/2026 | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.5 Diagrama De Componentes\ **Diagrama_De_Componentes_KairosMix_V3.pdf** | Vista técnica detallada, hooks y props | Español | Windows |
 
 ## Descripcion
 
-Este directorio contiene los diagramas de componentes del sistema Kairos Mix, mostrando la organizacion modular tanto del backend como del frontend.
+Este directorio contiene los diagramas de componentes del sistema Kairos Mix. Para el frontend, se han generado 3 variantes que permiten visualizar la arquitectura desde diferentes niveles de abstracción (V1, V2, V3).
 
 ## Diagrama de Componentes - Backend (Node.js)
 
@@ -42,72 +44,11 @@ Este directorio contiene los diagramas de componentes del sistema Kairos Mix, mo
 
 ### Flujo de Comunicacion Backend
 
-```
-[Router] -> [Controller] -> [Service] -> [Model] -> [Database]
-                              |
-                              v
-                         [Observer] -> [Logs]
-```
-
-## Diagrama de Componentes - Frontend (React)
-
-### Organizacion de Modulos
-
-**Pages (Paginas):**
-- MainPage
-- ProfilePage
-- **MixDesignerPage** (Diseñador de mezclas - DIFERENCIADOR)
-- ProductsPage
-- OrdersPage
-
-**Components (Componentes):**
-- Navbar
-- ProductCard
-- OrderList
-- **MixBuilder** (Constructor de mezclas)
-- **NutritionDisplay** (Visualizacion de valores nutricionales)
-- ClientForm
-- PedidoForm
-
-**Services:**
-- ApiService (Comunicacion con backend)
-- AuthContext (Manejo de autenticacion)
-
-**Utils:**
-- Validators
-- Formatters
-
-### Flujo de Comunicacion Frontend
-
-```
-[Page] -> [Component] -> [ApiService] -> [Backend API]
-            |
-            v
-         [Context] (Estado global)
-```
-
-## Comunicacion Frontend-Backend
-
-**Protocolo:** HTTP/REST  
-**Formato:** JSON
-
-**Endpoints principales:**
-- GET /api/productos
-- POST /api/productos
-- GET /api/pedidos
-- POST /api/pedidos
-- **POST /api/mezclas/calcular** (Calculo nutricional)
-- **GET /api/mezclas/:id**
-
-## Tecnologias por Componente
-
-**Backend:**
-- Express.js (Framework)
-- Sequelize (ORM para MySQL)
-- JWT (Autenticacion)
-
-**Frontend:**
-- React (Framework)
-- Bootstrap (Estilos)
-- Axios (Peticiones HTTP)
-- React Router (Navegacion)
+```mermaid
+graph LR
+    Router --> Controller
+    Controller --> Service
+    Service --> Model
+    Model --> Database
+    Service -.-> Observer
+    Observer -.-> Logs
