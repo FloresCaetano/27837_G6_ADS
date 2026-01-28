@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 import Swal from 'sweetalert2';
 import { createSwalDialog } from '../../utils/sweetAlertConfig';
+import NutricionalService from '../../services/NutricionalService';
 import NutritionalInfo from './NutritionalInfo';
 import SavedMixSelector from './SavedMixSelector';
 import './CustomMixDesigner.css';
@@ -50,54 +51,8 @@ const CustomMixDesigner = ({ products = [], onCreateOrder }) => {
         setSavedMixes(saved);
     }, []);
 
-    // Sample nutritional data for products
-    const nutritionalData = {
-        'A01': { // Almendras Premium
-            calories: 579,
-            protein: 21.2,
-            fat: 49.9,
-            carbs: 21.6,
-            fiber: 12.5,
-            vitamins: ['E', 'B2', 'Niacina'],
-            minerals: ['Magnesio', 'Calcio', 'Hierro']
-        },
-        'N01': { // Nueces de Castilla
-            calories: 654,
-            protein: 15.2,
-            fat: 65.2,
-            carbs: 13.7,
-            fiber: 6.7,
-            vitamins: ['E', 'B6', 'Folato'],
-            minerals: ['Manganeso', 'Cobre', 'Magnesio']
-        },
-        'P01': { // Pasas Sultan
-            calories: 299,
-            protein: 3.1,
-            fat: 0.5,
-            carbs: 79.2,
-            fiber: 3.7,
-            vitamins: ['K', 'B6', 'Tiamina'],
-            minerals: ['Potasio', 'Hierro', 'Manganeso']
-        },
-        'P02': { // Pistachos Tostados
-            calories: 560,
-            protein: 20.2,
-            fat: 45.3,
-            carbs: 27.2,
-            fiber: 10.6,
-            vitamins: ['B6', 'Tiamina', 'E'],
-            minerals: ['Cobre', 'Manganeso', 'Fósforo']
-        },
-        'A02': { // Avellanas Enteras
-            calories: 628,
-            protein: 14.9,
-            fat: 60.8,
-            carbs: 16.7,
-            fiber: 9.7,
-            vitamins: ['E', 'B6', 'Folato'],
-            minerals: ['Manganeso', 'Cobre', 'Magnesio']
-        }
-    };
+    // Datos nutricionales ahora provienen del NutricionalService
+    // Ver: src/services/NutricionalService.js
 
     const validateMixName = (name) => {
         if (name.length < 3 || name.length > 25) {
@@ -139,38 +94,13 @@ const CustomMixDesigner = ({ products = [], onCreateOrder }) => {
         }, 0);
     };
 
+    /**
+     * Calcula los valores nutricionales usando el NutricionalService
+     * Este método cumple con el requisito del backlog:
+     * "Sistema invoca NutricionalService.calcularValoresNutricionales()"
+     */
     const calculateMixNutrition = () => {
-        const totalNutrition = {
-            calories: 0,
-            protein: 0,
-            fat: 0,
-            carbs: 0,
-            fiber: 0,
-            vitamins: new Set(),
-            minerals: new Set()
-        };
-
-        selectedComponents.forEach(component => {
-            const nutrition = nutritionalData[component.productCode];
-            if (nutrition) {
-                // Calculate per pound (453.6g) nutritional values
-                const factor = component.quantity; // quantity is already in pounds
-                totalNutrition.calories += nutrition.calories * factor;
-                totalNutrition.protein += nutrition.protein * factor;
-                totalNutrition.fat += nutrition.fat * factor;
-                totalNutrition.carbs += nutrition.carbs * factor;
-                totalNutrition.fiber += nutrition.fiber * factor;
-                
-                nutrition.vitamins.forEach(v => totalNutrition.vitamins.add(v));
-                nutrition.minerals.forEach(m => totalNutrition.minerals.add(m));
-            }
-        });
-
-        return {
-            ...totalNutrition,
-            vitamins: Array.from(totalNutrition.vitamins),
-            minerals: Array.from(totalNutrition.minerals)
-        };
+        return NutricionalService.calcularValoresNutricionales(selectedComponents);
     };
 
     const handleAddComponent = async () => {
