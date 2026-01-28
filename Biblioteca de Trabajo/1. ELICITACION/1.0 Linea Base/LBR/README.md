@@ -5,8 +5,6 @@ Carpeta que contiene la especificacion completa de requisitos del sistema Kairos
 
 ## Contenido principal:
 - Documento SRS (Especificacion de Requisitos de Software)
-- Historias de Usuario aprobadas
-- Matriz de Trazabilidad IREB
 - Requisitos Funcionales y No Funcionales validados
 
 ## Requisitos Destacados:
