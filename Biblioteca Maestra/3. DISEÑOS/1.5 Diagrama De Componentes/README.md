@@ -2,8 +2,7 @@
 
 | **Codigo del ECS** | **Descripcion del ECS**         | **Version/Variante** | **Fecha de creacion** | **Autor(es)**                                   | **Localizacion**                                  | **Observaciones**                     | **Variante de requisitos de usuario** | **Variante de plataforma** |
 | ------------------ | ------------------------------- | -------------------- | --------------------- | ----------------------------------------------- | ------------------------------------------------- | ------------------------------------- | ------------------------------------- | -------------------------- |
-| COMP-BE            | Diagrama de Componente Backend  | V1.0.0               | 14/01/2026            | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.5 Diagrama De Componentes | Primera version del diagrama backend  | Español                               | Windows                 |
-| COMP-FE            | Diagrama de Componente Frontend | V1.0.0               | 14/01/2026            | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.5 Diagrama De Componentes | Primera version del diagrama frontend | Español                               | Windows                 |
+| COMP-BE-V3 | **Diagrama de Componentes Backend** | V3.0.0 (Completo) | 27/01/2026 | Caetano Flores, Jordan Guaman, Anthony Morales, Leonardo Narvaez | 27837_G6_ADS\DISEÑOS\1.5 Diagrama De Componentes\ **COMP_BE_KairosMix_V3.pdf** | Vista técnica detallada, hooks y props | Español | Windows |
 
 ## Descripcion
 

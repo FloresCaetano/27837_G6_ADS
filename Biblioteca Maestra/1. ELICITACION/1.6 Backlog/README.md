@@ -18,9 +18,9 @@ Este directorio contiene los documentos que forman parte del Elemento de Configu
 
 | Version            | Fecha       | Responsable       | Aprobado por                                   |
 |--------------------|-------------|-------------------|------------------------------------------------|
-| `BL_V1.0.0.xlsx`   | 14/01/2026  | Caetano Flores    | La version fue aprobada por Jordan Guaman y Anthony Morales |
+| `BL_KairosMix_V6.xlsx`   | 22/01/2026  | Caetano Flores    | Leonardo Narvaez y Anthony Morales |
 
-Estas versiones reflejan la evolucion continua del backlog, validado y aprobado para el seguimiento del proyecto.
+Esta version refleja la evolucion continua del backlog, validado y aprobado para el seguimiento del proyecto.
 
 ## Priorizacion del Backlog
 
