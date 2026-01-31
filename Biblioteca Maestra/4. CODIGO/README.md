@@ -6,7 +6,7 @@ Esta carpeta contiene el código fuente del proyecto **KairosMix**, un sistema i
 
 El desarrollo ha evolucionado a través de las siguientes versiones:
 
-### 🌟 [KairosMix_V3.0](./KairosMix_V3.0) (Versión Actual)
+### 🌟 [KairosMix_V4.0](./KairosMix_V4.0) (Versión Actual)
 **Tecnologías:** React 19, Vite, Bootstrap 5.
 La versión más reciente y recomendada para desarrollo y despliegue. Incluye:
 - Gestión completa de inventario.
@@ -14,6 +14,7 @@ La versión más reciente y recomendada para desarrollo y despliegue. Incluye:
 - Arquitectura optimizada con componentes React.
 
 ### 📦 Versiones Anteriores
+- **[KairosMix_V3.0](./KairosMix_V3.0)**: Versión inicial / prototipo.
 - **[KairosMix_V2.0](./KairosMix_V2.0)**: Iteración intermedia del proyecto.
 - **[KairosMix_V1.0](./KairosMix_V1.0)**: Versión inicial / prototipo.
 
@@ -21,9 +22,9 @@ La versión más reciente y recomendada para desarrollo y despliegue. Incluye:
 
 Para trabajar con la versión más reciente del proyecto:
 
-1. Navega a la carpeta de la versión 3:
+1. Navega a la carpeta de la versión 4:
    ```bash
-   cd KairosMix_V3.0
+   cd KairosMix_V4.0
    ```
 
 2. Instala las dependencias:
