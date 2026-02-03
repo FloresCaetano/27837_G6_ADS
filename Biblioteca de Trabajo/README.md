@@ -5,7 +5,7 @@ Esta biblioteca es el **espacio de trabajo principal** del proyecto. Aquí resid
 
 ---
 
-## 📂 Contenido de la Biblioteca
+##  Contenido de la Biblioteca
 
 ### 1. [ELICITACION](./1.%20ELICITACION)
 Documentación viva de requisitos.
@@ -21,7 +21,7 @@ Modelado del sistema.
 - Prototipos de UI
 
 ### 4. [CODIGO](./4.%20CODIGO)
-**⚡ Código Fuente Activo (V3.0+)**
+** Código Fuente Activo (V3.0+)**
 Aquí se encuentra la implementación actual del sistema "Kairos Mix".
 - Backend & Frontend
 - Scripts de Base de Datos
@@ -31,7 +31,7 @@ Documentación sobre el control de cambios, versionamiento y gestión de la conf
 
 ---
 
-## ⚙️ Flujo de Trabajo
+##  Flujo de Trabajo
 
 1.  **Desarrollo**: Todo cambio se realiza primero en los submódulos de esta biblioteca.
 2.  **Revisión**: Los artefactos se validan aquí.
