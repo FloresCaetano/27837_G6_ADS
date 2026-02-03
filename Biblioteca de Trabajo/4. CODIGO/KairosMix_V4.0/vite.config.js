@@ -23,9 +23,11 @@ export default defineConfig(({ command }) => {
     }
   }
 
-  if (command === 'serve') {
+  // Configuración de base path
+  if (command === 'serve' || process.env.VERCEL) {
     config.base = '/'
   } else {
+    // Base path para GitHub Pages
     config.base = '/KairosMix/'
   }
 

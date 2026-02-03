@@ -32,8 +32,6 @@ Product backlog priorizado con todas las funcionalidades pendientes y completada
 ### 1.7 Pruebas Unitarias
 Documentación y casos de prueba unitaria.
 
-### 1.8 Reportes de Errores
-Registro de bugs, issues y resoluciones.
 
 ---
 

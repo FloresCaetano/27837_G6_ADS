@@ -18,8 +18,8 @@ Este directorio contiene los registros formales de las reuniones realizadas con 
 
 | Versión                  | Fecha       | Responsable       | Aprobado por                                         |
 |--------------------------|-------------|-------------------|------------------------------------------------------|
-| `GN°6_ActaDeReunion_V1.docx`  | 14/01/2026  | Caetano Flores    | Jordan Guaman, Anthony Morales                       |
-| `GN°6_ActaDeReunion_V2.docx`  | 21/01/2026  | Jordan Guaman     | Caetano Flores, Anthony Morales, Leonardo Narvaez    |
+| `ActaDeReunion-KairosMix_V1.docx`  | 14/01/2026  | Caetano Flores    | Jordan Guaman, Anthony Morales                       |
+| `ActaDeReunion-KairosMix_V2.docx`  | 21/01/2026  | Jordan Guaman     | Caetano Flores, Anthony Morales, Leonardo Narvaez    |
 
 
 ## Proposito

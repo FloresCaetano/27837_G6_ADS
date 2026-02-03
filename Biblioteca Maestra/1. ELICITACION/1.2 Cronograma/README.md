@@ -11,14 +11,14 @@ Este directorio contiene los documentos que forman parte del Elemento de Configu
 - **Linea base:** PDP - Plan de Desarrollo del Proyecto  
 - **Localizacion:** 27837_G6_ADS\PROPIAS\Biblioteca de Trabajo\1. ELICITACION\1.2 Cronograma  
 - **Tipo de ECS:** Documento (PDF/XLSX)  
-- **Fecha de creacion:** 14/01/2026  
+- **Fecha de creacion:** 21/01/2026  
 - **ID del proyecto:** 27837_G6_ADS  
 
 # Historial de Versiones del Cronograma
 
 | Version                 | Fecha       | Responsable       | Aprobado por                         |
 |------------------------|-------------|-------------------|--------------------------------------|
-| `Cronograma_V1.0.0.pdf` | 14/01/2026  | Caetano Flores    | Jordan Guaman, Anthony Morales       |
+| `Cronograma_V2.0.0.pdf` | 21/01/2026  | Jordan Guaman    | Caetano Flores, Anthony Morales, Leonardo Narvaez       |
 
 Estas versiones reflejan la evolucion del cronograma conforme al avance del proyecto. Cada version ha sido validada y aprobada como parte de la gestion del proyecto.
 

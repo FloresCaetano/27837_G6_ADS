@@ -12,7 +12,8 @@ import './App.css';
 
 function App() {
   useEffect(() => {
-    // Inicializar datos de ejemplo al cargar la aplicación
+    console.log('App montado correctamente');
+    
     // Inicializar datos de ejemplo y suscribir observadores
     initializeSampleData();
 
@@ -24,8 +25,10 @@ function App() {
     };
   }, []);
 
-  // Detectar si estamos en GitHub Pages o desarrollo local
-  const basename = import.meta.env.DEV ? '/' : '/KairosMix/';
+  // Detectar el entorno y configurar basename apropiado
+  // En Vercel siempre usar '/', en GitHub Pages usar '/KairosMix/'
+  const isVercel = typeof window !== 'undefined' && window.location.hostname.includes('vercel.app');
+  const basename = import.meta.env.DEV || isVercel ? '/' : '/KairosMix/';
 
   return (
     <Router basename={basename}>
