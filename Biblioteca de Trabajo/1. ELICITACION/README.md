@@ -1,4 +1,4 @@
-# 📋 1. ELICITACION - Kairos Mix
+#  1. ELICITACION - Kairos Mix
 
 ## Descripción
 
@@ -6,7 +6,7 @@ Esta carpeta contiene toda la documentación relacionada con el proceso de elici
 
 ---
 
-## 📂 Contenido
+## Contenido
 
 ### 1.0 Línea Base
 Versiones de referencia aprobadas de documentos clave del proyecto.
@@ -35,7 +35,7 @@ Documentación y casos de prueba unitaria.
 
 ---
 
-## 🎯 Propósito
+##  Propósito
 
 Documentar todos los requisitos funcionales y no funcionales del sistema Kairos Mix, incluyendo:
 - Gestión de Productos

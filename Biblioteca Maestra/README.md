@@ -1,4 +1,4 @@
-# Biblioteca de Trabajo - Kairos Mix
+# Biblioteca Maestra - Kairos Mix
 
 ## Grupo 6
 
