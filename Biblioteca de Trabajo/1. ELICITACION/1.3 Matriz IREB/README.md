@@ -90,4 +90,3 @@ Todas las versiones de estos documentos están bajo control de configuración y 
 ## Última Actualización
 
 **Fecha:** 27/01/2026  
-**Estado:** Sincronizado con OneDrive
