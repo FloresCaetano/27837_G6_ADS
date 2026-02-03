@@ -95,7 +95,7 @@ const OrderReport = ({ orders, onClose }) => {
 
     // Filtro por método de pago
     if (filters.paymentMethod) {
-      filtered = filtered.filter(order => 
+      filtered = filtered.filter(order =>
         (order.paymentMethod || 'Efectivo') === filters.paymentMethod
       );
     }
@@ -108,12 +108,12 @@ const OrderReport = ({ orders, onClose }) => {
     if (!dateString) {
       return new Date(); // Fecha actual por defecto
     }
-    
+
     // Si es un string ISO (formato createdAt)
     if (dateString.includes('T') || dateString.includes('-')) {
       return new Date(dateString);
     }
-    
+
     // Si es formato DD/MM/YYYY (formato date)
     if (typeof dateString === 'string' && dateString.includes('/')) {
       const parts = dateString.split('/');
@@ -121,7 +121,7 @@ const OrderReport = ({ orders, onClose }) => {
         return new Date(parts[2], parts[1] - 1, parts[0]);
       }
     }
-    
+
     // Fallback: intentar crear Date directamente
     const fallbackDate = new Date(dateString);
     return isNaN(fallbackDate.getTime()) ? new Date() : fallbackDate;
@@ -171,17 +171,17 @@ const OrderReport = ({ orders, onClose }) => {
 
       // Ventas diarias
       dailySales[dayKey] = (dailySales[dayKey] || 0) + (order.total || 0);
-      
+
       // Ventas mensuales
       monthlySales[monthKey] = (monthlySales[monthKey] || 0) + (order.total || 0);
-      
+
       // Ventas por día de la semana
       dayOfWeekSales[dayOfWeek] = (dayOfWeekSales[dayOfWeek] || 0) + (order.total || 0);
 
       // Conteo de productos y análisis
       order.products.forEach(product => {
         data.totalProducts += product.quantity;
-        
+
         // Agrupar ventas por producto
         if (productSales[product.code]) {
           productSales[product.code].quantity += product.quantity;
@@ -300,23 +300,23 @@ const OrderReport = ({ orders, onClose }) => {
 
       // Crear el workbook Excel
       const workbook = XLSX.utils.book_new();
-      
+
       // Crear los datos del reporte según el formato de la imagen
       const excelData = generateExcelData();
-      
+
       // Crear worksheet
       const worksheet = XLSX.utils.aoa_to_sheet(excelData);
-      
+
       // Aplicar estilos y configuraciones
       applyExcelStyles(worksheet);
-      
+
       // Agregar worksheet al workbook
       XLSX.utils.book_append_sheet(workbook, worksheet, 'Reporte Pedidos');
-      
+
       // Generar y descargar archivo
       const currentDate = new Date().toLocaleDateString('es-EC').replace(/\//g, '-');
       const filename = `Reporte-Pedidos-KAIROSMIX-${currentDate}.xlsx`;
-      
+
       XLSX.writeFile(workbook, filename);
 
       Swal.fire({
@@ -341,13 +341,13 @@ const OrderReport = ({ orders, onClose }) => {
   const generateExcelData = () => {
     const data = [];
     const currentDate = new Date().toLocaleDateString('es-EC');
-    
+
     // Encabezado principal
     data.push(['', '', '', '', 'REPORTE DE PEDIDOS - KAIROSMIX', '', '', '', '']);
     data.push(['', '', '', '', `Fecha: ${currentDate}`, '', '', '', '']);
     data.push(['', '', '', '', 'Tienda: El Kairo de Dios', '', '', '', '']);
     data.push(['', '', '', '', '', '', '', '', '']); // Línea vacía
-    
+
     // Resumen General
     data.push(['', '', '', 'RESUMEN GENERAL', '', '', '', '', '']);
     data.push(['Total Productos Vendidos', '', '', reportData.totalProducts, '', '', '', '', '']);
@@ -355,15 +355,15 @@ const OrderReport = ({ orders, onClose }) => {
     data.push(['Ventas Brutas', '', '', `$${reportData.grossSales.toFixed(2)}`, '', '', '', '', '']);
     data.push(['Ventas Netas', '', '', `$${reportData.netSales.toFixed(2)}`, '', '', '', '', '']);
     data.push(['', '', '', '', '', '', '', '', '']); // Línea vacía
-    
+
     // Detalle de Pedidos
     data.push(['', '', 'DETALLE DE PEDIDOS', '', '', '', '', '', '']);
     data.push(['ID', 'FECHA', 'CLIENTE', 'ESTADO', 'MÉTODO DE PAGO', 'SUBTOTAL', 'IVA', 'TOTAL', '']);
-    
+
     filteredOrders.forEach(order => {
       const subtotal = order.subtotal || 0;
       const iva = (order.total || 0) - subtotal;
-      
+
       data.push([
         order.id,
         formatDate(order.date || order.createdAt),
@@ -376,13 +376,13 @@ const OrderReport = ({ orders, onClose }) => {
         ''
       ]);
     });
-    
+
     data.push(['', '', '', '', '', '', '', '', '']); // Línea vacía
-    
+
     // Productos Más Vendidos
     data.push(['', '', 'PRODUCTOS MÁS VENDIDOS', '', '', '', '', '', '']);
     data.push(['CÓDIGO', 'PRODUCTO', 'CANTIDAD (Lb)', 'TOTAL VENTAS', '', '', '', '', '']);
-    
+
     reportData.topProducts.forEach(product => {
       data.push([
         product.code,
@@ -396,13 +396,13 @@ const OrderReport = ({ orders, onClose }) => {
         ''
       ]);
     });
-    
+
     data.push(['', '', '', '', '', '', '', '', '']); // Línea vacía
-    
+
     // Productos Vendidos (Stock)
     data.push(['', '', 'PRODUCTOS VENDIDOS', '', '', '', '', '', '']);
     data.push(['CÓDIGO', 'PRODUCTO', 'STOCK (Lb)', '', '', '', '', '', '']);
-    
+
     // Obtener productos únicos y sus stocks
     const productStock = {};
     filteredOrders.forEach(order => {
@@ -417,7 +417,7 @@ const OrderReport = ({ orders, onClose }) => {
         }
       });
     });
-    
+
     Object.entries(productStock).forEach(([code, info]) => {
       data.push([
         code,
@@ -431,7 +431,7 @@ const OrderReport = ({ orders, onClose }) => {
         ''
       ]);
     });
-    
+
     return data;
   };
 
@@ -448,9 +448,9 @@ const OrderReport = ({ orders, onClose }) => {
       { wch: 12 }, // H
       { wch: 5 }   // I
     ];
-    
+
     worksheet['!cols'] = colWidths;
-    
+
     // Configurar rango de impresión
     const range = XLSX.utils.decode_range(worksheet['!ref']);
     worksheet['!margins'] = { left: 0.7, right: 0.7, top: 0.75, bottom: 0.75, header: 0.3, footer: 0.3 };
@@ -467,7 +467,7 @@ const OrderReport = ({ orders, onClose }) => {
     if (!dateString) {
       return 'Fecha no disponible';
     }
-    
+
     // Si es un string ISO (formato createdAt), convertir a DD/MM/YYYY
     if (dateString.includes('T') || dateString.includes('-')) {
       const date = new Date(dateString);
@@ -479,7 +479,7 @@ const OrderReport = ({ orders, onClose }) => {
       const year = date.getFullYear();
       return `${day}/${month}/${year}`;
     }
-    
+
     // Si ya está en formato DD/MM/YYYY, devolverlo tal como está
     return dateString;
   };
@@ -490,13 +490,13 @@ const OrderReport = ({ orders, onClose }) => {
     return (
       <div className="chart-container">
         <h6 className="chart-title">{title}</h6>
-        <div className="bar-chart">
+        <div className="bar-chart horizontal">
           {Object.entries(data).map(([label, value]) => (
             <div key={label} className="bar-item">
               <div className="bar-label">{label}</div>
               <div className="bar-track">
-                <div 
-                  className="bar-fill" 
+                <div
+                  className="bar-fill"
                   style={{ width: `${(value / max) * 100}%` }}
                 >
                   <span className="bar-value">{formatCurrency(value)}</span>
@@ -514,7 +514,7 @@ const OrderReport = ({ orders, onClose }) => {
     const total = Object.values(data).reduce((sum, item) => sum + (item.total || item), 0);
     const colors = ['#27ae60', '#3498db', '#f39c12', '#e74c3c', '#9b59b6', '#1abc9c'];
     let currentRotation = 0;
-    
+
     return (
       <div className="chart-container">
         <h6 className="chart-title">{title}</h6>
@@ -683,28 +683,28 @@ const OrderReport = ({ orders, onClose }) => {
 
         {/* Pestañas de navegación */}
         <div className="report-tabs">
-          <button 
+          <button
             className={`tab-btn ${activeTab === 'resumen' ? 'active' : ''}`}
             onClick={() => setActiveTab('resumen')}
           >
             <DollarSign size={16} />
             Resumen
           </button>
-          <button 
+          <button
             className={`tab-btn ${activeTab === 'graficos' ? 'active' : ''}`}
             onClick={() => setActiveTab('graficos')}
           >
             <BarChart3 size={16} />
             Gráficos
           </button>
-          <button 
+          <button
             className={`tab-btn ${activeTab === 'tendencias' ? 'active' : ''}`}
             onClick={() => setActiveTab('tendencias')}
           >
             <Activity size={16} />
             Tendencias
           </button>
-          <button 
+          <button
             className={`tab-btn ${activeTab === 'detalles' ? 'active' : ''}`}
             onClick={() => setActiveTab('detalles')}
           >
@@ -890,16 +890,16 @@ const OrderReport = ({ orders, onClose }) => {
             <div className="row">
               <div className="col-md-6">
                 {reportData.salesByDayOfWeek && (
-                  <BarChartCSS 
-                    data={reportData.salesByDayOfWeek} 
+                  <BarChartCSS
+                    data={reportData.salesByDayOfWeek}
                     title="📊 Ventas por Día de la Semana"
                   />
                 )}
               </div>
               <div className="col-md-6">
                 {Object.keys(reportData.salesByStatus).length > 0 && (
-                  <PieChartCSS 
-                    data={reportData.salesByStatus} 
+                  <PieChartCSS
+                    data={reportData.salesByStatus}
                     title="📈 Distribución por Estado"
                   />
                 )}
@@ -908,8 +908,8 @@ const OrderReport = ({ orders, onClose }) => {
             <div className="row mt-4">
               <div className="col-md-6">
                 {Object.keys(reportData.salesByPaymentMethod).length > 0 && (
-                  <PieChartCSS 
-                    data={reportData.salesByPaymentMethod} 
+                  <PieChartCSS
+                    data={reportData.salesByPaymentMethod}
                     title="💳 Ventas por Método de Pago"
                   />
                 )}
@@ -925,7 +925,7 @@ const OrderReport = ({ orders, onClose }) => {
                           <div key={product.code} className="bar-item">
                             <div className="bar-label">{product.name}</div>
                             <div className="bar-track">
-                              <div 
+                              <div
                                 className={`bar-fill rank-${index + 1}`}
                                 style={{ width: `${(product.total / maxSales) * 100}%` }}
                               >
@@ -948,26 +948,26 @@ const OrderReport = ({ orders, onClose }) => {
           <div className="trends-section">
             <h5>📈 Análisis de Tendencias</h5>
             <div className="trends-grid">
-              <TrendCard 
+              <TrendCard
                 title="Crecimiento Semanal"
                 value={`${reportData.trendsData.weeklyGrowth >= 0 ? '+' : ''}${reportData.trendsData.weeklyGrowth.toFixed(1)}%`}
                 trend={reportData.trendsData.weeklyGrowth}
                 icon={TrendingUp}
                 color="primary"
               />
-              <TrendCard 
+              <TrendCard
                 title="Tasa de Completado"
                 value={`${reportData.trendsData.completionRate}%`}
                 icon={Activity}
                 color="success"
               />
-              <TrendCard 
+              <TrendCard
                 title="Promedio Pedidos/Día"
                 value={reportData.trendsData.avgOrdersPerDay}
                 icon={Package}
                 color="warning"
               />
-              <TrendCard 
+              <TrendCard
                 title="Día Pico de Ventas"
                 value={reportData.trendsData.peakDay}
                 icon={Calendar}
